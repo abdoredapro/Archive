@@ -1,0 +1,129 @@
+@extends('dashboard.master')
+
+@section('page_title')
+        {{ $file->name }}
+@endsection
+@section('content')
+
+
+<!-- video -->
+<div class="white-board hz-padding">
+    <div class="stack-head align-items-end justify-content-between">
+            <a href="{{ route('dashboard.file_clip.add', $file->id)  }}">
+                <button class="addBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="white" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
+                        </g>
+                    </svg>
+                <span>اضافه مقطع</span>
+                </button>
+            </a>
+
+
+            <div class="control d-flex gap-3">
+                
+                <a href="{{ route('dashboard.file.edit', $file->id) }}">
+                    <button class="addBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none" stroke="white" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
+                            </g>
+                        </svg>
+                    <span>تعديل الملف</span>
+                    </button>
+                </a>
+
+                <form action="{{ route('dashboard.file.destroy', $file->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+    
+                    <button class="btn btn-sm btn-danger delete">حذف</button>
+                </form>
+
+            </div>
+            
+    </div>
+
+
+    <div class="video">
+        {{-- 
+        <video width="100%" height="100%" controls muted>
+            <source src="{{ $file->VideoUrl() }}" type="video/mp4" />
+        </video> --}}
+
+        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}">
+            <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="576">
+            <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="720">
+            <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="1080">
+   
+                <!-- Caption files -->
+                <track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
+                        default>
+                <track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+                <!-- Fallback for browsers that don't support the <video> element -->
+                <a href="{{ $file->VideoUrl() }}" download>Download</a>
+       </video>
+
+        
+    </div>
+
+    <div class="footage">
+        <div class="main-header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                    d="m19.65 6.5l-2.74-3.54l3.93-.78l.78 3.92zm-2.94.57l-2.74-3.53l-1.97.39l2.75 3.53zM19 13c1.1 0 2.12.3 3 .81V10H2v10a2 2 0 0 0 2 2h9.81c-.51-.88-.81-1.9-.81-3c0-3.31 2.69-6 6-6m-7.19-4.95L9.07 4.5l-1.97.41l2.75 3.53zM4.16 5.5l-.98.19a2.01 2.01 0 0 0-1.57 2.35L2 10l4.9-.97zM20 18v-3h-2v3h-3v2h3v3h2v-3h3v-2z" />
+            </svg>
+            <h3 class="title">اللقطات</h3>
+        </div>
+        <div class="text-center">
+            <div class="row">
+                @foreach ($file->clips as $clip)
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="">
+                        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}" max-width="100%" width="300px" height="180px">
+                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="576">
+                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="720">
+                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
+                        </video>
+                    </div>
+                    <div class="text-holder">
+                        {{-- <div class="duration">0:00</div> --}}
+                        <div class="desc">{{ $clip->name }}</div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="file-describtion-subject">
+        <h3 class="title">{{ $file->name }}</h3>
+        <div class="stack">
+            <span class="cate">{{ $file->project->name }}</span>
+            <span class="dure">{{ $file->FileDuration() }}</span>
+        </div>
+        <p class="describe">
+            {{ $file->description }}
+        </p>
+
+        <div class="row">
+            {!! $file->info !!}
+        </div>
+
+    </div>
+</div>
+<!-- video -->
+<script type="text/javascript">
+	const player = new Plyr('video', {captions: {active: true}});
+
+// Expose player so it can be used from the console
+window.player = player;
+</script>
+
+
+@endsection
+
+

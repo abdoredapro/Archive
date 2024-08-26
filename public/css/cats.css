@@ -1,0 +1,60 @@
+.content .categories .title {
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+    margin-bottom: 30px;
+}
+.content .categories .box {
+    border-radius: 8px;
+    padding: 50px 20px;
+}
+.content .categories .box.purple1 {
+    background: linear-gradient(180deg, #7E5CE5 0%, #5E8FF0 100%);
+}
+.content .categories .box.green1 {
+    background: linear-gradient(180deg, #408A92 0%, #4FA8B2 100%);
+}
+.content .categories .box.pink1 {
+    background: linear-gradient(180deg, #DE6B70 0%, #E26F75 100%);
+}
+.content .categories .box.blue1 {
+    background: linear-gradient(180deg, #519ADD 0%, #5C8EE1 100%);
+}
+.content .categories .box.green2 {
+    background: linear-gradient(180deg, #04D2CB 0%, #04D2CB 100%);
+}
+.content .categories .box.blue2 {
+    background: linear-gradient(180deg, #0135A6 0%, #696291 100%);
+}
+.content .categories .box.pink2 {
+    background: linear-gradient(180deg, #94005B 0%, #77054B 100%);
+}
+.content .categories .box.orange2 {
+    background: linear-gradient(180deg, #FE981E 0%, #936C13 100%);
+}
+.content .categories .box .stack{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.content .categories .box .stack .feat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.content .categories .box .stack span {
+    color: #FFFFFF;
+    font-size: 28px;
+    font-weight: 500;
+}
+.content .categories .box .stack .number {
+    color: #E8E8E8;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+    .content .categories .box .stack {
+        align-items: center;
+    }
+}

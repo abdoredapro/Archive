@@ -1,0 +1,121 @@
+.page {
+    height: 100vh;
+}
+.page .row{
+    margin: 0;
+    height: 100%;
+}
+.page .no{
+    padding: 0;
+}
+
+.page .background {
+    background-image: url(../assets/login-register.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+}
+.page .box {
+    padding: 30px 60px;
+    height: calc(100% - 60px);
+}
+.page .box .logo-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+} 
+.page .box .logo-container img {
+    width: 80px;
+    height: 80px;
+} 
+
+.page .box .allfields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.page .box .allfields h2 {
+    font-weight: 700;
+    font-size: 32px;
+    color: #232323;
+    margin-bottom: 20px;
+}
+.page .box .allfields p {
+    font-weight: 400;
+    font-size: 26px;
+    color: #969696;
+}
+
+.page .box form .form-group label {
+    transform: translate(-10px, 40px);
+    transition: all 0.3s ease;
+    background-color: white;
+    font-weight: 500;
+    font-size: 20px;
+    color: #9A9A9A;
+}
+
+.page .box form  input {
+    box-shadow: none;
+    padding: 10px 20px;
+    color: #232323;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.page .box form .form-group:has(input:focus) label {
+    transform: translate(-10px, 10px);
+    color: #367AFF;
+}
+
+.page .box form .form-group {
+    position: relative;
+}
+.page .box form .form-group svg {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(30%);
+    color: #9A9A9A;
+    font-size: 20px;
+    cursor: pointer;
+}
+.page .box form .submit-btn {
+    background-color: #00FF00;
+    color: #000000;
+    font-weight: 600;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    padding: 20px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 100%;
+    cursor: pointer;
+}
+.page .box form p a {
+    color: #969696;
+    font-weight: 400;
+    font-size: 22px;
+    text-decoration: none;
+}
+.page .box form p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    .page {
+        overflow-y: hidden;
+    }
+    .page .box {
+        padding: 20px 30px;
+        height: calc(100% - 40px);
+    }
+}
+
+

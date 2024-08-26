@@ -1,0 +1,407 @@
+.movies .stack {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.movies .stack .title {
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+}
+
+.movies .stack .addBtn {
+    border: none;
+    outline: none;
+    background-color: #7E5CE5;
+    border-radius: 6px;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.movies .stack .addBtn span {
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.movies .movie-collection .img-container {
+    width: 100%;
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.movies .movie-collection .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+/*.create-file */
+
+.create-file .stack {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    /* padding: 20px; */
+}
+
+.create-file .stack .form-group {
+    flex: 1;
+}
+
+.create-file .stack .form-group .hidden-input {
+    display: none;
+}
+
+.create-file .stack .form-group .custom-button {
+    background-color: #C4C4C4;
+    border: none;
+    outline: none;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-weight: 400;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    cursor: pointer;
+}
+
+.create-file .stack .form-group .custom-button p {
+    color: #000000;
+    font-weight: 600;
+    font-size: 20px;
+}
+.create-file .stack .form-group #uploaded-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #C4C4C4;
+}
+
+.create-file .stack .text-module {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.create-file .stack .text-module .one-content h3 {
+    color: #000000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.create-file .stack .text-module .one-content input  {
+    width: 100%;
+    height: 50px;
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #707B81;
+    transition: 0.3s;
+}
+
+.create-file .stack .text-module .one-content input::placeholder {
+    color: var(--text-color);
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.create-file .stack .text-module .one-content input:focus {
+    color: var(--main-color);
+}
+
+.create-file .stack .text-module .one-content input:focus::placeholder {
+    opacity: 0;
+}
+
+/* edit-warehouse */
+
+.form-group .first-group-here {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-group .first-group-here h3 {
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.body.shadow.rounded {
+    box-shadow: none !important;
+}
+
+.first-group-here p {
+    color: #C4C4C4;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.mult-select-tag {
+    margin-bottom: 20px;
+}
+
+.mult-select-tag .btn-container {
+    padding: 0 0 0 10px;
+}
+
+input.input {
+    margin-bottom: 0 !important;
+}
+
+[dir="rtl"] input.input_checkbox {
+    margin: 0 0 0 0.5em !important;
+}
+
+[dir="ltr"] .mult-select-tag .btn-container {
+    padding: 0 10px 0 0;
+}
+
+[dir="rtl"] .mult-select-tag .item-close-svg {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+/* section */
+.create-file .dummy-div {
+    margin: 20px 0 30px;
+}
+.create-file .section {
+    background-color: #808080;
+    padding: 30px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+.create-file .section .stack-section{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.create-file .section .stack-section .title-section{
+    font-weight: 600;
+    font-size: 18px;
+}
+.create-file .section .text-section{
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    color: #FFFFFFB2;
+    margin-bottom: 20px;
+}
+.create-file .section .feat-section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.create-file .section .feat-section svg {
+    color: white;
+    width: 50px;
+    height: 50px;
+}
+.create-file .section .feat-section div {
+    color: #FFFFFFB2;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.dummy-div .hidden-input {
+    display: none;
+}
+
+.uploaded-section {
+    margin-bottom: 10px;
+}
+.uploaded-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #263238;
+    margin-bottom: 20px;
+}
+.uploaded-section .white-sec {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.uploaded-section .white-sec .stack {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.uploaded-section .white-sec .stack svg {
+    color: #00FF00;
+    width: 30px;
+    height: 30px;
+}
+.uploaded-section .white-sec .stack .feat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.uploaded-section .white-sec .stack .feat p{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000D1;
+}
+.uploaded-section .white-sec .stack .feat div {
+    font-size: 14px;
+    font-weight: 500;
+    color: #C4C4C4;
+
+}
+.uploaded-section .white-sec svg {
+    color: #C4C4C4;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.sinario {
+    margin: 20px 0;
+}
+
+.sinario .stack {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: unset;
+    margin-bottom: 10px;
+}
+.sinario .stack svg {
+    color: #00FF00;
+    width: 30px;
+    height: 30px;
+}
+.sinario .stack h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000D1;
+}
+.sinario .white-sec {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sinario .white-sec .hidden-input{
+    display: none;
+}
+.sinario .white-sec img{
+    cursor: pointer;
+}
+.sinario .white-sec textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #C4C4C4;
+    resize: none;
+}
+
+.create-file-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 0 40px;
+    border-top: none;
+    margin-bottom: 20px;
+}
+.create-file-footer button {
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex: 1;
+    text-align: center;
+}
+
+.create-file-footer button.confirm {
+    background-color: #00FF00;
+    color: #000000;
+}
+.create-file-footer button.cancel {
+    background-color: #808080;
+    color: white;
+}
+/* section */
+
+@media (max-width: 992px) {
+    .create-file .stack {
+        flex-direction: column;
+    }
+    .create-file .stack .form-group {
+        width: 100%;
+    }
+    .create-file .stack .text-module {
+        width: 100%;
+    }
+    .create-file .section .stack-section {
+        justify-content: center;
+    }
+    .uploaded-section .white-sec .stack {
+        flex-direction: row;
+    }
+    .sinario .stack {
+        flex-direction: row;
+    }
+    .sinario .white-sec {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .create-file-body {
+        padding: 20px;
+    }
+    .create-file .stack {
+        flex-direction: column;
+    }
+    .create-file .stack .form-group {
+        width: 100%;
+    }
+    .create-file .stack .text-module {
+        width: 100%;
+    }
+    .create-file .section .stack-section {
+        justify-content: center;
+    }
+    .uploaded-section .white-sec .stack {
+        flex-direction: row;
+    }
+    .sinario .stack {
+        flex-direction: row;
+    }
+    .sinario .white-sec {
+        gap: 20px;
+    }
+
+}

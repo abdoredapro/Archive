@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Thin.ttf');
+    font-weight: 100;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-ExtraLight.ttf');
+    font-weight: 200;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Regular.ttf');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Medium.ttf');
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-SemiBold.ttf');
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Bold.ttf');
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-ExtraBold.ttf');
+    font-weight: 800;
+}
+@font-face {
+    font-family: 'SomarSans';
+    src: url('../fonts/SomarSans-Black.ttf');
+    font-weight: 900;
+}
+
+* {
+    font-family: 'SomarSans';
+}

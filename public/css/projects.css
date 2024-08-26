@@ -1,0 +1,122 @@
+.projects .title {
+    color: #000;
+    font-weight: 500;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.projects .project-box {
+    height: 200px;
+    padding: 30px;
+    border-radius: 15px;
+}
+.projects .project-box.purple {
+    background: linear-gradient(180deg, #7E5CE5 0%, #5E8FF0 100%);
+}
+.projects .project-box.green {
+    background: linear-gradient(180deg, #408A92 0%, #4FA8B2 100%);
+}
+.projects .project-box.pink {
+    background: linear-gradient(180deg, #DE6B70 0%, #E26F75 100%);
+}
+.projects .project-box.sec-sky {
+    background: linear-gradient(180deg, #04D2CB 0%, #04D2CB 100%);
+}
+.projects .project-box.sec-blue {
+    background: linear-gradient(180deg, #0135A6 0%, #696291 100%);
+}
+.projects .project-box.sec-red {
+    background: linear-gradient(180deg, #94005B 0%, #77054B 100%);
+}
+.projects .project-box .stack {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px
+}
+.projects .project-box .stack div {
+    font-weight: 500;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.projects .project-box .stack .icon-container {
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.projects .project-box .stack .icon-container svg {
+    color: #133A7D;
+}
+.projects .project-box .num {
+    color: #E8E8E8;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+@media (max-width: 1200px) {
+    .projects .project-box {
+        padding: 20px;
+    }
+    .projects .project-box .stack div {
+        font-size: 24px;
+    }
+    .projects .project-box .stack .icon-container {
+        width: 30px;
+        height: 30px;
+    }
+    .projects .project-box .stack .icon-container svg {
+        width: 20px;
+        height: 20px;
+    }
+    .projects .project-box .num {
+        font-size: 30px;
+    }
+    .projects .project-box .num {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .projects .project-box {
+        padding: 20px;
+    }
+    .projects .project-box .stack div {
+        font-size: 24px;
+    }
+    .projects .project-box .stack .icon-container {
+        width: 30px;
+        height: 30px;
+    }
+    .projects .project-box .stack .icon-container svg {
+        width: 20px;
+        height: 20px;
+    }
+    .projects .project-box .num {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects .project-box {
+        padding: 30px;
+    }
+    .projects .project-box .stack div {
+        font-size: 30px;
+    }
+    .projects .project-box .stack .icon-container {
+        width: 40px;
+        height: 40px;
+    }
+    .projects .project-box .stack .icon-container svg {
+        width: 20px;
+        height: 20px;
+    }
+    .projects .project-box .num {
+        font-size: 36px;
+    }
+}

@@ -1,0 +1,152 @@
+.white-board {
+    box-shadow: 10px 10px 60px 0px #061D221A;
+    border-radius: 20px;
+    background-color: var(--white-color);
+    padding: 40px;
+}
+
+.white-board .video {
+    /* height: 500px; */
+}
+
+.white-board video {
+    border-radius: 20px;
+}
+
+.white-board .footage {
+    margin-top: 30px;
+}
+
+.white-board .footage .main-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.white-board .footage .main-header .title {
+    font-weight: 500;
+    font-size: 28px;
+    color: #000000;
+}
+
+.white-board .footage .img-container {
+    /* width: 200px; */
+    height: 200px;
+}
+
+.white-board .footage .img-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.white-board .footage .text-holder {
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.white-board .footage .text-holder .duration,
+.white-board .footage .text-holder .desc {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.white-board .footage .text-holder .duration {
+    color: #133A7D;
+    /* margin-bottom: 5px; */
+}
+
+.white-board .footage .text-holder .desc {
+    color: #000000;
+}
+
+@media (max-width: 768px) {
+    .white-board {
+        padding: 20px;
+    }
+}
+
+.white-board .file-describtion-subject {
+    margin-top: 30px;
+}
+
+.white-board .file-describtion-subject .title {
+    font-weight: 700;
+    font-size: 24px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.white-board .file-describtion-subject .stack {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.white-board .file-describtion-subject .stack .cate {
+    background-color: #05FBF36B;
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000A8;
+}
+
+.white-board .file-describtion-subject .stack .dure {
+    font-size: 16px;
+    font-weight: 400;
+    color: #C4C4C4;
+}
+
+.white-board .file-describtion-subject .describe {
+    font-size: 18px;
+    font-weight: 500;
+    color: #666666B8;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.white-board .file-describtion-subject .directors {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.white-board .file-describtion-subject .directors div {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.white-board .file-describtion-subject .directors div.black {
+    color: #000000;
+}
+
+.white-board .file-describtion-subject .directors div.blue {
+    color: #133A7D;
+}
+
+@media (max-width: 768px) {
+    .white-board .file-describtion-subject .title {
+        font-size: 20px;
+    }
+    .white-board .file-describtion-subject .stack .cate {
+        font-size: 14px;
+    }
+    .white-board .file-describtion-subject .stack .dure {
+        font-size: 14px;
+    }
+    .white-board .file-describtion-subject .describe {
+        font-size: 16px;
+    }
+    .white-board .file-describtion-subject .directors div {
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
