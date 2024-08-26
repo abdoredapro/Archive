@@ -21,6 +21,7 @@
                 <div class="sec-white-board create-file">
                     <div class="stack">
                         <div class="form-group">
+                            
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
                                 accept="image/*" onchange="displayImage(event)">
                             <div class="custom-button" onclick="document.getElementById('photo').click();">

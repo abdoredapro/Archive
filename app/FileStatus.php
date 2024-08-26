@@ -6,4 +6,7 @@ enum FileStatus
 {
     const IMAGE = '/files/images/';
     const VIDEO = '/files/videos/';
+
+    const FILMIMAGE = '/films/images/';
+    const FILMVIDEO = '/films/videos/';
 }

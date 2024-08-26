@@ -31,7 +31,7 @@
     @forelse ($files as $file)
         <div class="white-row">
             <div class="img-container">
-                <img src="{{ $file->imageUrl() }}" style="width: 400px;height:300px" class="image-responsive">
+                <img src="{{ $file->imageUrl() }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
             </div>
             
             <div class="content-container">

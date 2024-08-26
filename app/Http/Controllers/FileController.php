@@ -94,26 +94,6 @@ class FileController extends Controller
 
         return response()->json(['progress' => $handler->getPercentageDone()]);
 
-
-
-        // $image = $request->file('image');
-
-        // $video = $request->file('video');
-
-        // // try {
-
-        //     $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-
-        //     $videoName = Str::uuid() . '.' . $video->getClientOriginalExtension();
-
-        //     $image->storeAs('files/images', $imgName, [
-        //         'disk' => 'public'
-        //     ]);
-
-        //     $path = $video->storeAs('files/videos', $videoName, [
-        //         'disk' => 'public'
-        //     ]);
-
         //     // get duration
         //     $getID3 = new \getID3;
         //     $file = $getID3->analyze(storage_path('app/public/'.$path));
@@ -123,30 +103,7 @@ class FileController extends Controller
         //     $hour = date('H', $playtime_seconds);
         //     $minutes = date('i', $playtime_seconds);
         //     $seconds = date('s', $playtime_seconds);
-            
-        //     File::create([
-        //         'project_id'   => $request->project_id,
-        //         'name'          => $request->name,
-        //         'image'         => $imgName,
-        //         'video'         => $videoName,
-        //         'description'   => $request->description,
-        //         'info'   => $request->info,
-        //         'hours'   => $hour,
-        //         'minutes'   => $minutes,
-        //         'seconds'   => $seconds,
-        //     ]);
 
-        //     return to_route('dashboard.file.index')->with([
-                
-        //         'message' => 'تم اضافه الملف بنجاح.'
-        //     ]);
-
-        // // } catch (Exception $e) {
-
-        //     return to_route('dashboard.file.index')->with([
-        //         'message' => 'حدث خطأ يرجى المحاوله لاحقا.'
-        //     ]);
-        // // }
 
     }
 

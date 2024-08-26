@@ -8,19 +8,8 @@
 
 <!-- video -->
 <div class="white-board hz-padding">
-    <div class="stack-head align-items-end justify-content-between">
-            <a href="{{ route('dashboard.file_clip.add', $file->id)  }}">
-                <button class="addBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <g fill="none" stroke="white" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
-                        </g>
-                    </svg>
-                <span>اضافه مقطع</span>
-                </button>
-            </a>
-
+    <div class="stack-head align-items-end justify-content-between file-controll">
+            
 
             <div class="control d-flex gap-3">
                 
@@ -36,36 +25,36 @@
                     </button>
                 </a>
 
-                <form action="{{ route('dashboard.file.destroy', $file->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-    
-                    <button class="btn btn-sm btn-danger delete">حذف</button>
-                </form>
+                <a href="{{ route('dashboard.file_clip.add', $file->id)  }}">
+                    <button class="addBtn" style="background-color: #4caf50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none" stroke="white" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
+                            </g>
+                        </svg>
+                    <span>اضافه مقطع</span>
+                    </button>
+                </a>
 
             </div>
+
+            <form action="{{ route('dashboard.file.destroy', $file->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button class="btn btn-sm btn-danger delete">حذف</button>
+            </form>
             
     </div>
 
 
     <div class="video">
-        {{-- 
-        <video width="100%" height="100%" controls muted>
-            <source src="{{ $file->VideoUrl() }}" type="video/mp4" />
-        </video> --}}
 
-        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}">
-            <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="576">
-            <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="720">
+
+        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}" id="myFile">
             <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="1080">
-   
-                <!-- Caption files -->
-                <track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
-                        default>
-                <track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
-                <!-- Fallback for browsers that don't support the <video> element -->
-                <a href="{{ $file->VideoUrl() }}" download>Download</a>
-       </video>
+        </video>
 
         
     </div>
@@ -83,9 +72,7 @@
                 @foreach ($file->clips as $clip)
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
                     <div class="">
-                        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}" max-width="100%" width="300px" height="180px">
-                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="576">
-                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="720">
+                        <video style="cursor: pointer; max-width:100%" id="clip" controls crossorigin playsinline poster="{{ $file->imageUrl() }}" max-width="100%" width="300px" height="180px">
                             <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
                         </video>
                     </div>
@@ -118,9 +105,21 @@
 <!-- video -->
 <script type="text/javascript">
 	const player = new Plyr('video', {captions: {active: true}});
+    let clip = Array.from(document.querySelectorAll('#clip'));
 
 // Expose player so it can be used from the console
 window.player = player;
+
+clip.forEach(el => {
+    el.addEventListener('click', function () {
+        let FileSource = document.querySelector('#myFile source');
+        FileSource.src = '';
+        FileSource.src = el.querySelector('source').src;
+        
+    })
+});
+
+
 </script>
 
 

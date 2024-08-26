@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FileStatus;
 use App\Http\Requests\FilmRequest;
 use App\Jobs\UploadVideo;
 use App\Models\Category;
@@ -16,6 +17,7 @@ use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
 use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
 use Pion\Laravel\ChunkUpload\Handler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
+use Pion\Laravel\ChunkUpload\Handler\ResumableJSUploadHandler;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
 class FilmController extends Controller
@@ -46,44 +48,42 @@ class FilmController extends Controller
      */
     public function store(FilmRequest $request)
     {
-        
-        $image = $request->file('image');
 
-        $video = $request->file('video');
+        $reciver = new FileReceiver($request->file, $request, ResumableJSUploadHandler::class);
 
-        try {
-            $imgName = time() . Str::random(10) . '.' . $image->getClientOriginalExtension();
+        $save = $reciver->receive();
 
-            $videoName = time() . Str::random(10) . '.' . $video->getClientOriginalExtension();
+        if($save->isFinished()) {
 
-            $image->storeAs('films/images', $imgName, [
-                'disk' => 'public'
-            ]);
+            $file = $save->getFile();
 
-            $video->storeAs('films/videos', $videoName, [
-                'disk' => 'public'
-            ]);
+            $image = $request->fileImage;
 
+            $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+
+            $newFileName = $file->hashName();
+
+            $image->move(storage_path('app/public/films/images'), $imgName);
+
+            $file->move(storage_path('app/public/films/videos'), $newFileName);
+
+            
             Film::create([
-                'category_id'   => $request->category_id,
-                'name'          => $request->name,
+                'category_id'   => $request->fileCategory,
+                'name'          => $request->fileName,
                 'image'         => $imgName,
-                'video'         => $videoName,
-                'film_script'   => $request->film_script,
-                'info'          => $request->editor1,
+                'video'         => $newFileName,
+                'film_script'   => $request->fileDescription,
             ]);
 
-            return to_route('dashboard.film.index')->with([
-                
-                'message' => 'تم اضافه الفيلم بنجاح.'
-            ]);
+            return response()->json(['message' => 'Your Film uploaded']);
 
-        } catch (Exception $e) {
-
-            return to_route('dashboard.film.index')->with([
-                'message' => 'Error'
-            ]);
         }
+
+        $handler = $save->handler();
+
+        return response()->json(['progress' => $handler->getPercentageDone()]);
+        
 
     }
 
@@ -114,7 +114,65 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
-        //
+        $request->validate([
+            'category_id'   => ['required', 'int', 'exists:categories,id'],
+            'name'          => ['required', 'string'],
+            'image'         => ['image', 'mimes:jpeg,jpg,png,gif,svg'],
+            'video'         => ['mimes:mp4','mimetypes:video/mp4'],
+            'film_script'   => ['required', 'string'],
+        ]);
+
+        // If user upload Image
+
+        $data = $request->all();
+
+
+
+
+        if($request->hasFile('image')) {
+
+            // check if file has image then remove it.
+            if($film->image) {
+                Storage::disk('public')->delete(FileStatus::FILMIMAGE . $film->image);
+            }
+
+
+            // uploading Image
+            $image = $request->file('image');
+
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+
+            $image->storeAs('films/images', $imageName, [
+                'disk' => 'public'
+            ]);
+        
+            $data['image']  = $imageName;
+        }
+
+
+        if($request->hasFile('video')) {
+
+            if($film->image) {
+                Storage::disk('public')->delete(FileStatus::FILMVIDEO . $film->video);
+            }
+
+            $video = $request->file('video');
+
+            $videoName = Str::uuid() . '.' . $video->getClientOriginalExtension();
+
+            $video->storeAs('films/videos', $videoName, [
+                'disk' => 'public'
+            ]);
+
+            $data['video']  = $videoName;
+        }
+
+
+        $film->update($data);
+
+        return to_route('dashboard.film.index');
+
+
     }
 
     /**

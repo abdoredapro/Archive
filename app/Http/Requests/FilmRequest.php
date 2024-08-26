@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Film;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class FilmRequest extends FormRequest
@@ -29,6 +30,17 @@ class FilmRequest extends FormRequest
             'video'         => ['required','mimes:mp4','mimetypes:video/mp4'],
             'film_script'   => ['required', 'string'],
         ];
+    }
+
+    protected function failedValidation(ValidationValidator $validator)
+    {
+        $errors = $validator->errors(); 
+
+        return response()->json([
+            'message' => 'Invalid data send',
+            'details' => $errors->messages(),
+        ], 422);
+
     }
 
 

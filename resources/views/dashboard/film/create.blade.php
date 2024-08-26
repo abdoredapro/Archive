@@ -1,6 +1,8 @@
 @extends('dashboard.master')
 
-
+@section('style')
+<link rel="stylesheet" href="{{ asset('css/movies.css') }}">
+@endsection
 @section('page_title')
     اضافه فيلم
 @endsection
@@ -12,13 +14,15 @@
         <div class="first-white-board hz-padding">
             <h3 class="title">اضافه فيلم</h3>
 
-            <form action="{{ route('dashboard.film.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            {{-- <form action="{{ route('dashboard.file.store') }}" method="POST" enctype="multipart/form-data"> --}}
+                {{-- @csrf --}}
+
+                
                 <div class="sec-white-board create-file">
                     <div class="stack">
                         <div class="form-group">
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
-                                accept="image/*" onchange="displayImage(event)">
+                                accept="image/*" onchange="displayImage(event)" required>
                             <div class="custom-button" onclick="document.getElementById('photo').click();">
                                 <p>قم برفع صورة للفيلم</p>
                             </div>
@@ -26,46 +30,41 @@
                                 style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
 
                             {{-- start image error  --}}
-                            @error('image')
-                            <div class="text-center text-danger">{{ $message }}</div>
-                            @enderror
+                            
+                            <div class="image-error text-center text-danger"  style="display: none">يرجى وضع صوره</div>
+                            
                             {{-- end image error  --}}
                         </div>
-
-                        
 
 
                         <div class="text-module">
                             <div class="one-content">
                                 <h3>اسم الفيلم</h3>
-                                <input type="text" id="movie-name" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc">
-                                @error('name')
-                                    <div class="text-center text-danger">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="movie-name" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
+
+                                <div class="name-error text-center text-danger"  style="display: none">يرجى وضع اسم</div>
                             </div>
                             <div class="form-group">
                                 <div class="first-group-here">
-                                    <h3>تصينف الملف</h3>
+                                    <h3>تصينف الفيلم</h3>
                                 </div>
     
-                                <select name="category_id" id="category" class="form-control">
-                                    <option value="">اختر تصنيف الفيلم</option>
+                                <select name="category_id" id="category" class="form-control" required>
+                                    <option value="">اختر الفئه</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id) >{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @selected(old('project_id') == $category->id) >{{ $category->name }}</option>
                                     @endforeach
                                 </select>
 
                                 {{-- start project_id error  --}}
-                                @error('category_id')
-                                <div class="text-center text-danger">{{ $message }}</div>
-                                @enderror
+                                <div class="category-error text-center text-danger"  style="display: none">يرجى وضع فئه</div>
                                 {{-- end project_id error  --}}
                             </div>
                         </div>
                     </div>
     
                     <div class="dummy-div">
-                        <input  type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
+                        <input required type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
 
                         
                         <div class="section" onclick="document.getElementById('video').click();">
@@ -92,9 +91,8 @@
                                 <div>قم بسحب واسقاط ملفاتك هنا أو قم باختيار الملف</div>
                             </div>
                         </div>
-                        @error('video')
-                                <div class="text-center text-danger">{{ $message }}</div>
-                        @enderror
+                        
+                        <div class="video-error text-center text-danger"  style="display: none">يرجى وضع فديو</div>
                     </div>
     
                     <div class="uploaded-section">
@@ -113,11 +111,11 @@
                     <div class="sinario">
                         <div class="stack">
                             <i class="fa-solid fa-file"></i>
-                            <h3>سيناريو الفيلم او الفيديو</h3>
+                            <h3>سيناريو الفيلم</h3>
                         </div>
                         <div class="white-sec">
-                            <textarea rows="4" cols="50" name="film_script" id="sinario"
-                                placeholder="اكتب سيناريو الفيلم بالكامل او قم بارفاق ملف ورد يحتوي علي السيناريو">{{ old('film_script') }}</textarea>
+                            <textarea required rows="4" cols="50" id="description" name="description" id="sinario"
+                                placeholder="اكتب سيناريو الفيلم"></textarea>
 
                                 
                                 <input type="file" class="form-control hidden-input" id="file" name="file">
@@ -125,17 +123,15 @@
                             
                         </div>
     
-                        @error('film_script')
-                                <div class="text-center text-danger">{{ $message }}</div>
-                        @enderror
+                        <div class="description-error text-center text-danger"  style="display: none">يرجى وضع تفاصيل الفيلم</div>
                     </div>
     
                     <div class="modal-footer">
-                        <button class="confirm" type="submit">حفظ</button>
+                        <button class="confirm" type="submit" id="save">حفظ الفيلم</button>
                     </div>
     
                 </div>
-            </form>
+            {{-- </form> --}}
         </div>
     </div>
 </div>
@@ -143,14 +139,10 @@
 @endsection
 
 @section('script')
-<script>
-    CKEDITOR.replace('info');
-</script>
+
 
 <script>
     
-
-
     // to display the upload image
     function displayImage(event) {
         const image = document.getElementById('uploaded-image');
@@ -166,8 +158,6 @@
             reader.readAsDataURL(file);
         }
     }
-
-
     function displayVideo(event) {
         const video = document.getElementById('uploaded-video');
         const file = event.target.files[0];
@@ -222,4 +212,58 @@
         }
     }
 </script>
+
+    {{-- Jquery  --}}
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    {{-- Toster Notification's  --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    {{-- Resumable  --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    let saveBtn = document.getElementById('save');
+
+    saveBtn.onclick = function () {
+        let image = document.querySelector('[name="image"]').files[0];
+        let file = document.querySelector('#video').files[0];
+        let name = document.querySelector('[name="name"]').value;
+        let category = document.querySelector('#category').value;
+        let description = document.querySelector('#description').value;
+
+
+        var r = new Resumable({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                target: '{{ route('dashboard.film.store') }}',
+                chunkSize: 5 * 1024 * 1024,
+                testChunks: false,
+                    query:{
+                        fileImage: image,
+                        fileName: name,
+                        fileCategory: category, 
+                        fileDescription: description, 
+                    }
+                });
+
+                r.addFile(file);
+
+            r.on('fileAdded', function(file, event){
+                r.upload();
+                toastr.info('جارى تحميل الملف');
+            });
+
+            r.on('fileSuccess', function(file, message){
+                toastr.success('تم تحميل الملف');
+            });
+
+            r.on('fileError', function(file, message){
+                toastr.error('حدث خطأ');
+            });
+    }
+
+</script>
+
+
 @endsection

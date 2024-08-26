@@ -31,7 +31,7 @@
             </div>
         </div> 
         <div class="video">
-            <video width="450px" height="100%" max-width='100%' controls muted>
+            <video width="450px" height="100%" style="max-width: 100%" controls muted>
                 <source src="{{ $film->video_url }}" type="video/mp4" />
             </video>
 

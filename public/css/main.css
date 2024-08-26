@@ -1302,4 +1302,24 @@ input.input {
     }
 }
 
+@media (max-width: 992px) {
+    .file-controll {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        justify-content: center;
+    }
+    .file-controll .control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .file-controll form {
+        margin-top: 4px;
+    }
+}
+
 /* content */

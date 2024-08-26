@@ -41,7 +41,7 @@
                         <div class="text-module">
                             <div class="one-content">
                                 <h3>اسم الملف</h3>
-                                <input type="text" id="movie-name" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
+                                <input type="text" id="movie-name" name="name" placeholder="اسم الملف" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
 
                                 <div class="name-error text-center text-danger"  style="display: none">يرجى وضع اسم</div>
                             </div>
