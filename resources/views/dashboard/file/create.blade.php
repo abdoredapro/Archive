@@ -15,15 +15,14 @@
         <div class="first-white-board hz-padding">
             <h3 class="title">اضافه ملف</h3>
 
-            {{-- <form action="{{ route('dashboard.file.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                {{-- @csrf --}}
+            <form action="{{ route('dashboard.file.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                
                 <div class="sec-white-board create-file">
                     <div class="stack">
                         <div class="form-group">
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
-                                accept="image/*" onchange="displayImage(event)" required>
+                                accept="image/*" onchange="displayImage(event)" >
                             <div class="custom-button" onclick="document.getElementById('photo').click();">
                                 <p>قم برفع صورة للملف</p>
                             </div>
@@ -32,7 +31,9 @@
 
                             {{-- start image error  --}}
                             
-                            <div class="image-error text-center text-danger"  style="display: none">يرجى وضع صوره</div>
+                            @error('image')
+                                <div class="text-center text-danger">{{ $message }}</div>
+                            @enderror
                             
                             {{-- end image error  --}}
                         </div>
@@ -40,11 +41,16 @@
 
                         <div class="text-module">
                             <div class="one-content">
-                                <h3>اسم الملف</h3>
-                                <input type="text" id="movie-name" name="name" placeholder="اسم الملف" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
+                                <h3 class="text-end">اسم الملف</h3>
+                                <input type="text" value="{{ old('name') }}" id="" name="name" placeholder="اسم الملف" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
 
                                 <div class="name-error text-center text-danger"  style="display: none">يرجى وضع اسم</div>
                             </div>
+
+                            @error('name')
+                                <div class="text-center text-danger">{{ $message }}</div>
+                            @enderror
+
                             <div class="form-group">
                                 <div class="first-group-here">
                                     <h3>تصينف الملف</h3>
@@ -61,11 +67,15 @@
                                 <div class="category-error text-center text-danger"  style="display: none">يرجى وضع فئه</div>
                                 {{-- end project_id error  --}}
                             </div>
+
+                            @error('project_id')
+                                <div class="text-center text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
     
                     <div class="dummy-div">
-                        <input required type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
+                        <input type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
 
                         
                         <div class="section" onclick="document.getElementById('video').click();">
@@ -92,8 +102,11 @@
                                 <div>قم بسحب واسقاط ملفاتك هنا أو قم باختيار الملف</div>
                             </div>
                         </div>
+                    
                         
-                        <div class="video-error text-center text-danger"  style="display: none">يرجى وضع فديو</div>
+                        @error('video')
+                            <div class="text-center text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
     
                     <div class="uploaded-section">
@@ -115,16 +128,18 @@
                             <h3>تفاصيل الملف او الفديو</h3>
                         </div>
                         <div class="white-sec">
-                            <textarea required rows="4" cols="50" id="description" name="description" id="sinario"
-                                placeholder="اكتب تفاصيل الملف"></textarea>
 
-                                
-                                <input type="file" class="form-control hidden-input" id="file" name="file">
-                                <img onclick="document.getElementById('photo').click();" src="assets/upload.png" alt="">
+                            <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description') }}</textarea>
                             
+                                
+                        
                         </div>
+
+                        @error('description')
+                            <div class="text-center text-danger">{{ $message }}</div>
+                        @enderror
     
-                        <div class="description-error text-center text-danger"  style="display: none">يرجى وضع تفاصيل الملف</div>
+                        
                     </div>
     
                     <div class="modal-footer">
@@ -132,7 +147,7 @@
                     </div>
     
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     </div>
 </div>
@@ -175,6 +190,7 @@
     }
 
 </script>
+
 
 <script>
     // Initialize MultiSelectTag for categories
@@ -222,53 +238,9 @@
     {{-- Resumable  --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
 <script>
-    let saveBtn = document.getElementById('save');
 
-    saveBtn.onclick = function () {
-        let image = document.querySelector('[name="image"]').files[0];
-        let file = document.querySelector('#video').files[0];
-        let name = document.querySelector('[name="name"]').value;
-        let category = document.querySelector('#category').value;
-        let description = document.querySelector('#description').value;
-
-        // error handling
-        let imageError = document.querySelector('.image-error');
-        let nameError = document.querySelector('.name-error');
-        let categoryError = document.querySelector('.category-error');
-        let videoError = document.querySelector('.video-error');
-        let descriptionError6 = document.querySelector('.description-error');
-
-        var r = new Resumable({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                target: '{{ route('dashboard.file.store') }}',
-                chunkSize: 5 * 1024 * 1024,
-                testChunks: false,
-                    query:{
-                        fileImage: image,
-                        fileName: name,
-                        fileCategory: category, 
-                        fileDescription: description, 
-                    }
-                });
-
-                r.addFile(file);
-
-            r.on('fileAdded', function(file, event){
-                r.upload();
-                toastr.info('جارى تحميل الملف');
-            });
-
-            r.on('fileSuccess', function(file, message){
-                toastr.success('تم تحميل الملف');
-            });
-
-            r.on('fileError', function(file, message){
-                toastr.error('حدث خطأ');
-            });
-    }
 
 </script>
 

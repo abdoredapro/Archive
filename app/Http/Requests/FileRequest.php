@@ -37,14 +37,14 @@ class FileRequest extends FormRequest
     }
 
 
-    protected function failedValidation(ValidationValidator $validator)
-    {
-        $errors = $validator->errors(); 
+    // protected function failedValidation(ValidationValidator $validator)
+    // {
+    //     $errors = $validator->errors(); 
 
-        return response()->json([
-            'message' => 'Invalid data send',
-            'details' => $errors->messages(),
-        ], 422);
+    //     return response()->json([
+    //         'message' => 'Invalid data send',
+    //         'details' => $errors->messages(),
+    //     ], 422);
 
-    }
+    // }
 }

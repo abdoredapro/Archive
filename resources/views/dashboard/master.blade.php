@@ -15,7 +15,7 @@
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
 	<script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
-
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
     @yield('style')
 </head>

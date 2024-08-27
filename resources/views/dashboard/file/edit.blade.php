@@ -38,11 +38,8 @@
                             {{-- end image error  --}}
                         </div>
 
-                        
-
-
                         <div class="text-module">
-                            <div class="one-content">
+                            <div class="one-content text-end">
                                 <h3>اسم الملف</h3>
                                 <input type="text" id="movie-name" name="name" placeholder="اسم الملف" value="{{ old('name', $file->name) }}" style="border: 1px solid #ccc">
                                 @error('name')
@@ -122,22 +119,126 @@
                             <h3>تفاصيل الملف او الفديو</h3>
                         </div>
                         <div class="white-sec">
-                            <textarea rows="4" cols="50" name="description" id="sinario"
-                                placeholder="اكتب تفاصيل الفديو او الملف">{{ $file->description }}</textarea>
-
-                                
-                                <input type="file" class="form-control hidden-input" id="file" name="file">
-                                <img onclick="document.getElementById('photo').click();" src="assets/upload.png" alt="">
-                            
+                            <div class="col-lg-12">
+                                <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea>
+                            </div>
                         </div>
-    
+                        
                         @error('description')
-                                <div class="text-center text-danger">{{ $message }}</div>
+                            <div class="text-center text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-    
+
+                    <hr>
+                    {{-- Start Upload Shorts  --}}
+                    <div class="last-section">
+                        <h3 class="mb-4">رفع اللقطات</h3>
+                        <div class="stack">
+                            <div class="feat1 text-end">
+                                <div>اسم المقطع الصوتي</div>
+                                <input type="text" id="first-sec-movie" name="file_clip_name"
+                                    placeholder="المقطع الأول">
+                                @error('file_clip_name')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            
+
+                            <div class="feat1 text-end">
+                                <div>رفع الملف</div>
+                                <input type="file" class="hidden-input" id="upload-first-sec-movie"
+                                    name="file_clip_clip" >
+                                <div class="white-field"
+                                    onclick="document.getElementById('upload-first-sec-movie').click();">
+
+                                </div>
+                            </div>
+
+                            <div class="feat1 text-end">
+                                <div>الدقيقه</div>
+                                <input type="text" id="first-sec-movie" name="minute"
+                                    placeholder="الدقيقه" >
+                                    @error('minute')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+
+                            <div class="feat1 text-end">
+                                <div>الثانيه</div>
+                                <input type="text" id="first-sec-movie" name="second"
+                                    placeholder="الثانيه">
+                                    @error('second')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+
+                            
+                        </div>
+
+
+                    </div>
+                    {{-- End Upload Shorts  --}}
+
+                    <hr>
+
+
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">سنة الاصدار</div>
+                                <input class="second-modal-form" type="text" id="release-year" name="release_year"
+                                    placeholder="2024" value="{{ old('release_year', $file->release_year) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">نوع الشريط</div>
+                                <input class="second-modal-form" type="text" id="tape-type" name="tap_type" value="{{ old('release_year', $file->release_year) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مدير الانتاج</div>
+                                <input class="second-modal-form" type="text" id="director-name" name="production_manager"
+                                    placeholder="حسن يوسف" value="{{ old('production_manager', $file->production_manager) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">رقم الشريط</div>
+                                <input class="second-modal-form" type="text" id="tape-number" name="tap_number" value="{{ old('tap_number', $file->tap_number) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مشروع/ مستفيد</div>
+                                <input class="second-modal-form" type="text" id="benefit" name="project_beneficiary"
+                                    placeholder="حسن يوسف" value="{{ old('project_beneficiary', $file->project_beneficiary) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مهندس الصوت</div>
+                                <input class="second-modal-form" type="text" id="sound-eng" name="sound_engineer" value="{{ old('sound_engineer', $file->sound_engineer) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">فئة المشروع</div>
+                                <input class="second-modal-form" type="text" id="cat" name="project_category" value="{{ old('project_category', $file->project_category) }}">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
                     <div class="modal-footer">
-                        <button class="confirm" type="submit">حفظ</button>
+                        <button class="confirm mt-4" type="submit">حفظ</button>
                         {{-- <button class="cancel" type="button" data-bs-dismiss="modal">الغاء</button> --}}
                     </div>
     
@@ -151,7 +252,7 @@
 
 @section('script')
 <script>
-    CKEDITOR.replace('info');
+    CKEDITOR.replace('editor');
 </script>
 
 <script>

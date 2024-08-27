@@ -20,7 +20,7 @@
 
     <div class="trailer">
         <div class="stack">
-            <img src="{{ $film->image_url }}" alt="">
+            <img src="{{ $film->image_url }}" alt="" style="width: 250px">
             <div class="feat">
                 <h2>{{ $film->name }}</h2>
                 <div class="stack">
@@ -31,7 +31,7 @@
             </div>
         </div> 
         <div class="video">
-            <video width="450px" height="100%" style="max-width: 100%" controls muted>
+            <video width="450px" height="100%" style="max-width: 100%; min-width:450px" controls muted>
                 <source src="{{ $film->video_url }}" type="video/mp4" />
             </video>
 

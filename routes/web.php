@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Artisan;
@@ -52,6 +53,8 @@ Route::group([
 
     Route::resource('/projects', ProjectController::class);
 
+    Route::get('/reports', [ReportsController::class, 'index'])
+    ->name('reports.index'); 
 
 });
 

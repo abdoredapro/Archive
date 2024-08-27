@@ -14,7 +14,7 @@
     @endif
 
     <div class="stack-head">
-        <h3 class="title">   ملفات <span class="badge rounded-pill text-bg-primary">{{ $files->count() }}</span></h3>
+        <h3 class="title"> ملفات </h3>
             <a href="{{ route('dashboard.file.create') }}">
                 <button class="addBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -29,45 +29,46 @@
     </div>
 
     @forelse ($files as $file)
-        <div class="white-row">
-            <div class="img-container">
-                <img src="{{ $file->imageUrl() }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
-            </div>
-            
-            <div class="content-container">
-                <div class="first-row">
-                    <h4>{{ $file->name }}</h4>
-                    <a href="{{ route('dashboard.file.show', $file->id) }}" class="icon-container">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
-                    </a>
+        <a href="{{ route('dashboard.file.show', $file->id) }}">
+            <div class="white-row" style="cursor: pointer">
+                <div class="img-container">
+                    <img src="{{ $file->imageUrl() }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
                 </div>
-
-                <div class="second-row">
-                    <span class="category">{{ $file->project->name }}</span>
-                    <span class="other">{{ $file->created_at->year }}</span>
-                    {{-- <span class="other">
-                            {{ $file->FileDuration() }}
-                        </span> --}}
-                </div>
-
-                <div class="third-row">
-                    {{ $file->description }}
-                </div>
-
-                <div class="forth-row">
-                    <a href="{{ route('dashboard.file.show', $file->id) }}">
-                        <button class="watchnow">
-                            <i class="fa-solid fa-play"></i>
-                            <span>المشاهدة الأن</span>
+                <div class="content-container">
+                    <div class="first-row">
+                        <h4>{{ $file->name }}</h4>
+                        <a href="{{ route('dashboard.file.show', $file->id) }}" class="icon-container">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </a>
+                    </div>
+    
+                    <div class="second-row">
+                        <span class="category">{{ $file->project->name }}</span>
+                        <span class="other">{{ $file->created_at->year }}</span>
+                        {{-- <span class="other">
+                                {{ $file->FileDuration() }}
+                            </span> --}}
+                    </div>
+    
+                    <div class="third-row text-wrap">
+                        {{ $file->description }}
+                    </div>
+    
+                    <div class="forth-row">
+                        <a href="{{ route('dashboard.file.show', $file->id) }}">
+                            <button class="watchnow">
+                                <i class="fa-solid fa-play"></i>
+                                <span>المشاهدة الأن</span>
+                            </button>
+                        </a>
+                        <button class="download">
+                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                            <a href="{{ $file->VideoUrl() }}" download>تحميل</a>
                         </button>
-                    </a>
-                    <button class="download">
-                        <i class="fa-solid fa-cloud-arrow-down"></i>
-                        <a href="{{ $file->VideoUrl() }}" download>تحميل</a>
-                    </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     @empty
         <div class="text-dark text-center">لايوجد ملفات الان</div>
     @endforelse

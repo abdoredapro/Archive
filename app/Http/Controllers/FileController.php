@@ -10,6 +10,7 @@ use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
 use Exception;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
@@ -45,65 +46,35 @@ class FileController extends Controller
     public function store(FileRequest $request)
     {
 
-        $reciver = new FileReceiver($request->file, $request, ResumableJSUploadHandler::class);
 
-        $save = $reciver->receive();
+        $image = $request->file('image');
 
-        if($save->isFinished()) {
+        $video = $request->file('video');
 
-            $file = $save->getFile();
+        $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
 
-            $image = $request->fileImage;
+        $vidName = Str::uuid() . '.' . $video->getClientOriginalExtension();
 
-            $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
 
-            $newFileName = $file->hashName();
+        $image->storeAs('files/images', $imgName, [
+            'disk' => 'public',
+        ]);
 
-            $image->move(storage_path('app/public/files/images'), $imgName);
-
-            $file->move(storage_path('app/public/files/videos'), $newFileName);
+        $video->storeAs('files/videos', $vidName, [
+            'disk' => 'public',
+        ]);
 
             
+        File::create([
+            'project_id'   => $request->project_id,
+            'name'          => $request->name,
+            'image'         => $imgName,
+            'video'         => $vidName,
+            'description'   => $request->description,
+        ]);
 
-            // // get duration
-            // $getID3 = new \getID3;
-            // $file = $getID3->analyze(storage_path('app/public/files/videos'. $newFileName));
-
-            // $playtime_seconds = $file['playtime_seconds'];
-
-            // $hour = date('H', $playtime_seconds);
-            // $minutes = date('i', $playtime_seconds);
-            // $seconds = date('s', $playtime_seconds);
-            
-            File::create([
-                'project_id'   => $request->fileCategory,
-                'name'          => $request->fileName,
-                'image'         => $imgName,
-                'video'         => $newFileName,
-                'description'   => $request->fileDescription,
-                'hours'   => '1',
-                'minutes'   => '1',
-                'seconds'   => '1',
-            ]);
-
-            return response()->json(['message' => 'Your file uploaded']);
-
-        }
-
-        $handler = $save->handler();
-
-        return response()->json(['progress' => $handler->getPercentageDone()]);
-
-        //     // get duration
-        //     $getID3 = new \getID3;
-        //     $file = $getID3->analyze(storage_path('app/public/'.$path));
-
-        //     $playtime_seconds = $file['playtime_seconds'];
-
-        //     $hour = date('H', $playtime_seconds);
-        //     $minutes = date('i', $playtime_seconds);
-        //     $seconds = date('s', $playtime_seconds);
-
+        
+        return to_route('dashboard.file.index');
 
     }
 
@@ -131,23 +102,34 @@ class FileController extends Controller
     public function update(Request $request, File $file)
     {
         $request->validate([
-            'image'         => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif,svg'], 
-            'video'         => ['nullable', 'mimes:mp4','mimetypes:video/mp4'],
+            'image'         => ['image', 'mimes:jpg,jpeg,png,gif,svg'], 
+            'video'         => ['mimes:mp4','mimetypes:video/mp4'],
             'project_id'    => ['required', 'int', 'exists:projects,id'],
             'name'          => ['required', 'string', 'min:3', 'max:255'],
             'description'   => ['required', 'string'],
-            'info'          => ['string'],
+            'file_clip_name' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+                'max:255'
+            ],
+            'minute' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+            ],
+            'second' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+            ],
+
         ]);
 
         // If user upload Image
 
         $data = $request->except('image', 'video');
 
-        // $proccess = new FileFactory();
-
-        // $proccessImage = $proccess->processImage($request, $file, $data);
-
-        // $proccessVideo = $proccess->processVideo($request, $file, $data);
 
 
         if($request->hasFile('image')) {
@@ -191,6 +173,29 @@ class FileController extends Controller
 
 
         $file->update($data);
+
+        
+
+        // upload file clip
+
+        if($request->hasFile('file_clip_clip')) {
+            $clip = $request->file('file_clip_clip');
+
+            $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
+
+            $clip->storeAs('files/clips', $clipName, [
+                'disk' => 'public'
+            ]);
+
+            FileClip::create([
+                'file_id'   => $file->id, 
+                'name'      => $request->file_clip_name,
+                'clip'      => $clipName, 
+                'minute'    => $request->minute,
+                'second'    => $request->second,
+            ]);
+
+        }
 
         return to_route('dashboard.file.index');
 

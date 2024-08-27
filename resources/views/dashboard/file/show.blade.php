@@ -10,34 +10,17 @@
 <div class="white-board hz-padding">
     <div class="stack-head align-items-end justify-content-between file-controll">
             
-
-            <div class="control d-flex gap-3">
-                
-                <a href="{{ route('dashboard.file.edit', $file->id) }}">
-                    <button class="addBtn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <g fill="none" stroke="white" stroke-width="1.5">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
-                            </g>
-                        </svg>
-                    <span>تعديل الملف</span>
-                    </button>
-                </a>
-
-                <a href="{{ route('dashboard.file_clip.add', $file->id)  }}">
-                    <button class="addBtn" style="background-color: #4caf50">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <g fill="none" stroke="white" stroke-width="1.5">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
-                            </g>
-                        </svg>
-                    <span>اضافه مقطع</span>
-                    </button>
-                </a>
-
-            </div>
+            <a href="{{ route('dashboard.file.edit', $file->id) }}">
+                <button class="addBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="white" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
+                        </g>
+                    </svg>
+                <span>تعديل الملف</span>
+                </button>
+            </a>
 
             <form action="{{ route('dashboard.file.destroy', $file->id) }}" method="POST">
                 @csrf
@@ -77,7 +60,7 @@
                         </video>
                     </div>
                     <div class="text-holder">
-                        {{-- <div class="duration">0:00</div> --}}
+                        <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
                         <div class="desc">{{ $clip->name }}</div>
                     </div>
                 </div>
@@ -97,7 +80,46 @@
         </p>
 
         <div class="row">
-            {!! $file->info !!}
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="directors">
+                    <div class="black">سنة الإصدار : </div>
+                    <div class="blue">{{ $file->release_year }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">اسم المجلد : </div>
+                    <div class="blue">{{ $file->project_category }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">ملاحظات : </div>
+                    <div class="blue">.................................</div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="directors">
+                    <div class="black">مشروع / مستفيد : </div>
+                    <div class="blue">{{ $file->project_beneficiary }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">مدير الأنتاج : </div>
+                    <div class="blue">{{ $file->production_manager }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">مهندس الصوت : </div>
+                    <div class="blue">{{ $file->sound_engineer }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">نوع الشريط : </div>
+                    <div class="blue">{{ $file->tap_type }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">رقم الشريط : </div>
+                    <div class="blue">{{ $file->tap_number }}</div>
+                </div>
+                {{-- <div class="directors">
+                    <div class="black">سيناريو وحوار : </div>
+                    <div class="blue"></div>
+                </div> --}}
+            </div>
         </div>
 
     </div>

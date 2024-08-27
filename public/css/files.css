@@ -71,8 +71,8 @@
 
 .file-card .white-row .img-container {
     height: 350px;
-    flex-grow: 1;
-    /* min-width: 600px; */
+    /* flex-grow: 1; */
+    min-width: 400px;
 }
 
 .file-card .white-row .img-container img {

@@ -27,7 +27,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films = Film::paginate(2);
+        $films = Film::paginate(30);
         $categories = Category::all();
 
         return view('dashboard.film.index', compact('films','categories'));

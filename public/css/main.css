@@ -1322,4 +1322,20 @@ input.input {
     }
 }
 
+
+.settings ul.items li:nth-child(2) h3{
+    color: #808080;
+    border-bottom: 2px solid #808080;
+}
+.settings ul.items li:nth-child(3) h3{
+    color: #808080;
+    border-bottom: 2px solid #808080;
+}
+@media (max-width: 992px) {
+    .settings ul {
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+}
 /* content */

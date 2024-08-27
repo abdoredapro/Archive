@@ -29,16 +29,12 @@
                             <img id="uploaded-image" src="" alt="Uploaded Image"
                                 style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
 
-                            {{-- start image error  --}}
                             
-                            <div class="image-error text-center text-danger"  style="display: none">يرجى وضع صوره</div>
-                            
-                            {{-- end image error  --}}
                         </div>
 
 
                         <div class="text-module">
-                            <div class="one-content">
+                            <div class="one-content text-end">
                                 <h3>اسم الفيلم</h3>
                                 <input type="text" id="movie-name" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
 

@@ -12,15 +12,9 @@ class File extends Model
     use HasFactory;
 
     protected $fillable = [
-        'project_id',
-        'name', 
-        'image',
-        'video', 
-        'description',
-        'info',
-        'hours',
-        'minutes',
-        'seconds',
+        'project_id', 'name', 'image', 'video', 'description', 'info', 'hours',
+        'minutes', 'seconds', 'release_year', 'tap_type', 'production_manager',
+        'tap_number', 'project_beneficiary', 'sound_engineer', 'project_category'
     ];
     
 

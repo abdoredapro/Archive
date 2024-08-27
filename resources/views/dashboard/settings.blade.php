@@ -7,20 +7,19 @@
 @section('content')
 
 <!-- body -->
-<div class="first-white-board hz-padding">
+<div class="first-white-board hz-padding settings">
     
     <div class="d-flex align-items-center justify-space-evenly">
-        <h3 class="title">اعدادات الحساب </h3>
-        @role('Super-admin')
-        <a href="{{ route('dashboard.roles.index') }}" class="me-5 ms-5"><h3 class="title" style="color:#808080; border-bottom:2px solid #808080">الصلاحيات</h3></a>
-        <a href="{{ route('dashboard.users.index') }}"><h3 class="title me-5 ms-5" style="color:#808080; border-bottom:2px solid #808080">الاعضاء</h3></a>
-        @endrole
-        {{-- @role('Super-admin')
-        <a href="{{ route('dashboard.roles.index') }}" class="badge rounded-pill text-bg-primary me-4">الصلاحيات</a>
-        @endrole
-        @role('Super-admin')
-        <a href="{{ route('dashboard.users.index') }}" class="badge rounded-pill text-bg-success me-4"></a>
-        @endrole --}}
+        
+        <ul class="list-unstyled d-flex items">
+            <li class="me-2"><h3 class="title">اعدادات الحساب </h3></li>
+            @role('Super-admin')
+            <li class="me-4"><a href="{{ route('dashboard.roles.index') }}"><h3 class="title">الصلاحيات </h3></a></li>
+            <li class="me-4"><a href="{{ route('dashboard.users.index') }}"><h3 class="title">الاعضاء </h3></a></li>
+            @endrole
+        </ul>
+        
+        
     </div>
     
     @if (Session::has('message'))

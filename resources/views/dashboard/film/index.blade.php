@@ -32,7 +32,7 @@
             @forelse ($films as $film)
                 <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2">
                     <a href="{{ route('dashboard.film.show', $film->id) }}" class="img-container">
-                        <img src="{{ $film->image_url }}" alt="">
+                        <img src="{{ $film->image_url }}" alt="" style="max-width:250px">
                     </a>
                 </div>
             @empty
