@@ -179,21 +179,21 @@ class FileController extends Controller
         // upload file clip
 
         if($request->hasFile('file_clip_clip')) {
-            $clip = $request->file('file_clip_clip');
+            // $clip = $request->file('file_clip_clip');
 
-            $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
+            // $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
 
-            $clip->storeAs('files/clips', $clipName, [
-                'disk' => 'public'
-            ]);
+            // $clip->storeAs('files/clips', $clipName, [
+            //     'disk' => 'public'
+            // ]);
 
-            FileClip::create([
-                'file_id'   => $file->id, 
-                'name'      => $request->file_clip_name,
-                'clip'      => $clipName, 
-                'minute'    => $request->minute,
-                'second'    => $request->second,
-            ]);
+            // FileClip::create([
+            //     'file_id'   => $file->id, 
+            //     'name'      => $request->file_clip_name,
+            //     'clip'      => $clipName, 
+            //     'minute'    => $request->minute,
+            //     'second'    => $request->second,
+            // ]);
 
         }
 

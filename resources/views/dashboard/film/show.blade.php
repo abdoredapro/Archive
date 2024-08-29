@@ -18,6 +18,19 @@
         <a href="{{ route('dashboard.film.edit', $film->id) }}" class="edit">تعديل</a>
     </div>
 
+
+    <div class="footage">
+        <div class="main-header">
+            <h3 class="title">اللقطات</h3>
+        </div>
+        <div class="text-center">
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+
+
     <div class="trailer">
         <div class="stack">
             <img src="{{ $film->image_url }}" alt="" style="width: 250px">
@@ -39,6 +52,51 @@
         
     </div>
 
+
+    <div class="file-describtion-subject">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="directors">
+                    <div class="black">سنة الإصدار : </div>
+                    <div class="blue">{{ $film->release_year }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">اسم المجلد : </div>
+                    <div class="blue">{{ $film->project_category }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">ملاحظات : </div>
+                    <div class="blue">.................................</div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="directors">
+                    <div class="black">مشروع / مستفيد : </div>
+                    <div class="blue">{{ $film->project_beneficiary }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">مدير الأنتاج : </div>
+                    <div class="blue">{{ $film->production_manager }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">مهندس الصوت : </div>
+                    <div class="blue">{{ $film->sound_engineer }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">نوع الشريط : </div>
+                    <div class="blue">{{ $film->tap_type }}</div>
+                </div>
+                <div class="directors">
+                    <div class="black">رقم الشريط : </div>
+                    <div class="blue">{{ $film->tap_number }}</div>
+                </div>
+                {{-- <div class="directors">
+                    <div class="black">سيناريو وحوار : </div>
+                    <div class="blue"></div>
+                </div> --}}
+            </div>
+        </div>
+    </div>
 
 
 </div>

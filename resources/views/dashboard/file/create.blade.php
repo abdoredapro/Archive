@@ -24,18 +24,16 @@
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
                                 accept="image/*" onchange="displayImage(event)" >
                             <div class="custom-button" onclick="document.getElementById('photo').click();">
-                                <p>قم برفع صورة للملف</p>
+                                <p class="up">قم برفع صورة للملف</p>
                             </div>
-                            <img id="uploaded-image" src="" alt="Uploaded Image"
-                                style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
-
-                            {{-- start image error  --}}
+                            
                             
                             @error('image')
                                 <div class="text-center text-danger">{{ $message }}</div>
                             @enderror
                             
                             {{-- end image error  --}}
+
                         </div>
 
 
@@ -78,7 +76,7 @@
                         <input type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
 
                         
-                        <div class="section" onclick="document.getElementById('video').click();">
+                        <div class="section video-section" onclick="document.getElementById('video').click();">
                             <div class="stack-section">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
                                     <g fill="none">
@@ -109,17 +107,16 @@
                         @enderror
                     </div>
     
-                    <div class="uploaded-section">
+                    <div class="uploaded-section uploaded-video">
                         <h3>الملفات التي تم تحمليها</h3>
                         <div class="white-sec">
                             <div class="stack">
-    
                                 <video controls id="uploaded-video" src="" alt="Uploaded Video"
                                 style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
-
                             </div>
                             
                         </div>
+                        <span class="video-remove" style="display: none">X</span>
                     </div>
     
                     <div class="sinario">
@@ -162,11 +159,16 @@
     // to display the upload image
     function displayImage(event) {
         const image = document.getElementById('uploaded-image');
+        let imageC = document.querySelector('.custom-button');
+        let up = document.querySelector('.up');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
-            image.src = e.target.result;
+
+            imageC.style.backgroundImage = `url(${e.target.result})`;
+            
+            up.style.display = 'none';
             image.style.display = 'block';
         };
 
@@ -176,34 +178,38 @@
     }
     function displayVideo(event) {
         const video = document.getElementById('uploaded-video');
+        
+        const uVideo = document.querySelector('.uploaded-video');
+        let videoSection = document.querySelector('.video-section');
+        let closeBtn = document.querySelector('.video-remove');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
+            uVideo.style.display = 'block';
+            videoSection.style.display = 'none';
             video.src = e.target.result;
+            closeBtn.style.display = 'block';
             video.style.display = 'block';
         };
 
         if (file) {
             reader.readAsDataURL(file);
         }
+
+        closeBtn.addEventListener('click', () => {
+            videoSection.style.display = 'block';
+            
+            uVideo.style.display = 'none'
+
+        });
     }
 
 </script>
 
 
 <script>
-    // Initialize MultiSelectTag for categories
-    const medicalsSelect = new MultiSelectTag('category', {
-        rounded: true,    // default true
-        shadow: true,      // default false
-        placeholder: 'اختر الفئة',  // default Search...
-        tagColor: {
-            textColor: '#707B81',
-            borderColor: '#92e681',
-            bgColor: '#C4C4C4',
-        },
-    });
+
 
     // Add event listener to open select on click anywhere on the select box for categories
     document.getElementById('medical').parentElement.addEventListener('click', function () {
@@ -213,21 +219,6 @@
         }
     });
 
-    // to display the upload image
-    function displayImage(event) {
-        const image = document.getElementById('uploaded-image');
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            image.src = e.target.result;
-            image.style.display = 'block';
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
 </script>
 
     {{-- Jquery  --}}
@@ -237,12 +228,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     {{-- Resumable  --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-<script>
-
-
-</script>
 
 
 @endsection

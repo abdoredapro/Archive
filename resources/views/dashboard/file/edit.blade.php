@@ -24,13 +24,10 @@
                             
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
                                 accept="image/*" onchange="displayImage(event)">
-                            <div class="custom-button" onclick="document.getElementById('photo').click();">
-                                <p>قم برفع صورة الملف</p>
+                            <div class="custom-button"  style="background-image:url({{$file->imageUrl()}})"  onclick="document.getElementById('photo').click();">
+                                <p class="d-none">قم برفع صورة الملف</p>
                             </div>
-                            
-                            <img id="uploaded-image" src="{{ $file->imageUrl() }}" alt="Uploaded Image"
-                                style="max-width: 100%; height: auto; margin-top: 10px;">
-
+        
                             {{-- start image error  --}}
                             @error('image')
                             <div class="text-center text-danger">{{ $message }}</div>
@@ -71,7 +68,7 @@
                         <input  type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
 
                         
-                        <div class="section" onclick="document.getElementById('video').click();">
+                        <div class="section video-section" style="display:none" onclick="document.getElementById('video').click();" >
                             <div class="stack-section">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
                                     <g fill="none">
@@ -100,7 +97,7 @@
                         @enderror
                     </div>
     
-                    <div class="uploaded-section">
+                    <div class="uploaded-section uploaded-video">
                         <h3>الملفات التي تم تحمليها</h3>
                         <div class="white-sec">
                             <div class="stack">
@@ -111,6 +108,7 @@
                             </div>
                             
                         </div>
+                        <span class="video-remove">X</span>
                     </div>
     
                     <div class="sinario">
@@ -224,18 +222,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">فئة المشروع</div>
-                                <input class="second-modal-form" type="text" id="cat" name="project_category" value="{{ old('project_category', $file->project_category) }}">
-                            </div>
-                        </div>
                     </div>
-
-
-
-
-
 
                     <div class="modal-footer">
                         <button class="confirm mt-4" type="submit">حفظ</button>
@@ -257,16 +244,18 @@
 
 <script>
     
-
+    let uploadVideo = document.querySelector('.video-section');
 
     // to display the upload image
     function displayImage(event) {
         const image = document.getElementById('uploaded-image');
+        const bgImage = document.querySelector('.custom-button');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
-            image.src = e.target.result;
+            // image.src = e.target.result;
+            bgImage.style.backgroundImage = `url(${e.target.result})`;
             image.style.display = 'block';
         };
 
@@ -278,10 +267,13 @@
 
     function displayVideo(event) {
         const video = document.getElementById('uploaded-video');
+        let UpParent = document.querySelector('.uploaded-video');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
+            UpParent.style.display = 'block';
+            uploadVideo.style.display = 'none';
             video.src = e.target.result;
             video.style.display = 'block';
         };
@@ -314,20 +306,22 @@
         }
     });
 
-    // to display the upload image
-    function displayImage(event) {
-        const image = document.getElementById('uploaded-image');
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            image.src = e.target.result;
-            image.style.display = 'block';
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
 </script>
+
+
+<script>
+    let closeVideo = document.querySelector('.uploaded-video span');
+
+    closeVideo.addEventListener('click', () => {
+        // Upload video section
+        
+        uploadVideo.style.display = 'block';
+        closeVideo.parentElement.style.display = 'none';
+    });
+</script>
+
+
 @endsection
+
+
+    

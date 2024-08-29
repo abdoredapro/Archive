@@ -1338,4 +1338,29 @@ input.input {
         
     }
 }
+
+.custom-button {
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+}
+.uploaded-video {
+    position: relative;
+}
+
+.uploaded-video span {
+    position: absolute;
+    background-color: #066;
+    color: #FFF;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 16px;
+    line-height: 25px;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+
 /* content */

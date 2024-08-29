@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use Illuminate\Validation\Rule;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
 use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
 use Pion\Laravel\ChunkUpload\Handler;
@@ -120,6 +120,23 @@ class FilmController extends Controller
             'image'         => ['image', 'mimes:jpeg,jpg,png,gif,svg'],
             'video'         => ['mimes:mp4','mimetypes:video/mp4'],
             'film_script'   => ['required', 'string'],
+            'file_clip_name' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+                'max:255'
+            ],
+            'minute' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+            ],
+            'second' => [
+                Rule::requiredIf(function () use($request) {
+                    return $request->has('file_clip_clip');
+                }),
+            ],
+
         ]);
 
         // If user upload Image
@@ -166,12 +183,29 @@ class FilmController extends Controller
 
             $data['video']  = $videoName;
         }
-
+    
 
         $film->update($data);
 
-        return to_route('dashboard.film.index');
+        if($request->file('file_clip_clip')) {
 
+            $clip = $request->file('file_clip_clip');
+
+            $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
+
+            $clip->storeAs('films/clips', $clipName, [
+                'disk' => 'public'
+            ]);
+
+            // FilmCl::create([
+            //     'file_id'   => $file->id, 
+            //     'name'      => $request->file_clip_name,
+            //     'clip'      => $clipName, 
+            //     'minute'    => $request->minute,
+            //     'second'    => $request->second,
+            // ]);
+        }
+        return to_route('dashboard.film.index');
 
     }
 

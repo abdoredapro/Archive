@@ -23,23 +23,22 @@
                         <div class="form-group">
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
                                 accept="image/*" onchange="displayImage(event)" >
-                            <div class="custom-button" onclick="document.getElementById('photo').click();">
-                                <p>قم برفع صورة للفيلم</p>
+                            <div class="custom-button" style="background-image:url({{$film->image_url}})" onclick="document.getElementById('photo').click();">
                             </div>
 
-                            <img id="uploaded-image" src="{{ $film->image_url }}" alt="Uploaded Image"
-                                style="max-width: 100%; height: auto; margin-top: 10px;">
+                            {{-- <img id="uploaded-image" src="{{ $film->image_url }}" alt="Uploaded Image"
+                                style="max-width: 100%; height: auto; margin-top: 10px;"> --}}
 
                             {{-- start image error  --}}
-                            
-                            <div class="image-error text-center text-danger"  style="display: none">يرجى وضع صوره</div>
-                            
+                            @error('image')
+                                <div class="text-center text-danger">{{ $message }}</div>
+                            @enderror
                             {{-- end image error  --}}
                         </div>
 
 
                         <div class="text-module">
-                            <div class="one-content">
+                            <div class="one-content text-end">
                                 <h3>اسم الفيلم</h3>
                                 <input type="text" id="movie-name" value="{{ $film->name }}" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
 
@@ -67,8 +66,7 @@
                     <div class="dummy-div">
                         <input type="file" class="form-control hidden-input" id="video" name="video" onchange="displayVideo(event)">
 
-                        
-                        <div class="section" onclick="document.getElementById('video').click();">
+                        <div class="section video-section" style="display:none" onclick="document.getElementById('video').click();">
                             <div class="stack-section">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
                                     <g fill="none">
@@ -96,17 +94,15 @@
                         <div class="video-error text-center text-danger"  style="display: none">يرجى وضع فديو</div>
                     </div>
     
-                    <div class="uploaded-section">
+                    <div class="uploaded-section uploaded-video">
                         <h3>الملفات التي تم تحمليها</h3>
                         <div class="white-sec">
                             <div class="stack">
-    
                                 <video controls id="uploaded-video" src="{{ $film->video_url }}" alt="Uploaded Video"
                                 style="max-width: 100%; height: auto; margin-top: 10px;">
-
                             </div>
-                            
                         </div>
+                        <span class="video-remove">X</span>
                     </div>
     
                     <div class="sinario">
@@ -127,8 +123,112 @@
                         <div class="description-error text-center text-danger"  style="display: none">يرجى وضع تفاصيل الفيلم</div>
                     </div>
 
+
+                    <hr>
+                    {{-- Start Upload Shorts  --}}
+                    <div class="last-section">
+                        <h3 class="mb-4">رفع اللقطات</h3>
+                        <div class="stack">
+                            <div class="feat1 text-end">
+                                <div>اسم المقطع الصوتي</div>
+                                <input type="text" id="first-sec-movie" name="file_clip_name"
+                                    placeholder="المقطع الأول">
+                                @error('file_clip_name')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            
+
+                            <div class="feat1 text-end">
+                                <div>رفع الملف</div>
+                                <input type="file" class="hidden-input" id="upload-first-sec-movie"
+                                    name="file_clip_clip" >
+                                <div class="white-field"
+                                    onclick="document.getElementById('upload-first-sec-movie').click();">
+
+                                </div>
+                            </div>
+
+                            <div class="feat1 text-end">
+                                <div>الدقيقه</div>
+                                <input type="text" id="first-sec-movie" name="minute"
+                                    placeholder="الدقيقه" >
+                                    @error('minute')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+
+                            <div class="feat1 text-end">
+                                <div>الثانيه</div>
+                                <input type="text" id="first-sec-movie" name="second"
+                                    placeholder="الثانيه">
+                                    @error('second')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                    @enderror
+                            </div>
+
+                            
+                        </div>
+
+
+                    </div>
+                    {{-- End Upload Shorts  --}}
+                    <hr>
+
+
+                    <div class="row g-4">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">سنة الاصدار</div>
+                                <input class="second-modal-form" type="text" id="release-year" name="release_year"
+                                    placeholder="2024" value="{{ old('release_year', $film->release_year) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">نوع الشريط</div>
+                                <input class="second-modal-form" type="text" id="tape-type" name="tap_type" value="{{ old('release_year', $film->release_year) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مدير الانتاج</div>
+                                <input class="second-modal-form" type="text" id="director-name" name="production_manager"
+                                    placeholder="حسن يوسف" value="{{ old('production_manager', $film->production_manager) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">رقم الشريط</div>
+                                <input class="second-modal-form" type="text" id="tape-number" name="tap_number" value="{{ old('tap_number', $film->tap_number) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مشروع/ مستفيد</div>
+                                <input class="second-modal-form" type="text" id="benefit" name="project_beneficiary"
+                                    placeholder="حسن يوسف" value="{{ old('project_beneficiary', $film->project_beneficiary) }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">مهندس الصوت</div>
+                                <input class="second-modal-form" type="text" id="sound-eng" name="sound_engineer" value="{{ old('sound_engineer', $film->sound_engineer) }}">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-6">
+                            <div class="collector text-end">
+                                <div class="main-head">فئة المشروع</div>
+                                <input class="second-modal-form" type="text" id="cat" name="project_category" value="{{ old('project_category', $film->project_category) }}">
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="modal-footer">
-                        <button class="confirm" type="submit">حفظ</button>
+                        <button class="confirm mt-4" type="submit">حفظ</button>
                         {{-- <button class="cancel" type="button" data-bs-dismiss="modal">الغاء</button> --}}
                     </div>
 
@@ -144,16 +244,19 @@
 
 
 <script>
+    let uploadVideo = document.querySelector('.video-section');
     
     // to display the upload image
     function displayImage(event) {
+        let bgImage = document.querySelector('.custom-button');
         const image = document.getElementById('uploaded-image');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
-            image.src = e.target.result;
-            image.style.display = 'block';
+            bgImage.style.backgroundImage = `url(${e.target.result})`;
+            // image.src = e.target.result;
+            // image.style.display = 'block';
         };
 
         if (file) {
@@ -162,10 +265,13 @@
     }
     function displayVideo(event) {
         const video = document.getElementById('uploaded-video');
+        let UpParent = document.querySelector('.uploaded-video');
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
+            UpParent.style.display = 'block';
+            uploadVideo.style.display = 'none';
             video.src = e.target.result;
             video.style.display = 'block';
         };
@@ -174,21 +280,10 @@
             reader.readAsDataURL(file);
         }
     }
-
 </script>
 
 <script>
-    // Initialize MultiSelectTag for categories
-    const medicalsSelect = new MultiSelectTag('category', {
-        rounded: true,    // default true
-        shadow: true,      // default false
-        placeholder: 'اختر الفئة',  // default Search...
-        tagColor: {
-            textColor: '#707B81',
-            borderColor: '#92e681',
-            bgColor: '#C4C4C4',
-        },
-    });
+
 
     // Add event listener to open select on click anywhere on the select box for categories
     document.getElementById('medical').parentElement.addEventListener('click', function () {
@@ -198,21 +293,7 @@
         }
     });
 
-    // to display the upload image
-    function displayImage(event) {
-        const image = document.getElementById('uploaded-image');
-        const file = event.target.files[0];
-        const reader = new FileReader();
 
-        reader.onload = function (e) {
-            image.src = e.target.result;
-            image.style.display = 'block';
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
 </script>
 
     {{-- Jquery  --}}
@@ -223,6 +304,17 @@
     {{-- Resumable  --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<script>
+    
+    let closeVideo = document.querySelector('.uploaded-video span');
+
+    closeVideo.addEventListener('click', () => {
+        // Upload video section
+        
+        uploadVideo.style.display = 'block';
+        closeVideo.parentElement.style.display = 'none';
+    });
+</script>
 
 
 @endsection
