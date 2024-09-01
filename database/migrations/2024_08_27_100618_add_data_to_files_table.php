@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('release_year')->nullable();
             $table->string('tap_type')->nullable();
             $table->string('production_manager')->nullable();
-            $table->integer('tap_number')->nullable();
+            $table->string('tap_number')->nullable();
             $table->string('project_beneficiary')->nullable();
             $table->string('sound_engineer')->nullable();
             $table->string('project_category')->nullable();

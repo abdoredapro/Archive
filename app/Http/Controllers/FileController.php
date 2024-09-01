@@ -10,6 +10,7 @@ use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -36,7 +37,7 @@ class FileController extends Controller
     public function create()
     {
         $projects = Project::all();
-        
+
         return view('dashboard.file.create', compact('projects'));
     }
 
@@ -64,7 +65,7 @@ class FileController extends Controller
             'disk' => 'public',
         ]);
 
-            
+
         File::create([
             'project_id'   => $request->project_id,
             'name'          => $request->name,
@@ -73,9 +74,8 @@ class FileController extends Controller
             'description'   => $request->description,
         ]);
 
-        
-        return to_route('dashboard.file.index');
 
+        return to_route('dashboard.file.index');
     }
 
     /**
@@ -102,24 +102,24 @@ class FileController extends Controller
     public function update(Request $request, File $file)
     {
         $request->validate([
-            'image'         => ['image', 'mimes:jpg,jpeg,png,gif,svg'], 
-            'video'         => ['mimes:mp4','mimetypes:video/mp4'],
+            'image'         => ['image', 'mimes:jpg,jpeg,png,gif,svg'],
+            'video'         => ['mimes:mp4', 'mimetypes:video/mp4'],
             'project_id'    => ['required', 'int', 'exists:projects,id'],
             'name'          => ['required', 'string', 'min:3', 'max:255'],
             'description'   => ['required', 'string'],
             'file_clip_name' => [
-                Rule::requiredIf(function () use($request) {
+                Rule::requiredIf(function () use ($request) {
                     return $request->has('file_clip_clip');
                 }),
                 'max:255'
             ],
             'minute' => [
-                Rule::requiredIf(function () use($request) {
+                Rule::requiredIf(function () use ($request) {
                     return $request->has('file_clip_clip');
                 }),
             ],
             'second' => [
-                Rule::requiredIf(function () use($request) {
+                Rule::requiredIf(function () use ($request) {
                     return $request->has('file_clip_clip');
                 }),
             ],
@@ -132,14 +132,14 @@ class FileController extends Controller
 
 
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
 
 
             // check if file has image then remove it.
-            if($file->image) {
+            if ($file->image) {
                 Storage::disk('public')->delete(FileStatus::IMAGE . $file->image);
             }
-            
+
 
             // uploading Image
             $image = $request->file('image');
@@ -149,14 +149,14 @@ class FileController extends Controller
             $image->storeAs('files/images', $imageName, [
                 'disk' => 'public'
             ]);
-        
+
             $data['image']  = $imageName;
         }
 
 
-        if($request->hasFile('video')) {
+        if ($request->hasFile('video')) {
 
-            if($file->image) {
+            if ($file->image) {
                 Storage::disk('public')->delete(FileStatus::VIDEO . $file->video);
             }
 
@@ -174,11 +174,11 @@ class FileController extends Controller
 
         $file->update($data);
 
-        
+
 
         // upload file clip
 
-        if($request->hasFile('file_clip_clip')) {
+        if ($request->hasFile('file_clip_clip')) {
             // $clip = $request->file('file_clip_clip');
 
             // $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
@@ -198,9 +198,6 @@ class FileController extends Controller
         }
 
         return to_route('dashboard.file.index');
-
-
-
     }
 
     /**
@@ -210,10 +207,9 @@ class FileController extends Controller
     {
         $file->delete();
 
-        Storage::disk('public')->delete('files/images/'.$file->image);
-        Storage::disk('public')->delete('files/videos/'.$file->video);
+        Storage::disk('public')->delete('files/images/' . $file->image);
+        Storage::disk('public')->delete('files/videos/' . $file->video);
 
         return to_route('dashboard.file.index');
     }
-
 }

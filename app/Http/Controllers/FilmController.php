@@ -7,6 +7,7 @@ use App\Http\Requests\FilmRequest;
 use App\Jobs\UploadVideo;
 use App\Models\Category;
 use App\Models\Film;
+use App\Models\FilmClip;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -197,13 +198,11 @@ class FilmController extends Controller
                 'disk' => 'public'
             ]);
 
-            // FilmCl::create([
-            //     'file_id'   => $file->id, 
-            //     'name'      => $request->file_clip_name,
-            //     'clip'      => $clipName, 
-            //     'minute'    => $request->minute,
-            //     'second'    => $request->second,
-            // ]);
+            FilmClip::create([
+                'film_id'   => $film->id,
+                'name'      => $request->file_clip_name,
+                'clip'      => $clipName, 
+            ]);
         }
         return to_route('dashboard.film.index');
 

@@ -17,7 +17,7 @@ class CategoryController extends Controller
 
         $categories = Category::withCount('films')->get();
 
-        
+
         return view('dashboard.category.index', compact('categories'));
     }
 
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        
+
         return view('dashboard.category.create');
     }
 
@@ -45,9 +45,9 @@ class CategoryController extends Controller
             'message' => 'Category Added Successfully',
             'alert-type' => 'success'
         );
-        
+
         return redirect()->route('dashboard.category.index')
-        ->with($notfication);
+            ->with($notfication);
     }
 
     /**
@@ -78,7 +78,6 @@ class CategoryController extends Controller
         $category->update($request->all());
 
         return redirect()->route('dashboard.category.index');
-
     }
 
     /**

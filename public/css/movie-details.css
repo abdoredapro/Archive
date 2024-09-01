@@ -227,10 +227,10 @@
 /* modal */
 
 .stack {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    gap: 30px; */
 }
 
 .stack .video {

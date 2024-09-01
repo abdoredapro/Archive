@@ -12,7 +12,7 @@
 
 
 <!-- video -->
-<div class="white-board hz-padding">
+<div class="white-board hz-padding film-show">
 
     <div class="pos-btn">
         <a href="{{ route('dashboard.film.edit', $film->id) }}" class="edit">تعديل</a>
@@ -21,7 +21,7 @@
 
     <div class="footage">
         <div class="main-header">
-            <h3 class="title">اللقطات</h3>
+            {{-- <h3 class="title">اللقطات</h3> --}}
         </div>
         <div class="text-center">
             <div class="row">
@@ -44,9 +44,32 @@
             </div>
         </div> 
         <div class="video">
-            <video width="450px" height="100%" style="max-width: 100%; min-width:450px" controls muted>
+            <video width="450px" height="100%" style="max-width: 100%;" controls muted>
                 <source src="{{ $film->video_url }}" type="video/mp4" />
             </video>
+
+            {{-- <video
+            id="my-video"
+            class="video-js"
+            controls
+            preload="auto"
+            width="640"
+            height="264"
+            poster="{{ $film->image_url }}"
+            data-setup="{}"
+            width="450px" height="100%"
+            style="max-width: 100%; min-width:450px"
+    >
+    <source src="{{ $film->video_url }}" type="video/mp4" />
+    <source src="{{ $film->video_url }}" type="video/webm" />
+    <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+            >supports HTML5 video</a
+        >
+    </p>
+  </video> --}}
 
         </div>
         

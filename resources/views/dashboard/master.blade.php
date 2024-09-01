@@ -15,7 +15,7 @@
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
 	<script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>
-    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+    <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
 
     @yield('style')
 </head>
@@ -208,7 +208,7 @@ deleteButtons.forEach(button => {
     </script>
     
     
-
+    <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
     @yield('script')
 </body>
 

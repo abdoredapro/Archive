@@ -9,6 +9,7 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['auth'],
     'as' => 'dashboard.',
-], function() {
+], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 
     Route::resource('/category', CategoryController::class);
@@ -34,18 +35,18 @@ Route::group([
     // add file clip
 
     Route::get('{file}/clip', [FileClipController::class, 'create'])
-    ->name('file_clip.add');
+        ->name('file_clip.add');
 
     Route::post('{file}/clip', [FileClipController::class, 'store'])
-    ->name('file_clip.store');
+        ->name('file_clip.store');
 
     // User settings page
     Route::get('user', [DashboardController::class, 'settings'])
-    ->name('settings');
+        ->name('settings');
 
     // Updade User Profile
     Route::put('user/{user_id}', [DashboardController::class, 'update_info'])
-    ->name('update_profile');
+        ->name('update_profile');
 
     Route::resource('/roles', RolesController::class);
 
@@ -54,8 +55,10 @@ Route::group([
     Route::resource('/projects', ProjectController::class);
 
     Route::get('/reports', [ReportsController::class, 'index'])
-    ->name('reports.index'); 
+        ->name('reports.index');
 
+    Route::get('/search', [SearchController::class, 'search'])
+        ->name('search');
 });
 
 
