@@ -15,6 +15,7 @@ class CategoryController extends Controller
     {
         Gate::authorize('category.view');
 
+        
         $categories = Category::withCount('films')->get();
 
 

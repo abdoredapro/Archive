@@ -26,7 +26,12 @@ class FileController extends Controller
      */
     public function index()
     {
-        $files = File::with('project')->paginate(3);
+        $query = File::query();
+
+        if($project_id = request()->query('project')) {
+            $query->where('project_id', $project_id);
+        }
+        $files = $query->paginate(4);
 
         return view('dashboard.file.index', compact('files'));
     }

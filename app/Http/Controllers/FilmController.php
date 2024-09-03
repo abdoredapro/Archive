@@ -28,10 +28,16 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films = Film::paginate(30);
-        $categories = Category::all();
 
-        return view('dashboard.film.index', compact('films','categories'));
+        $query = Film::query();
+
+        if(request()->query('category')) {
+            $query->where('category_id', request()->query('category'));
+        }
+        
+        $films = $query->paginate(20);
+
+        return view('dashboard.film.index', compact('films'));
     }
 
     /**
@@ -95,7 +101,8 @@ class FilmController extends Controller
      */
     public function show($id)
     {
-        $film = Film::with('category')->findOrFail($id);
+        $film = Film::with('category', 'clips')->findOrFail($id);
+
 
         return view('dashboard.film.show', compact('film'));
     }
@@ -201,7 +208,9 @@ class FilmController extends Controller
             FilmClip::create([
                 'film_id'   => $film->id,
                 'name'      => $request->file_clip_name,
-                'clip'      => $clipName, 
+                'clip'      => $clipName,
+                'minute'    => $request->minute,
+                'second'    => $request->second,
             ]);
         }
         return to_route('dashboard.film.index');

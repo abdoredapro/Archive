@@ -19,16 +19,7 @@
     </div>
 
 
-    <div class="footage">
-        <div class="main-header">
-            {{-- <h3 class="title">اللقطات</h3> --}}
-        </div>
-        <div class="text-center">
-            <div class="row">
-
-            </div>
-        </div>
-    </div>
+    
 
 
     <div class="trailer">
@@ -48,33 +39,13 @@
                 <source src="{{ $film->video_url }}" type="video/mp4" />
             </video>
 
-            {{-- <video
-            id="my-video"
-            class="video-js"
-            controls
-            preload="auto"
-            width="640"
-            height="264"
-            poster="{{ $film->image_url }}"
-            data-setup="{}"
-            width="450px" height="100%"
-            style="max-width: 100%; min-width:450px"
-    >
-    <source src="{{ $film->video_url }}" type="video/mp4" />
-    <source src="{{ $film->video_url }}" type="video/webm" />
-    <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a
-        web browser that
-        <a href="https://videojs.com/html5-video-support/" target="_blank"
-            >supports HTML5 video</a
-        >
-    </p>
-  </video> --}}
+            
 
         </div>
         
     </div>
 
+    <x-shorts :clips='$film->clips' />
 
     <div class="file-describtion-subject">
         <div class="row">

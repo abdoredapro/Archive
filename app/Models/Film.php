@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -49,6 +50,20 @@ class Film extends Model
         );
     }
 
+    public function clips()
+    {
+        return $this->hasMany(FilmClip::class, 'film_id');
+    }
+
+
+    protected static function booted()
+    {
+        static::addGlobalScope('filter', function (Builder $builder) {
+            if (request()->query('release_year')) {
+                $builder->where('release_year', request()->query('release_year'));
+            }
+        });
+    }
 
 
 }

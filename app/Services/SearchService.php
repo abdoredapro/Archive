@@ -25,4 +25,11 @@ class SearchService
 
         return $files;
     }
+
+    public function getAll($search) {
+
+        $this->getFilms($search);
+        
+        $this->getFiles($search);
+    }
 }

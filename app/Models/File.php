@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -39,5 +40,14 @@ class File extends Model
 
     public function clips() {
         return $this->hasMany(FileClip::class, 'file_id');
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('filter', function(Builder $builder) {
+            if(request()->query('release_year')) {
+                $builder->where('release_year', request()->query('release_year'));
+            }
+        });
     }
 }

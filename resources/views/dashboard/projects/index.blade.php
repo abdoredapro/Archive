@@ -41,7 +41,7 @@
                     >
                     <div class="stack">
                         <div class="feat">
-                            <span>{{ $project->name }}</span>
+                            <span><a href="{{ route('dashboard.file.index') }}?project={{$project->id}}" class="text-white">{{ $project->name }}</a></span>
                             <span class="number">{{ $project->files_count }}</span>
                         </div>
                     </div>

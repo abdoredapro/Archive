@@ -42,7 +42,7 @@
                     <div class="stack">
                         <img src="{{ asset('assets/video.png') }}" alt="">
                         <div class="feat">
-                            <span>{{ $category->name }}</span>
+                            <span><a href="{{ route('dashboard.film.index') }}?category={{$category->id}}" class="text-white">{{ $category->name }}</a></span>
                             <span class="number">{{ $category->films_count }}</span>
                         </div>
                     </div>
