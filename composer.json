@@ -10,6 +10,7 @@
         "laravel/fortify": "^1.23",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "livewire/livewire": "^3.5",
         "pion/laravel-chunk-upload": "^1.5",
         "spatie/laravel-permission": "^6.9"
     },
@@ -28,6 +29,9 @@
             "Database\\Seeders\\": "database/seeders/"
         }
     },
+    "files": [
+        "app/helper.php"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

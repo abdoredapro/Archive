@@ -10,33 +10,29 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-
     public function search(SearchService $searchService, Request $request)
     {
+        $type = $request->get('type');
 
-        $search = $request->search;
+        $request->validate([
+            'keyword' => 'nullable|string',
+            'release_year' => 'nullable|integer',
+            'from_date' => 'nullable|date',
+            'to_date' => 'nullable|date',
+            'project_category' => 'nullable|string',
+        ]);
 
-        $type = request()->query('type');
+        $query = $request->toArray();
 
-            if ($type == 'file') {
-                $files = File::whereAny(['name', 'description'], 'like', "%$search%")
-                    ->where('release_year', request()->query('release_year'))
-                    ->get();
-            } else if ($type == 'film') {
-                $films = Film::whereAny(['name', 'film_script'], 'like', "%$search%")
-                    ->where('release_year', request()->query('release_year'))
-                    ->get();
-            } else {
-                $files = File::whereAny(['name', 'description'], 'like', "%$search%")
-                    ->where('release_year', request()->query('release_year'))
-                    ->get();
-                
-                $films = Film::whereAny(['name', 'film_script'], 'like', "%$search%")
-                    ->where('release_year', request()->query('release_year'))
-                    ->get();
-            }
-
-
+        if ($type === 'films') {
+            $films = $searchService->searchFilms($query);
+        } elseif ($type === 'files') {
+            $files = $searchService->searchFiles($query);
+        } else {
+            $results = $searchService->search($query);
+            $films = $results['films'];
+            $files = $results['files'];
+        }
 
         return view('dashboard.search', [
             'films' => $films ?? collect([]),

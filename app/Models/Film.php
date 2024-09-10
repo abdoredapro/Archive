@@ -12,15 +12,15 @@ use Illuminate\Support\Str;
 
 class Film extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'category_id', 
+        'category_id',
         'name',
-        'image', 
+        'image',
         'video',
         'film_script',
+        'upload_status',
         'info',
+        'deleted_at',
         'release_year',
         'tap_type',
         'production_manager',
@@ -28,25 +28,28 @@ class Film extends Model
         'project_beneficiary',
         'sound_engineer',
         'project_category',
+        'image_url',
+        'video_url',
     ];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
-    
+
     protected function imageUrl(): Attribute
     {
-        
+
         return Attribute::make(
-            get: fn () => asset('/storage/films/images/'.$this->image),
+            get: fn() => asset('/storage/films/images/' . $this->image),
         );
     }
 
     protected function videoUrl(): Attribute
     {
-        
+
         return Attribute::make(
-            get: fn () => asset('/storage/films/videos/'.$this->video),
+            get: fn() => asset('/storage/films/videos/' . $this->video),
         );
     }
 

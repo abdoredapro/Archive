@@ -59,6 +59,9 @@ Route::group([
 
     Route::get('/search', [SearchController::class, 'search'])
         ->name('search');
+
+    Route::view('/advanced-search', 'dashboard.search.advanced')
+        ->name('advanced-search');
 });
 
 

@@ -1,27 +1,29 @@
 <div class="header">
     <div class="items d-flex align-items-center" style="width: 100%">
         <div class="search-container">
-            <form id="search" action="{{ route('dashboard.search') }}" class="d-flex align-items-center justify-content-center"> 
+            <form id="search" action="{{ route('dashboard.search') }}" method="GET"
+                  class="d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" name="search" value="{{ request()->query('search') }}" placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." />
-                <select name="type" id="" class="form-control">
-                    <option value="all">الكل</option>
-                    <option value="film">الافلام</option>
-                    <option value="file">الملفات</option>
-                </select>
-                <input type="text" name="release_year" value="{{ request()->query('release_year') }}" class="form-control border" placeholder="ادخل السنه" style="    height: 37px;">
+
+                <input type="text" name="keyword" value="{{ request('keyword') }}"
+                       placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." class="form-control"/>
             </form>
+
+            <div>
+                <button type="submit" class="btn btn-secondary" onclick="submitForm()">
+                    بحث سريع
+                </button>
+
+                <a href="{{ route('dashboard.advanced-search') }}" class="btn btn-primary">
+                    البحث المتقدم
+                </a>
+            </div>
         </div>
-        <input type="submit" value="بحث" class="search-input" onclick="submitForm()">
     </div>
 
 
     <div class="avatar">
-        @php
-            $user = Auth::user();
-        @endphp
-        <img src="{{ $user->imageUrl() }}" />
-        
+        <img src="{{ auth()->user()->imageUrl() }}" alt="avatar"/>
     </div>
 </div>
 
