@@ -144,6 +144,7 @@ class FilmController extends Controller
                     return $request->has('file_clip_clip');
                 }),
             ],
+            'foot_description' => ['nullable', 'string'],
 
         ]);
 
@@ -211,8 +212,11 @@ class FilmController extends Controller
                 'clip'      => $clipName,
                 'minute'    => $request->minute,
                 'second'    => $request->second,
+                'description' => $request->foot_description
             ]);
         }
+
+        
         return to_route('dashboard.film.index');
 
     }

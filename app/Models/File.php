@@ -32,6 +32,10 @@ class File extends Model
         'project_category',
     ];
 
+    protected $with = [
+        'clips'
+    ];
+
 
     public function project(): BelongsTo
     {

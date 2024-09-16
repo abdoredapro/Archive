@@ -96,7 +96,8 @@ class FileController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(File $file)
-    {
+    {   
+        
         $projects = Project::all();
         return view('dashboard.file.edit', compact('file', 'projects'));
     }
@@ -128,6 +129,7 @@ class FileController extends Controller
                     return $request->has('file_clip_clip');
                 }),
             ],
+            'foot_description' => ['nullable', 'string'],
 
         ]);
 
@@ -184,21 +186,23 @@ class FileController extends Controller
         // upload file clip
 
         if ($request->hasFile('file_clip_clip')) {
-            // $clip = $request->file('file_clip_clip');
 
-            // $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
+            $clip = $request->file('file_clip_clip');
 
-            // $clip->storeAs('files/clips', $clipName, [
-            //     'disk' => 'public'
-            // ]);
+            $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
 
-            // FileClip::create([
-            //     'file_id'   => $file->id, 
-            //     'name'      => $request->file_clip_name,
-            //     'clip'      => $clipName, 
-            //     'minute'    => $request->minute,
-            //     'second'    => $request->second,
-            // ]);
+            $clip->storeAs('files/clips', $clipName, [
+                'disk' => 'public'
+            ]);
+
+            FileClip::create([
+                'file_id'   => $file->id, 
+                'name'      => $request->file_clip_name,
+                'clip'      => $clipName, 
+                'minute'    => $request->minute,
+                'second'    => $request->second,
+                'description' =>  $request->foot_description,
+            ]);
 
         }
 

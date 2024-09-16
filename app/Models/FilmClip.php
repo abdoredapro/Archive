@@ -15,7 +15,8 @@ class FilmClip extends Model
         'name',
         'clip',
         'minute',
-        'second'
+        'second',
+        'description'
     ];
 
     public function clipUrl(): string

@@ -129,45 +129,54 @@
                     <div class="last-section">
                         <h3 class="mb-4">رفع اللقطات</h3>
                         <div class="stack">
-                            <div class="feat1 text-end">
-                                <div>اسم المقطع الصوتي</div>
-                                <input type="text" id="first-sec-movie" name="file_clip_name"
-                                    placeholder="المقطع الأول">
-                                @error('file_clip_name')
-                                    <div class="text-center text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            
-
-                            <div class="feat1 text-end">
-                                <div>رفع الملف</div>
-                                <input type="file" class="hidden-input" id="upload-first-sec-movie"
-                                    name="file_clip_clip" >
-                                <div class="white-field"
-                                    onclick="document.getElementById('upload-first-sec-movie').click();">
-
-                                </div>
-                            </div>
-
-                            <div class="feat1 text-end">
-                                <div>الدقيقه</div>
-                                <input type="text" id="first-sec-movie" name="minute"
-                                    placeholder="الدقيقه" >
-                                    @error('minute')
-                                    <div class="text-center text-danger">{{ $message }}</div>
+                            <div class="row">
+                                <div class="col-md-4 feat1 text-end mt-2">
+                                    <div>اسم المقطع الصوتي</div>
+                                    <input type="text" id="first-sec-movie" name="file_clip_name"
+                                        placeholder="المقطع الأول">
+                                    @error('file_clip_name')
+                                        <div class="text-center text-danger">{{ $message }}</div>
                                     @enderror
-                            </div>
+                                </div>
+                            
+                                <div class="col-md-4 feat1 text-end mt-2">
+                                    <div>رفع الملف</div>
+                                    <input type="file" class="hidden-input" id="upload-first-sec-movie"
+                                        name="file_clip_clip" >
+                                    <div class="white-field"
+                                        onclick="document.getElementById('upload-first-sec-movie').click();">
 
-                            <div class="feat1 text-end">
-                                <div>الثانيه</div>
-                                <input type="text" id="first-sec-movie" name="second"
-                                    placeholder="الثانيه">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 feat1 text-end mt-2">
+                                    <div>الدقيقه</div>
+                                    <input type="text" id="first-sec-movie" name="minute"
+                                        placeholder="الدقيقه" >
+                                        @error('minute')
+                                        <div class="text-center text-danger">{{ $message }}</div>
+                                        @enderror
+                                </div>
+
+                                <div class=" col-md-4 feat1 text-end mt-2">
+                                    <div>الثانيه</div>
+                                    <input type="text" id="first-sec-movie" name="second"
+                                        placeholder="الثانيه">
                                     @error('second')
                                     <div class="text-center text-danger">{{ $message }}</div>
                                     @enderror
-                            </div>
+                                </div>
 
+                                <div class="col-md-12 feat1 text-end mt-2">
+                                    <div>وصف المقطع</div>
+                                    <textarea rows="4" cols="50" name="foot_description" id="sinario" placeholder="وصف المقطع"></textarea>
+                                    @error('foot_description')
+                                    <div class="text-center text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                            </div>
                             
                         </div>
 

@@ -12,7 +12,8 @@
 <div class="text-center hz-padding">
     <div class="row row-gap-3">
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="box orange">
+            <a href="{{ route('dashboard.film.index') }}">
+              <div class="box orange">
                 <div class="stack">
                     <div class="icon-background">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
@@ -25,8 +26,10 @@
                 </div>
                 <p class="card-text">{{ $films_count }}</p>
             </div>
+            </a>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+          <a href="{{ route('dashboard.projects.index') }}">
             <div class="box blue">
                 <div class="stack">
                     <div class="icon-background">
@@ -39,9 +42,11 @@
                 </div>
                 <p class="card-text">{{ $projects->count() }}</p>
             </div>
+          </a>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="box green">
+            <a href="{{ route('dashboard.file.index') }}">
+              <div class="box green">
                 <div class="stack">
                     <div class="icon-background">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
@@ -52,10 +57,12 @@
                     <h4 class="card-title">عدد الملفات</h4>
                 </div>
                 <p class="card-text">{{ $files }}</p>
-            </div>
+              </div>
+            </a>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
-            <div class="box pink">
+            <a href="{{ route('dashboard.category.index') }}">
+              <div class="box pink">
                 <div class="stack">
                     <div class="icon-background">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 32 32">
@@ -69,6 +76,7 @@
                 </div>
                 <p class="card-text">{{ $category }}</p>
             </div>
+            </a>
         </div>
     </div>
 </div>

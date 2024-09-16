@@ -45,7 +45,7 @@
         
     </div>
 
-    <x-shorts :clips='$film->clips' />
+    <x-shorts :clips='$film->clips' :film='$film' />
 
     <div class="file-describtion-subject">
         <div class="row">

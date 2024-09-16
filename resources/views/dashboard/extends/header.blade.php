@@ -2,14 +2,14 @@
     <div class="items d-flex align-items-center" style="width: 100%">
         <div class="search-container">
             <form id="search" action="{{ route('dashboard.search') }}" method="GET"
-                  class="d-flex align-items-center justify-content-between">
+                class="d-flex align-items-center justify-content-between">
                 <i class="fa-solid fa-magnifying-glass"></i>
 
                 <input type="text" name="keyword" value="{{ request('keyword') }}"
-                       placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." class="form-control"/>
+                    placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." class="form-control"/>
             </form>
 
-            <div>
+            <div class="d-md-flex">
                 <button type="submit" class="btn btn-secondary" onclick="submitForm()">
                     بحث سريع
                 </button>

@@ -2,7 +2,7 @@
     <div class="stack">
         <div class="stack-header">
             <h4>الملفات</h4>
-            <p>ملفات في لوحة التحكم</p>
+            <p>الملفات المقترحه</p>
         </div>
         <div class="show-all">
             <a href="{{ route('dashboard.file.index') }}">عرض الكل</a>

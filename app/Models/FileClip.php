@@ -12,7 +12,8 @@ class FileClip extends Model
     use HasFactory;
 
     protected $fillable = [
-        'file_id', 'name', 'clip', 'minute', 'second'
+        'file_id', 'name', 'clip', 'minute', 'second',
+        'description'
     ];
 
     public function file(): BelongsTo {

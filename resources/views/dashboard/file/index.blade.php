@@ -62,8 +62,10 @@
                             </button>
                         </a>
                         <button class="download">
-                            <i class="fa-solid fa-cloud-arrow-down"></i>
-                            <a href="{{ $file->VideoUrl() }}" download>تحميل</a>
+                            <a href="{{ $file->VideoUrl() }}" download>
+                                <i class="fa-solid fa-cloud-arrow-down"></i>
+                                <a href="{{ $file->VideoUrl() }}" download>تحميل</a>
+                            </a>
                         </button>
                     </div>
                 </div>

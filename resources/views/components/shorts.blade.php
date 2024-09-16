@@ -9,12 +9,12 @@
         <div class="text-center">
             <div class="row">
                 @foreach ($clips as $clip)
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                    <div class="">
-                        <video style="cursor: pointer; max-width:100%" id="clip" controls crossorigin playsinline  max-width="100%" width="300px" height="180px">
-                            <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
-                        </video>
-                    </div>
+                <div class="col-md-3">
+
+                    <video style="cursor: pointer; max-width:100%;width:50px" id="clip" controls  poster="{{ $film->image_url }}" max-width="100%" width="300px" height="180px">
+                        <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
+                    </video>
+
                     <div class="text-holder">
                         <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
                         <div class="desc">{{ $clip->name }}</div>
@@ -23,4 +23,4 @@
                 @endforeach
             </div>
         </div>
-    </div>
+</div>
