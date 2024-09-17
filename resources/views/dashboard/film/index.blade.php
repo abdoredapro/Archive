@@ -10,14 +10,14 @@
     <div class="stack">
         <h3 class="title">أفلام</h3>
         <a href="{{ route('dashboard.film.create') }}">
-            <button class="addBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <button class="addBtn custom" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <g fill="none" stroke="white" stroke-width="1.5">
                         <circle cx="12" cy="12" r="10" />
                         <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3" />
                     </g>
-                </svg>
-                <span>اضافة فيلم</span>
+                </svg> --}}
+                <span class="text-dark">اضافة فيلم</span>
             </button>
         </a>
     </div>

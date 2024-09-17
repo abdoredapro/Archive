@@ -77,15 +77,15 @@
 
         <div class="card-body">
             <div class="row g-4">
-                @if($films->isNotEmpty() || $files->isNotEmpty())
+                @if($films->isNotEmpty() && $files->isNotEmpty())
                     @foreach($films as $film)
                         <div class="col-md-3">
                             <div class="card" style="height: 100%;">
                                 <a href="{{ route('dashboard.film.show', $film->id) }}">
                                     <img src="{{ $film->image_url }}"
-                                         class="card-img-top"
-                                         alt="{{ $film->name }}"
-                                         style="height: 400px; object-fit: cover; width: 100%;"
+                                        class="card-img-top"
+                                        alt="{{ $film->name }}"
+                                        style="height: 400px; object-fit: cover; width: 100%;"
                                     />
                                 </a>
                                 <div class="card-footer" id="card-footer">
@@ -104,9 +104,9 @@
                             <div class="card" style="height: 100%;">
                                 <a href="{{ route('dashboard.file.show', $file->id) }}">
                                     <img src="{{ $file->imageUrl() }}"
-                                         class="card-img-top"
-                                         alt="{{ $file->name }}"
-                                         style="height: 400px; object-fit: cover; width: 100%;"
+                                        class="card-img-top"
+                                        alt="{{ $file->name }}"
+                                        style="height: 400px; object-fit: cover; width: 100%;"
                                     />
                                 </a>
                                 <div class="card-footer" id="card-footer">

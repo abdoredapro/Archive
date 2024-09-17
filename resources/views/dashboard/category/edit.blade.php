@@ -34,7 +34,7 @@
                         </div>
     
                         <div class="stack">
-                            <button type="submit" class="saveBtn">حفظ</button>
+                            <button type="submit" class="saveBtn custom">حفظ</button>
                         </div>
     
     

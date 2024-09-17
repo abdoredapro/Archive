@@ -22,8 +22,8 @@ class SearchModal extends Component
             $files = $data['files'];
         }
         return view('livewire.search-modal', [
-            'films' => $films,
-            'files' => $files ?? [],
+            'films' => $films ?? collect([]),
+            'files' => $files ?? collect([]),
         ]);
     }
 }

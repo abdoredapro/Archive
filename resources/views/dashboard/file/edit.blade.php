@@ -6,8 +6,9 @@
 <style>
         .upload-footage label,
         .upload-footage label:hover {
-            background-color: #7367f0 !important;
-            border: none;
+        background-color: #EDF2F6 !important;
+        border: none;
+        color: #707B81;
         }
     </style>
 @endsection
@@ -126,8 +127,8 @@
                         </div>
                         <div class="white-sec">
                             <div class="col-lg-12">
-                                {{-- <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea> --}}
-                                 <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description', $file->description) }}</textarea>
+                                <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea>
+                                {{-- <textarea id="summernote" name="editordata"></textarea> --}}
                             </div>
                         </div>
                         
@@ -143,6 +144,16 @@
                         <div class="stack">
 
                             <div class="row">
+
+                                <div class="col-md-3 feat1 text-end mt-2 upload-footage">
+                                    <div>رفع الملف</div>
+                                
+                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
+                                
+                                </div>
+
+
                                 <div class="col-md-3 feat1 text-end mt-2">
                                     <div>اسم المقطع الصوتي</div>
                                     <input type="text" id="first-sec-movie" name="file_clip_name"
@@ -151,13 +162,6 @@
                                     @error('file_clip_name')
                                         <div class="text-center text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
-                            
-                                <div class="col-md-3 feat1 text-end mt-2 upload-footage">
-                                    <div>رفع الملف</div>
-
-                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%" >رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
                                 </div>
 
                                 <div class="col-md-3 feat1 text-end mt-2">
@@ -179,7 +183,7 @@
                                 </div>
 
                                 <div class="col-md-12 feat1 text-end mt-2">
-                                    <div>وصف المقطع</div>
+                                    <div class="mt-2 mb-2">وصف المقطع</div>
                                     <textarea rows="4" cols="50" name="foot_description" id="sinario" placeholder="وصف المقطع"></textarea>
                                     @error('foot_description')
                                     <div class="text-center text-danger">{{ $message }}</div>

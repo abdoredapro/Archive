@@ -36,7 +36,7 @@
                         </div>
     
                         <div class="stack">
-                            <button type="submit" class="saveBtn">{{ __('dashboard.category_add') }}</button>
+                            <button type="submit" class="saveBtn custom">{{ __('dashboard.category_add') }}</button>
                         </div>
     
     

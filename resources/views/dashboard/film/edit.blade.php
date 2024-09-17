@@ -2,6 +2,14 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('css/movies.css') }}">
+<style>
+    .upload-footage label,
+    .upload-footage label:hover {
+        background-color: #EDF2F6 !important;
+        border: none;
+        color: #707B81;
+    }
+</style>
 @endsection
 @section('page_title')
     تعديل الفيلم {{ $film->name }}
@@ -25,9 +33,6 @@
                                 accept="image/*" onchange="displayImage(event)" >
                             <div class="custom-button" style="background-image:url({{$film->image_url}})" onclick="document.getElementById('photo').click();">
                             </div>
-
-                            {{-- <img id="uploaded-image" src="{{ $film->image_url }}" alt="Uploaded Image"
-                                style="max-width: 100%; height: auto; margin-top: 10px;"> --}}
 
                             {{-- start image error  --}}
                             @error('image')
@@ -113,8 +118,13 @@
                         <div class="white-sec">
 
 
-                                
-                            <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description') }}</textarea>
+                            <textarea rows="4" cols="50" name="film_script" id="sinario"
+                                placeholder="تفاصيل الملف">{{ old('description', $film->film_script) }}</textarea>
+
+
+                            @error('film_script')
+                                <div class="text-danger text-end">{{ $message }}</div>
+                            @enderror
                             
                         </div>
     
@@ -128,6 +138,14 @@
                         <h3 class="mb-4">رفع اللقطات</h3>
                         <div class="stack">
                             <div class="row">
+
+                                <div class="col-md-3 feat1 text-end mt-2 upload-footage">
+                                    <div>رفع الفديو</div>
+                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
+                                
+                                </div>
+
                                 <div class="col-md-3 feat1 text-end mt-2">
                                     <div>اسم المقطع الصوتي</div>
                                     <input type="text" id="first-sec-movie" name="file_clip_name"
@@ -137,13 +155,6 @@
                                     @enderror
                                 </div>
                             
-                                <div class="col-md-3 feat1 text-end mt-2">
-                                    <div>رفع الفديو</div>
-                                    
-                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%" >رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
-                                </div>
-
                                 <div class="col-md-3 feat1 text-end mt-2">
                                     <div>الدقيقه</div>
                                     <input type="text" id="first-sec-movie" name="minute"
@@ -168,6 +179,7 @@
                                     @error('foot_description')
                                     <div class="text-center text-danger">{{ $message }}</div>
                                     @enderror
+
                                 </div>
 
 

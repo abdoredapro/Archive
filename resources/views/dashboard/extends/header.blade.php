@@ -14,7 +14,7 @@
                     بحث سريع
                 </button>
 
-                <a href="{{ route('dashboard.advanced-search') }} " class="btn btn-primary mb-2">
+                <a href="{{ route('dashboard.advanced-search') }} "  class="btn text-dark mb-2" style="background-color:#00ff00">
                     البحث المتقدم
                 </a>
             </div>

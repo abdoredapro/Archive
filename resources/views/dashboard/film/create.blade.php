@@ -118,7 +118,9 @@
                         </div>
                         <div class="white-sec">
 
-                            <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description') }}</textarea>
+                            <textarea rows="4" cols="50" name="description" id="sinario"
+                                placeholder="تفاصيل الملف">{{ old('description') }}</textarea>
+                                
                             
                             @error('description')
                                 <div class="text-center text-end">{{ $message }}</div>
@@ -150,12 +152,17 @@
     function displayImage(event) {
         const image = document.getElementById('uploaded-image');
         let imageC = document.querySelector('.custom-button');
+        let word = document.querySelector('.up');
+
         const file = event.target.files[0];
         const reader = new FileReader();
 
         reader.onload = function (e) {
             imageC.style.backgroundImage = `url(${e.target.result})`;
+            word.style.display = 'none';
             image.style.display = 'block';
+            
+            // word.style.display = 'none';
         };
 
         if (file) {
