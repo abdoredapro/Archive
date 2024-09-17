@@ -120,6 +120,10 @@
 
                                         <form>
                                             <div class="mb-3">
+                                                <p for="recipient-name" class="col-form-label">المقطع</س>
+                                                <video src="{{ $clip->clipUrl() }}" width="300px"  max-width="100%"></video>
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="recipient-name" class="col-form-label">الاسم</label>
                                                 <input type="text" class="form-control" id="recipient-name" value="{{ $clip->name }}">
                                             </div>
