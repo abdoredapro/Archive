@@ -12,6 +12,7 @@
     @if (Session::has('message'))
     <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
+    
 
     <div class="stack-head">
         <h3 class="title"> ملفات </h3>
@@ -51,7 +52,7 @@
                     </div>
     
                     <div class="third-row text-wrap">
-                        {{ $file->description }}
+                        {!! $file->description !!}
                     </div>
     
                     <div class="forth-row">

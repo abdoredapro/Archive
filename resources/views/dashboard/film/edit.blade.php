@@ -111,12 +111,10 @@
                             <h3>سيناريو الفيلم</h3>
                         </div>
                         <div class="white-sec">
-                            <textarea required rows="4" cols="50" id="description" name="film_script" id="sinario"
-                                placeholder="اكتب سيناريو الفيلم">{{ $film->film_script }}</textarea>
+
 
                                 
-                                <input type="file" class="form-control hidden-input" id="file" name="file">
-                                <img onclick="document.getElementById('photo').click();" src="assets/upload.png" alt="">
+                            <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description') }}</textarea>
                             
                         </div>
     
@@ -130,7 +128,7 @@
                         <h3 class="mb-4">رفع اللقطات</h3>
                         <div class="stack">
                             <div class="row">
-                                <div class="col-md-4 feat1 text-end mt-2">
+                                <div class="col-md-3 feat1 text-end mt-2">
                                     <div>اسم المقطع الصوتي</div>
                                     <input type="text" id="first-sec-movie" name="file_clip_name"
                                         placeholder="المقطع الأول">
@@ -139,17 +137,14 @@
                                     @enderror
                                 </div>
                             
-                                <div class="col-md-4 feat1 text-end mt-2">
-                                    <div>رفع الملف</div>
-                                    <input type="file" class="hidden-input" id="upload-first-sec-movie"
-                                        name="file_clip_clip" >
-                                    <div class="white-field"
-                                        onclick="document.getElementById('upload-first-sec-movie').click();">
-
-                                    </div>
+                                <div class="col-md-3 feat1 text-end mt-2">
+                                    <div>رفع الفديو</div>
+                                    
+                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%" >رفع المقطع</label>
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
                                 </div>
 
-                                <div class="col-md-4 feat1 text-end mt-2">
+                                <div class="col-md-3 feat1 text-end mt-2">
                                     <div>الدقيقه</div>
                                     <input type="text" id="first-sec-movie" name="minute"
                                         placeholder="الدقيقه" >
@@ -158,7 +153,7 @@
                                         @enderror
                                 </div>
 
-                                <div class=" col-md-4 feat1 text-end mt-2">
+                                <div class=" col-md-3 feat1 text-end mt-2">
                                     <div>الثانيه</div>
                                     <input type="text" id="first-sec-movie" name="second"
                                         placeholder="الثانيه">
@@ -304,14 +299,6 @@
 
 
 </script>
-
-    {{-- Jquery  --}}
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    {{-- Toster Notification's  --}}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-    {{-- Resumable  --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     

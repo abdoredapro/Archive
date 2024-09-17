@@ -99,6 +99,7 @@ class FileController extends Controller
     {   
         
         $projects = Project::all();
+        
         return view('dashboard.file.edit', compact('file', 'projects'));
     }
 

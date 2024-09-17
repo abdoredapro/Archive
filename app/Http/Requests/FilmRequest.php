@@ -28,7 +28,7 @@ class FilmRequest extends FormRequest
             'name'          => ['required', 'string'],
             'image'         => ['required', 'image', 'mimes:jpeg,jpg,png,gif,svg'],
             'video'         => ['required','mimes:mp4','mimetypes:video/mp4'],
-            'film_script'   => ['required', 'string'],
+            'description'   => ['required', 'string'],
         ];
     }
 

@@ -26,6 +26,9 @@ class FilmController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    private $pages = 18;
+
     public function index()
     {
 
@@ -35,7 +38,7 @@ class FilmController extends Controller
             $query->where('category_id', request()->query('category'));
         }
         
-        $films = $query->paginate(20);
+        $films = $query->paginate($this->pages);
 
         return view('dashboard.film.index', compact('films'));
     }
@@ -55,42 +58,37 @@ class FilmController extends Controller
      */
     public function store(FilmRequest $request)
     {
+ 
 
-        $reciver = new FileReceiver($request->file, $request, ResumableJSUploadHandler::class);
+            $video = $request->file('video');
 
-        $save = $reciver->receive();
-
-        if($save->isFinished()) {
-
-            $file = $save->getFile();
-
-            $image = $request->fileImage;
+            $image = $request->image;
 
             $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
 
-            $newFileName = $file->hashName();
+            $videoName = uniqid() . '.' . $video->getClientOriginalExtension();
 
-            $image->move(storage_path('app/public/films/images'), $imgName);
+            $video->storeAs(FileStatus::FILMVIDEO, $videoName, [
+                'disk' => 'public'
+            ]);
 
-            $file->move(storage_path('app/public/films/videos'), $newFileName);
+            $image->storeAs(FileStatus::FILMIMAGE, $imgName, [
+                'disk' => 'public'
+            ]);
 
             
             Film::create([
-                'category_id'   => $request->fileCategory,
-                'name'          => $request->fileName,
+                'category_id'   => $request->category_id,
+                'name'          => $request->name,
                 'image'         => $imgName,
-                'video'         => $newFileName,
-                'film_script'   => $request->fileDescription,
+                'video'         => $videoName,
+                'film_script'   => $request->description,
             ]);
 
-            return response()->json(['message' => 'Your Film uploaded']);
+            return to_route('dashboard.film.index')
+                ->with(['message' => 'تم اضافه الفيلم بنجاح']);
 
-        }
 
-        $handler = $save->handler();
-
-        return response()->json(['progress' => $handler->getPercentageDone()]);
-        
 
     }
 

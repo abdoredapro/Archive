@@ -14,8 +14,8 @@
         <div class="first-white-board hz-padding">
             <h3 class="title">اضافه فيلم</h3>
 
-            {{-- <form action="{{ route('dashboard.file.store') }}" method="POST" enctype="multipart/form-data"> --}}
-                {{-- @csrf --}}
+            <form action="{{ route('dashboard.film.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
 
                 
                 <div class="sec-white-board create-file">
@@ -26,9 +26,9 @@
                             <div class="custom-button" onclick="document.getElementById('photo').click();">
                                 <p class="up">قم برفع صورة للملف</p>
                             </div>
-                            {{-- <img id="uploaded-image" src="" alt="Uploaded Image"
-                                style="display:none; max-width: 100%; height: auto; margin-top: 10px;">
-                             --}}
+                            @error('image')
+                                <div class="text-center text-end">{{ $message }}</div>
+                            @enderror
                         </div>
 
 
@@ -38,6 +38,9 @@
                                 <input type="text" id="movie-name" name="name" placeholder="اسم الفيلم" value="{{ old('name') }}" style="border: 1px solid #ccc" required>
 
                                 <div class="name-error text-center text-danger"  style="display: none">يرجى وضع اسم</div>
+                                @error('name')
+                                    <div class="text-center text-end">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <div class="first-group-here">
@@ -51,9 +54,11 @@
                                     @endforeach
                                 </select>
 
-                                {{-- start project_id error  --}}
-                                <div class="category-error text-center text-danger"  style="display: none">يرجى وضع فئه</div>
-                                {{-- end project_id error  --}}
+
+                                @error('category_id')
+                                    <div class="text-center text-end">{{ $message }}</div>
+                                @enderror
+
                             </div>
                         </div>
                     </div>
@@ -87,7 +92,9 @@
                             </div>
                         </div>
                         
-                        <div class="video-error text-center text-danger"  style="display: none">يرجى وضع فديو</div>
+                            @error('video')
+                                <div class="text-center text-end">{{ $message }}</div>
+                            @enderror
                     </div>
     
                     <div class="uploaded-section uploaded-video">
@@ -110,16 +117,16 @@
                             <h3>سيناريو الفيلم</h3>
                         </div>
                         <div class="white-sec">
-                            <textarea required rows="4" cols="50" id="description" name="description" id="sinario"
-                                placeholder="اكتب سيناريو الفيلم"></textarea>
 
-                                
-                                <input type="file" class="form-control hidden-input" id="file" name="file">
-                                <img onclick="document.getElementById('photo').click();" src="assets/upload.png" alt="">
+                            <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description') }}</textarea>
                             
+                            @error('description')
+                                <div class="text-center text-end">{{ $message }}</div>
+                            @enderror
+
                         </div>
     
-                        <div class="description-error text-center text-danger"  style="display: none">يرجى وضع تفاصيل الفيلم</div>
+                        
                     </div>
     
                     <div class="modal-footer">
@@ -127,7 +134,7 @@
                     </div>
     
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     </div>
 </div>
@@ -200,58 +207,5 @@
 
 
 </script>
-
-    {{-- Jquery  --}}
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    {{-- Toster Notification's  --}}
-<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-    {{-- Resumable  --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.3/resumable.min.js" integrity="sha512-OmtdY/NUD+0FF4ebU+B5sszC7gAomj26TfyUUq6191kbbtBZx0RJNqcpGg5mouTvUh7NI0cbU9PStfRl8uE/rw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-<script>
-    let saveBtn = document.getElementById('save');
-
-    saveBtn.onclick = function () {
-        let image = document.querySelector('[name="image"]').files[0];
-        let file = document.querySelector('#video').files[0];
-        let name = document.querySelector('[name="name"]').value;
-        let category = document.querySelector('#category').value;
-        let description = document.querySelector('#description').value;
-
-
-        var r = new Resumable({
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                target: '{{ route('dashboard.film.store') }}',
-                chunkSize: 5 * 1024 * 1024,
-                testChunks: false,
-                    query:{
-                        fileImage: image,
-                        fileName: name,
-                        fileCategory: category, 
-                        fileDescription: description, 
-                    }
-                });
-
-                r.addFile(file);
-
-            r.on('fileAdded', function(file, event){
-                r.upload();
-                toastr.info('جارى تحميل الملف');
-            });
-
-            r.on('fileSuccess', function(file, message){
-                toastr.success('تم تحميل الملف');
-            });
-
-            r.on('fileError', function(file, message){
-                toastr.error('حدث خطأ');
-            });
-    }
-
-</script>
-
 
 @endsection

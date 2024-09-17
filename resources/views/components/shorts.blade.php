@@ -9,12 +9,32 @@
         <div class="text-center">
             <div class="row">
                 @foreach ($clips as $clip)
-                <div class="col-md-3">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class="d-flex align-items-end flex-direction-column">
 
-                    <video style="cursor: pointer; max-width:100%;width:50px" id="clip" controls  poster="{{ $film->image_url }}" max-width="100%" width="300px" height="180px">
-                        <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
-                    </video>
+                {{-- <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                    <source src="/path/to/video.mp4" type="video/mp4" />
+                    <source src="/path/to/video.webm" type="video/webm" />
 
+                    <!-- Captions are optional -->
+                    <track kind="captions" label="English captions" src="/path/to/captions.vtt" srclang="en" default />
+                </video> --}}
+
+                <video
+                    {{-- id="my_video_1" --}}
+                    class="video-js"
+                    controls
+                    preload="auto"
+                    max-width="100%" width="300px" height="180px"
+                    {{-- height="20" --}}
+                    poster="{{ $film->image_url }}"
+                    data-setup="{}"
+                >
+                    <source src="{{ $clip->clipUrl() }}" type="video/mp4" />
+                    <source src="{{ $clip->clipUrl() }}" type="video/webm" />
+
+                </video>
+                    </div>
                     <div class="text-holder">
                         <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
                         <div class="desc">{{ $clip->name }}</div>
@@ -23,4 +43,4 @@
                 @endforeach
             </div>
         </div>
-</div>
+    </div>

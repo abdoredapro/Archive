@@ -31,7 +31,7 @@
                     <div class="cat">{{ $film->category->name }}</div>
                     {{-- <div class="duration"></div> --}}
                 </div>
-                <p>{{ $film->film_script }}</p>
+                <p>{!! $film->film_script !!}</p>
             </div>
         </div> 
         <div class="video">
@@ -97,4 +97,10 @@
 <!-- video -->
 
 
+@endsection
+
+@section('script')
+<script>
+    const player = new Plyr('#player');
+</script>
 @endsection

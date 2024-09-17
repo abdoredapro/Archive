@@ -29,20 +29,10 @@
                                         id="email" name="name">
                                 </div>
                                 @error('name')
-                                    {{ $message }}
+                                    <div class="text-danger text-end mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            {{-- <div class="col-sm-12 col-md-12 col-lg-6">
-                                <div class="package">
-                                    <div class="main-text">{{ __('dashboard.background_color') }}</div>
-                                    <select name="" id="">
-                                        <option value="">
-                                            <img src="{{ asset('assets/video.png') }}" alt="">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> --}}
                         </div>
     
                         <div class="stack">

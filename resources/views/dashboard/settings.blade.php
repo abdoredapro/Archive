@@ -4,6 +4,14 @@
 @section('page_title')
     Settings
 @endsection
+
+@section('style')
+    <style>
+        .uploaded-image {
+            width: 150px;
+        }
+    </style>
+@endsection
 @section('content')
 
 <!-- body -->
@@ -31,7 +39,7 @@
             @method('PUT')
             <div class="first-sec">
                 <div>صورة الملف الشخصي</div>
-                <input type="file" name="photo" id="picture" class="hidden-input" />
+                <input type="file" name="photo" id="picture" onchange="UploadImage(this)" class="hidden-input" />
                 <div class="img-box" onclick="document.getElementById('picture').click();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
@@ -42,7 +50,9 @@
                         </g>
                     </svg>
                     <div class="download">تحميل الصورة</div>
+                    
                 </div>
+                <img src="" class="uploaded-image" >
             </div>
     
             <hr />
@@ -111,4 +121,26 @@
 <!-- body -->
 
 
+@endsection
+
+@section('script')
+    <script>
+        // Uploaded Image 
+        function UploadImage(input) {
+            let img = document.querySelector('.uploaded-image');
+
+            let reader = new FileReader();
+            
+            reader.onload = function(e) {
+
+                img.src = e.target.result;
+
+            }
+
+            reader.readAsDataURL(input.files[0])
+
+        }
+        
+
+    </script>
 @endsection

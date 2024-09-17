@@ -16,6 +16,11 @@ class FileClip extends Model
         'description'
     ];
 
+    protected $casts = [
+        'minute' => 'int',
+        'second' => 'int'
+    ];
+
     public function file(): BelongsTo {
         return $this->belongsTo(File::class);
     }

@@ -126,9 +126,9 @@
                         </div>
                         <div class="white-sec">
 
-                            <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description') }}</textarea>
+                            {{-- <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description') }}</textarea> --}}
                             
-                                
+                                <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description') }}</textarea>
                         
                         </div>
 
@@ -222,7 +222,6 @@
 </script>
 
     {{-- Jquery  --}}
-<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     {{-- Toster Notification's  --}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>

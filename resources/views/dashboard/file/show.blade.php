@@ -3,6 +3,16 @@
 @section('page_title')
         {{ $file->name }}
 @endsection
+
+@section('style')
+
+    <style>
+        #my_video_1 {
+            width: 100%
+        } 
+    </style>
+
+@endsection
 @section('content')
 
 
@@ -35,9 +45,24 @@
     <div class="video">
 
 
-        <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}" id="myFile">
+        {{-- <video controls crossorigin playsinline poster="{{ $file->imageUrl() }}" id="myFile">
             <source src="{{ $file->VideoUrl() }}" type="video/mp4" size="1080">
-        </video>
+        </video> --}}
+
+    <video
+        id="my_video_1"
+        class="video-js"
+        controls
+        preload="auto"
+
+        height="450"
+        poster="{{ $file->imageUrl() }}"
+        data-setup="{}"
+    >
+            <source src="{{ $file->VideoUrl() }}" type="video/mp4" />
+            <source src="{{ $file->VideoUrl() }}" type="video/webm" />
+
+    </video>
 
         
     </div>
@@ -54,10 +79,26 @@
             <div class="row">
                 @foreach ($file->clips as $clip)
                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">
-                    <div class="">
-                        <video style="cursor: pointer; max-width:100%" id="clip" controls crossorigin playsinline poster="{{ $file->imageUrl() }}" max-width="100%" width="300px" height="180px">
+                    <div class="d-flex align-items-end flex-direction-column">
+                        {{-- <video style="cursor: pointer; max-width:100%" id="clip" controls crossorigin playsinline poster="{{ $file->imageUrl() }}" max-width="100%" width="300px" height="180px">
                             <source src="{{ $clip->clipUrl() }}" type="video/mp4" size="1080">
-                        </video>
+                        </video> --}}
+
+
+                <video
+                    {{-- id="my_video_1" --}}
+                    class="video-js"
+                    controls
+                    preload="auto"
+                    max-width="100%" width="300px" height="180px"
+                    {{-- height="20" --}}
+                    poster="{{ $file->imageUrl() }}"
+                    data-setup="{}"
+                >
+                    <source src="{{ $clip->clipUrl() }}" type="video/mp4" />
+                    <source src="{{ $clip->clipUrl() }}" type="video/webm" />
+
+                </video>
                     </div>
                     <div class="text-holder">
                         <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
@@ -76,7 +117,7 @@
             <span class="dure">{{ $file->FileDuration() }}</span>
         </div>
         <p class="describe">
-            {{ $file->description }}
+            {!! $file->description !!}
         </p>
 
         <div class="row">
@@ -141,6 +182,16 @@ clip.forEach(el => {
     })
 });
 
+
+var video = videojs('my_video_1', {
+  children: {
+    controlBar: {
+      children: {
+        progressControl: true
+      }
+    }
+  }
+});
 
 </script>
 

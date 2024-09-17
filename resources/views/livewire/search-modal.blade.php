@@ -44,7 +44,7 @@
             <div class="row g-2 mb-2">
                 <div class="col-md-6">
                     <label for="nameWithTitle" class="form-label">
-                        من تاريخ
+                        تاريخ نشر من
                     </label>
                     <input type="date"
                            id="nameWithTitle"
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="dobWithTitle" class="form-label">
-                        الى تاريخ
+                        تاريخ نشر الى
                     </label>
                     <input type="date"
                            id="dobWithTitle"

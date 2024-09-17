@@ -9,12 +9,12 @@
                     placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." class="form-control"/>
             </form>
 
-            <div class="d-md-flex">
-                <button type="submit" class="btn btn-secondary" onclick="submitForm()">
+            <div class="d-md-flex  ">
+                <button type="submit" class="btn btn-secondary me-3 mb-2" onclick="submitForm()">
                     بحث سريع
                 </button>
 
-                <a href="{{ route('dashboard.advanced-search') }}" class="btn btn-primary">
+                <a href="{{ route('dashboard.advanced-search') }} " class="btn btn-primary mb-2">
                     البحث المتقدم
                 </a>
             </div>
@@ -23,7 +23,9 @@
 
 
     <div class="avatar">
-        <img src="{{ auth()->user()->imageUrl() }}" alt="avatar"/>
+        <a href="{{ route('dashboard.settings') }}">
+            <img src="{{ auth()->user()->imageUrl() }}" alt="avatar"/>
+        </a>
     </div>
 </div>
 

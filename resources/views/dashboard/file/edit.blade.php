@@ -3,10 +3,18 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('css/movies.css') }}">
+<style>
+        .upload-footage label,
+        .upload-footage label:hover {
+            background-color: #7367f0 !important;
+            border: none;
+        }
+    </style>
 @endsection
 @section('page_title')
     تعديل الملف
 @endsection
+
 @section('content')
 
 <div class="categories">
@@ -49,7 +57,7 @@
                                 </div>
     
                                 <select name="project_id" id="category" class="form-control">
-                                    <option value=""></option>
+                                    {{-- <option value="" disabled></option> --}}
                                     @foreach ($projects as $project)
                                         <option value="{{ $project->id }}" @selected(old('project_id', $file->project_id) == $project->id) >{{ $project->name }}</option>
                                     @endforeach
@@ -118,7 +126,8 @@
                         </div>
                         <div class="white-sec">
                             <div class="col-lg-12">
-                                <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea>
+                                {{-- <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea> --}}
+                                 <textarea rows="4" cols="50" id="summernote" name="description" style="width: 100%">{{ old('description', $file->description) }}</textarea>
                             </div>
                         </div>
                         
@@ -138,19 +147,17 @@
                                     <div>اسم المقطع الصوتي</div>
                                     <input type="text" id="first-sec-movie" name="file_clip_name"
                                         placeholder="المقطع الأول">
+                                        
                                     @error('file_clip_name')
                                         <div class="text-center text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             
-                                <div class="col-md-3 feat1 text-end mt-2">
+                                <div class="col-md-3 feat1 text-end mt-2 upload-footage">
                                     <div>رفع الملف</div>
-                                    <input type="file" class="hidden-input" id="upload-first-sec-movie"
-                                        name="file_clip_clip" >
-                                    <div class="white-field"
-                                        onclick="document.getElementById('upload-first-sec-movie').click();">
 
-                                    </div>
+                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%" >رفع المقطع</label>
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
                                 </div>
 
                                 <div class="col-md-3 feat1 text-end mt-2">
@@ -248,9 +255,6 @@
 @endsection
 
 @section('script')
-<script>
-    CKEDITOR.replace('editor');
-</script>
 
 <script>
     
@@ -296,17 +300,7 @@
 </script>
 
 <script>
-    // Initialize MultiSelectTag for categories
-    const medicalsSelect = new MultiSelectTag('category', {
-        rounded: true,    // default true
-        shadow: true,      // default false
-        placeholder: 'اختر الفئة',  // default Search...
-        tagColor: {
-            textColor: '#707B81',
-            borderColor: '#92e681',
-            bgColor: '#C4C4C4',
-        },
-    });
+
 
     // Add event listener to open select on click anywhere on the select box for categories
     document.getElementById('medical').parentElement.addEventListener('click', function () {
