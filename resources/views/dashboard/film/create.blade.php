@@ -118,7 +118,7 @@
                         </div>
                         <div class="white-sec">
 
-                            <textarea rows="4" cols="50" name="description" id="sinario"
+                            <textarea rows="6" cols="50" name="description" id="sinario"
                                 placeholder="تفاصيل الملف">{{ old('description') }}</textarea>
                                 
                             

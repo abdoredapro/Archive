@@ -118,7 +118,7 @@
                         <div class="white-sec">
 
 
-                            <textarea rows="4" cols="50" name="film_script" id="sinario"
+                            <textarea rows="6" cols="50" name="film_script" id="sinario"
                                 placeholder="تفاصيل الملف">{{ old('description', $film->film_script) }}</textarea>
 
 
@@ -141,6 +141,7 @@
 
                                 <div class="col-md-3 feat1 text-end mt-2 upload-footage">
                                     <div>رفع الفديو</div>
+
                                     <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
                                     <input type="file" id="inputField" name="file_clip_clip" style="display:none">
                                 
@@ -174,7 +175,7 @@
                                 </div>
 
                                 <div class="col-md-12 feat1 text-end mt-2">
-                                    <div>وصف المقطع</div>
+                                    <div class="mb-2">وصف المقطع</div>
                                     <textarea rows="4" cols="50" name="foot_description" id="sinario" placeholder="وصف المقطع"></textarea>
                                     @error('foot_description')
                                     <div class="text-center text-danger">{{ $message }}</div>

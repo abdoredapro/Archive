@@ -34,7 +34,7 @@
                         <form method="POST" action="{{ route('dashboard.category.destroy', $category->id) }}" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <input  type="submit" value="حذف" class="text-danger border-0 delete b-none">
+                            <input  type="submit" value="حذف" class="text-danger bg-transparent border-0 delete b-none">
                         </form>
                     </div>
                 <div class="box {{ $category->background_color }}" 

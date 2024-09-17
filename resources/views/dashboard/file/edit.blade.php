@@ -127,7 +127,8 @@
                         </div>
                         <div class="white-sec">
                             <div class="col-lg-12">
-                                <textarea rows="4" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف">{{ old('description', $file->description) }}</textarea>
+                                <textarea rows="6" cols="50" name="description" id="sinario" placeholder="تفاصيل الملف" resize="both">{{ old('description', $file->description) }}</textarea>
+
                                 {{-- <textarea id="summernote" name="editordata"></textarea> --}}
                             </div>
                         </div>
@@ -139,10 +140,10 @@
 
                     <hr>
                     {{-- Start Upload Shorts  --}}
-                    <div class="last-section">
+                    <div class="last-section upload-footage">
                         <h3 class="mb-4">رفع اللقطات</h3>
                         <div class="stack">
-
+                            
                             <div class="row">
 
                                 <div class="col-md-3 feat1 text-end mt-2 upload-footage">

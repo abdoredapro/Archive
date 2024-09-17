@@ -30,7 +30,7 @@
 
     <div class="trailer">
         <div class="stack">
-            <img src="{{ $film->image_url }}" alt="" style="width: 250px">
+            <img src="{{ $film->image_url }}" alt="" style="width: 200px">
             <div class="feat">
                 <h2>{{ $film->name }}</h2>
                 <div class="stack">

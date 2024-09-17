@@ -9,15 +9,16 @@
                     placeholder="ابحث عن الأفلام والبرامج التلفزيونية ..." class="form-control"/>
             </form>
 
-            <div class="d-md-flex  ">
-                <button type="submit" class="btn btn-secondary me-3 mb-2" onclick="submitForm()">
+        </div>
+
+        <div class="d-md-flex search-btn">
+                <button type="submit" class="btn btn-secondary me-1 mb-2" onclick="submitForm()">
                     بحث سريع
                 </button>
-
-                <a href="{{ route('dashboard.advanced-search') }} "  class="btn text-dark mb-2" style="background-color:#00ff00">
+            
+                <a href="{{ route('dashboard.advanced-search') }} " class="btn text-dark mb-2" style="background-color:#00ff00">
                     البحث المتقدم
                 </a>
-            </div>
         </div>
     </div>
 
