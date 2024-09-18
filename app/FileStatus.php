@@ -9,4 +9,9 @@ enum FileStatus
 
     const FILMIMAGE = '/films/images/';
     const FILMVIDEO = '/films/videos/';
+
+
+    const FILECLIP = '/files/clips/';
+    const FILMCLIP = '/films/clips/';
+
 }

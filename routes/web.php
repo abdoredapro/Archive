@@ -40,6 +40,17 @@ Route::group([
     Route::post('{file}/clip', [FileClipController::class, 'store'])
         ->name('file_clip.store');
 
+
+
+
+    Route::post('/clip/{type}/{id}', [FileClipController::class, 'update'])
+        ->name('file.clip.update');
+
+    Route::post('/clips/{type}/{id}', [FileClipController::class, 'destroy'])
+    ->name('file.clip.delete');
+
+
+
     // User settings page
     Route::get('user', [DashboardController::class, 'settings'])
         ->name('settings');
@@ -62,6 +73,9 @@ Route::group([
 
     Route::view('/advanced-search', 'dashboard.search.advanced')
         ->name('advanced-search');
+
+
+
 });
 
 

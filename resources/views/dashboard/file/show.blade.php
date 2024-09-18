@@ -105,42 +105,13 @@
                     </div>
                     <div class="text-holder">
                         <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
-                        <div class="desc" id="{{ $clip->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="cursor: pointer">{{ $clip->name }}</div>
+                        
+                        <div class="desc" id="{{ $clip->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$clip->id}}" style="cursor: pointer">{{ $clip->name }}</div>
 
                         {{-- Edit footage  --}}
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ $clip->name }}</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
 
-                                        <form>
-                                            <div class="mb-3">
-                                                <p for="recipient-name" class="col-form-label">المقطع</س>
-                                                <video src="{{ $clip->clipUrl() }}" width="300px"  max-width="100%"></video>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="recipient-name" class="col-form-label">الاسم</label>
-                                                <input type="text" class="form-control" id="recipient-name" value="{{ $clip->name }}">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="message-text" class="col-form-label">وصف المقطع</label>
-                                                <textarea class="form-control" id="message-text">{{ $clip->description }}</textarea>
-                                            </div>
-                                        </form>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-success" class="custom">حفظ</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-show-footage :clip='$clip' type='file' />
+                        
                         {{-- Edit footage  --}}
 
 

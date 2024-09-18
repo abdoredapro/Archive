@@ -47,6 +47,7 @@
             </video>
 
             
+            
 
         </div>
         
@@ -76,6 +77,7 @@
                                 <source src="{{ $clip->clipUrl() }}" type="video/webm" />
                             
                             </video>
+                            <x-show-footage :clip='$clip' type='film' />
                         </div>
 
                         
@@ -83,7 +85,11 @@
                     </div>
                     <div class="text-holder">
                         <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
-                        <div class="desc">{{ $clip->name }}</div>
+
+                        <div class="desc" id="{{ $clip->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$clip->id}}"
+                            style="cursor: pointer">{{ $clip->name }}</div>
+
+                        {{-- <x-show-footage :clip='$clip'  /> --}}
                     </div>
 
                 </div>
