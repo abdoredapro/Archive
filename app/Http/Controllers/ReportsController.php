@@ -12,6 +12,7 @@ class ReportsController extends Controller
     public function index() {
 
         $films = Film::count();
+        
         $files = File::count();
 
         $projects = Project::count();

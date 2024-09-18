@@ -15,7 +15,7 @@
             <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
                 <a href="{{ route('dashboard.file.show', $file->id) }}">
                     <div class="card">
-                        <img src="{{ $file->imageUrl() }}" class="card-img-top" alt="...">
+                        <img src="{{ $file->image_url }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h6>{{ $file->name }}</h6>
                             <p>{{ $file->created_at->year}} | {{ $file->project->name }}</p>

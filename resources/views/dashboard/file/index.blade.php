@@ -33,7 +33,7 @@
         <a href="{{ route('dashboard.file.show', $file->id) }}">
             <div class="white-row" style="cursor: pointer">
                 <div class="img-container">
-                    <img src="{{ $file->imageUrl() }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
+                    <img src="{{ $file->image_url }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
                 </div>
                 <div class="content-container">
                     <div class="first-row">
@@ -63,9 +63,9 @@
                             </button>
                         </a>
                         <button class="download">
-                            <a href="{{ $file->VideoUrl() }}" download>
+                            <a href="{{ $file->video_url }}" download>
                                 <i class="fa-solid fa-cloud-arrow-down"></i>
-                                <a href="{{ $file->VideoUrl() }}" download>تحميل</a>
+                                <a href="{{ $file->video_url }}" download>تحميل</a>
                             </a>
                         </button>
                     </div>

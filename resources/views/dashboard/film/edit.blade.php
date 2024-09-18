@@ -131,11 +131,20 @@
                         <div class="description-error text-center text-danger"  style="display: none">يرجى وضع تفاصيل الفيلم</div>
                     </div>
 
+                    <hr>
+
+                        {{-- All footages --}}
+                        <div class="row g-2">
+                            <h3 class="text-center">كل المقاطع</h2>
+                            <x-shorts :clips="$film->clips" :file="$film" can-edit='film' />
+                        </div>
 
                     <hr>
+
                     {{-- Start Upload Shorts  --}}
+
                     <div class="last-section">
-                        <h3 class="mb-4">رفع اللقطات</h3>
+                        <h3 class="mb-4">رفع لقطه جديده</h3>
                         <div class="stack">
                             <div class="row">
 
@@ -190,63 +199,15 @@
 
 
                     </div>
+
                     {{-- End Upload Shorts  --}}
                     <hr>
-
-
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">سنة الاصدار</div>
-                                <input class="second-modal-form" type="text" id="release-year" name="release_year"
-                                    placeholder="2024" value="{{ old('release_year', $film->release_year) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">نوع الشريط</div>
-                                <input class="second-modal-form" type="text" id="tape-type" name="tap_type" value="{{ old('release_year', $film->release_year) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مدير الانتاج</div>
-                                <input class="second-modal-form" type="text" id="director-name" name="production_manager"
-                                    placeholder="حسن يوسف" value="{{ old('production_manager', $film->production_manager) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">رقم الشريط</div>
-                                <input class="second-modal-form" type="text" id="tape-number" name="tap_number" value="{{ old('tap_number', $film->tap_number) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مشروع/ مستفيد</div>
-                                <input class="second-modal-form" type="text" id="benefit" name="project_beneficiary"
-                                    placeholder="حسن يوسف" value="{{ old('project_beneficiary', $film->project_beneficiary) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مهندس الصوت</div>
-                                <input class="second-modal-form" type="text" id="sound-eng" name="sound_engineer" value="{{ old('sound_engineer', $film->sound_engineer) }}">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">فئة المشروع</div>
-                                <input class="second-modal-form" type="text" id="cat" name="project_category" value="{{ old('project_category', $film->project_category) }}">
-                            </div>
-                        </div>
-                    </div>
-
-
+                    
+                    {{-- Edit Info  --}}
+                    <x-edit.edit-info :file='$film' />
+                    
                     <div class="modal-footer">
                         <button class="confirm mt-4" type="submit">حفظ</button>
-                        {{-- <button class="cancel" type="button" data-bs-dismiss="modal">الغاء</button> --}}
                     </div>
 
                 </div>

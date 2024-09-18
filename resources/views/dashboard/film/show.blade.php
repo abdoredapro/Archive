@@ -65,37 +65,11 @@
         </div>
         <div class="text-center footage">
             <div class="row">
-                @foreach ($film->clips as $clip)
+                {{-- @foreach ($film->clips as $clip) --}}
 
-                <div class="col-md-3">
-                    <div class="video d-flex align-items-end flex-direction-column">
+                <x-shorts :clips="$film->clips" :file="$film" />
 
-                        <div class="foot">
-                            <video class="video-js" controls preload="auto" max-width="100%" width="300px" height="180px"
-                                poster="{{ $film->image_url }}" data-setup="{}">
-                                <source src="{{ $clip->clipUrl() }}" type="video/mp4" />
-                                <source src="{{ $clip->clipUrl() }}" type="video/webm" />
-                            
-                            </video>
-                            <x-show-footage :clip='$clip' type='film' />
-                        </div>
-
-                        
-
-                    </div>
-                    <div class="text-holder">
-                        <div class="duration">{{ $clip->minute }}:{{ $clip->second }}</div>
-
-                        <div class="desc" id="{{ $clip->id }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{$clip->id}}"
-                            style="cursor: pointer">{{ $clip->name }}</div>
-
-                        {{-- <x-show-footage :clip='$clip'  /> --}}
-                    </div>
-
-                </div>
-
-
-                @endforeach
+                {{-- @endforeach --}}
             </div>
         </div>
     </div>

@@ -17,7 +17,7 @@
             
             <div class="modal-body">
 
-                <form action="{{ route('dashboard.file.clip.delete', ['id' => $clip->id, 'type' => $type]) }}" method="POST" class="clip-delete-form">
+                <form action="{{ route('dashboard.file.clip.delete', ['id' => $clip->id, 'type' => $type]) }}" method="POST" class="clip-delete-form" enctype="multipart/form-data">
                     @csrf
                     <button type="submit" class="btn btn-danger">حذف نهائى</button>
                 </form>

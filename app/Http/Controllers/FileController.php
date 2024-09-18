@@ -139,7 +139,6 @@ class FileController extends Controller
         $data = $request->except('image', 'video');
 
 
-
         if ($request->hasFile('image')) {
 
 

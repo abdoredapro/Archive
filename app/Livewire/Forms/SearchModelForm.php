@@ -14,6 +14,9 @@ class SearchModelForm extends Form
     public ?int $filterType = null;
 
     #[Validate('string|max:255|nullable')]
+    public string $releaseYear = '';
+
+    #[Validate('string|max:255|nullable')]
     public string $team = '';
 
     #[Validate('string|max:255|nullable')]

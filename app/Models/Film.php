@@ -32,12 +32,21 @@ class Film extends Model
         'video_url',
     ];
 
+    protected $cast = [
+        'release_year' => 'int',
+    ];
+
+
+    protected $with = [
+        'clips'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    protected function imageUrl(): Attribute
+    protected function ImageUrl(): Attribute
     {
 
         return Attribute::make(
@@ -45,7 +54,7 @@ class Film extends Model
         );
     }
 
-    protected function videoUrl(): Attribute
+    protected function VideoUrl(): Attribute
     {
 
         return Attribute::make(

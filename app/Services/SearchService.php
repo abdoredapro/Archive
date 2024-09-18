@@ -24,8 +24,8 @@ final class SearchService
                         ->orWhere('sound_engineer', 'like', "%$keyword%");
                 });
             })
-            ->when(data_get($searchCriteria, 'release_year'), function (Builder $query, $releaseYear) {
-                $query->whereYear('release_year', $releaseYear);
+            ->when(data_get($searchCriteria, 'releaseYear'), function (Builder $query, $releaseYear) {
+                $query->where('release_year', $releaseYear);
             })
             ->when(data_get($searchCriteria, 'fromDate') && data_get($searchCriteria, 'toDate'), function (Builder $query) use ($searchCriteria) {
                 $query->whereBetween('release_year', [data_get($searchCriteria, 'fromDate'), data_get($searchCriteria, 'toDate')]);

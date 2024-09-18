@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,6 +34,9 @@ class File extends Model
     ];
 
 
+    protected $cast = [
+        'release_year' => 'int',
+    ];
 
 
     public function project(): BelongsTo
@@ -41,15 +45,22 @@ class File extends Model
             ->withDefault(['name' => 'Public']);
     }
 
-    public function ImageUrl(): string
-    {
-        return asset(Storage::url('files/images/' . $this->image));
+    protected function ImageUrl(): Attribute {
+
+        return Attribute::make(
+
+            get: fn() => asset(Storage::url('files/images/' . $this->image)),
+
+        );
     }
 
-    public function VideoUrl(): string
-    {
-        return asset(Storage::url('files/videos/' . $this->video));
+    protected function VideoUrl(): Attribute {
+
+        return Attribute::make(
+            get: fn() => asset(Storage::url('files/videos/' . $this->video)),
+        );
     }
+
 
     public function FileDuration(): string
     {

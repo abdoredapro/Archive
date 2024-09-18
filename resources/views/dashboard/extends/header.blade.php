@@ -13,7 +13,7 @@
 
         <div class="d-md-flex search-btn">
                 <button type="submit" class="btn btn-secondary me-1 mb-2" onclick="submitForm()">
-                    بحث سريع
+                    بحث
                 </button>
             
                 <a href="{{ route('dashboard.advanced-search') }} " class="btn text-dark mb-2" style="background-color:#00ff00">

@@ -2,7 +2,7 @@
     <div class="card mb-3 border-0">
         <h5 class="card-header mb-1">
             <h5 class="card-title text-center">
-                البحث المتقدم
+                الفلتر
             </h5>
         </h5>
         <div class="card-body">
@@ -12,10 +12,10 @@
                         كلمة البحث
                     </label>
                     <input type="text"
-                           id="nameWithTitle"
-                           class="form-control"
-                           placeholder="كلمة البحث"
-                           wire:model.live="form.keyword"
+                        id="nameWithTitle"
+                        class="form-control"
+                        placeholder="كلمة البحث"
+                        wire:model.live="form.keyword"
                     />
                 </div>
                 <div class="col-md-4">
@@ -26,42 +26,50 @@
                         <option value="">اختار النوع</option>
                         <option value="1">فيلم</option>
                         <option value="2">ملف</option>
+                        <option value="3">مقطع</option>
                     </select>
                 </div>
+
+                <div class="col-md-4">
+                    <label for="statusWithTitle" class="form-label">
+                        سنه الاصدار
+                    </label>
+                    <input type="text" id="statusWithTitle" class="form-control" placeholder="سنه الاصدار"
+                        wire:model.live="form.releaseYear" />
+                </div>
+
+            </div>
+
+            <div class="row g-2 mb-2">
+
                 <div class="col-md-4">
                     <label for="statusWithTitle" class="form-label">
                         فريق العمل / الاعداد
                     </label>
-                    <input type="text"
-                           id="statusWithTitle"
-                           class="form-control"
-                           placeholder="فريق العمل / الاعداد"
-                           wire:model.live="form.team"
-                    />
+                    <input type="text" id="statusWithTitle" class="form-control" placeholder="فريق العمل / الاعداد"
+                        wire:model.live="form.team" />
                 </div>
-            </div>
 
-            <div class="row g-2 mb-2">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="nameWithTitle" class="form-label">
                         تاريخ نشر من
                     </label>
                     <input type="date"
-                           id="nameWithTitle"
-                           class="form-control"
-                           placeholder="من تاريخ"
-                           wire:model.live="form.fromDate"
+                        id="nameWithTitle"
+                        class="form-control"
+                        placeholder="من تاريخ"
+                        wire:model.live="form.fromDate"
                     />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="dobWithTitle" class="form-label">
                         تاريخ نشر الى
                     </label>
                     <input type="date"
-                           id="dobWithTitle"
-                           class="form-control"
-                           placeholder="الى تاريخ"
-                           wire:model.live="form.toDate"
+                        id="dobWithTitle"
+                        class="form-control"
+                        placeholder="الى تاريخ"
+                        wire:model.live="form.toDate"
                     />
                 </div>
             </div>
@@ -103,7 +111,7 @@
                         <div class="col-md-3">
                             <div class="card" style="height: 100%;">
                                 <a href="{{ route('dashboard.file.show', $file->id) }}">
-                                    <img src="{{ $file->imageUrl() }}"
+                                    <img src="{{ $file->image_url }}"
                                         class="card-img-top"
                                         alt="{{ $file->name }}"
                                         style="height: 400px; object-fit: cover; width: 100%;"

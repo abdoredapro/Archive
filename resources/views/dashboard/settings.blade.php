@@ -127,6 +127,7 @@
     <script>
         // Uploaded Image 
         function UploadImage(input) {
+            
             let img = document.querySelector('.uploaded-image');
 
             let reader = new FileReader();

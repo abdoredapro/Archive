@@ -33,7 +33,7 @@
                             
                             <input type="file" class="form-control hidden-input" id="photo" name="image"
                                 accept="image/*" onchange="displayImage(event)">
-                            <div class="custom-button"  style="background-image:url({{$file->imageUrl()}})"  onclick="document.getElementById('photo').click();">
+                            <div class="custom-button"  style="background-image:url({{$file->image_url}})"  onclick="document.getElementById('photo').click();">
                                 <p class="d-none">قم برفع صورة الملف</p>
                             </div>
         
@@ -111,7 +111,7 @@
                         <div class="white-sec">
                             <div class="stack">
     
-                                <video controls id="uploaded-video" src="{{ $file->VideoUrl() }}" alt="Uploaded Video"
+                                <video controls id="uploaded-video" src="{{ $file->video_url }}" alt="Uploaded Video"
                                 style="max-width: 100%; height: auto; margin-top: 10px;">
 
                             </div>
@@ -138,10 +138,17 @@
                         @enderror
                     </div>
 
+
+                    <hr>
+                        {{-- All footages  --}}
+                        <div class="row g-2">
+                            <h3 class="text-center">كل المقاطع</h2>
+                            <x-shorts :clips="$file->clips" :file="$file" can-edit='file' />
+                        </div>
                     <hr>
                     {{-- Start Upload Shorts  --}}
                     <div class="last-section upload-footage">
-                        <h3 class="mb-4">رفع اللقطات</h3>
+                        <h3 class="mb-4">رفع لقطه جديده</h3>
                         <div class="stack">
                             
                             <div class="row">
@@ -150,8 +157,8 @@
                                     <div>رفع الملف</div>
                                 
                                     <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
-                                
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none" onchange="showFootage(this)">
+                                    <video src="" loop controls class="footage_show" style="display: none"></video>
                                 </div>
 
 
@@ -202,49 +209,11 @@
 
                     <hr>
 
+                    {{-- Edit info  --}}
 
-                    <div class="row g-4">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">سنة الاصدار</div>
-                                <input class="second-modal-form" type="text" id="release-year" name="release_year"
-                                    placeholder="2024" value="{{ old('release_year', $file->release_year) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">نوع الشريط</div>
-                                <input class="second-modal-form" type="text" id="tape-type" name="tap_type" value="{{ old('release_year', $file->release_year) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مدير الانتاج</div>
-                                <input class="second-modal-form" type="text" id="director-name" name="production_manager"
-                                    placeholder="حسن يوسف" value="{{ old('production_manager', $file->production_manager) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">رقم الشريط</div>
-                                <input class="second-modal-form" type="text" id="tape-number" name="tap_number" value="{{ old('tap_number', $file->tap_number) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مشروع/ مستفيد</div>
-                                <input class="second-modal-form" type="text" id="benefit" name="project_beneficiary"
-                                    placeholder="حسن يوسف" value="{{ old('project_beneficiary', $file->project_beneficiary) }}">
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="collector text-end">
-                                <div class="main-head">مهندس الصوت</div>
-                                <input class="second-modal-form" type="text" id="sound-eng" name="sound_engineer" value="{{ old('sound_engineer', $file->sound_engineer) }}">
-                            </div>
-                        </div>
+                    <x-edit.edit-info :file='$file' />
 
-                    </div>
+                    {{-- Edit info --}}
 
                     <div class="modal-footer">
                         <button class="confirm mt-4" type="submit">حفظ</button>
@@ -300,6 +269,27 @@
         if (file) {
             reader.readAsDataURL(file);
         }
+    }
+
+    function showFootage(input) {
+
+
+        let video = document.querySelector('.upload-footage .footage_show');
+
+
+        let reader = new FileReader();
+
+        reader.onload = function(e) {
+            console.log(e.target.result);
+
+            video.style.display = 'block';
+
+            video.src = e.target.result;
+
+        }
+        // reader.readAsDataURL(event.files[0]);
+
+
     }
 
 </script>
