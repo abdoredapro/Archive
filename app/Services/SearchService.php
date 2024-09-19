@@ -27,6 +27,9 @@ final class SearchService
             ->when(data_get($searchCriteria, 'releaseYear'), function (Builder $query, $releaseYear) {
                 $query->where('release_year', $releaseYear);
             })
+            ->when(data_get($searchCriteria, 'tap_number'), function (Builder $query, $tap_number) {
+                $query->where('tap_number', $tap_number);
+            })
             ->when(data_get($searchCriteria, 'fromDate') && data_get($searchCriteria, 'toDate'), function (Builder $query) use ($searchCriteria) {
                 $query->whereBetween('release_year', [data_get($searchCriteria, 'fromDate'), data_get($searchCriteria, 'toDate')]);
             })

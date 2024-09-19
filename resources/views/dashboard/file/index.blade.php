@@ -45,7 +45,7 @@
     
                     <div class="second-row">
                         <span class="category">{{ $file->project->name }}</span>
-                        <span class="other">{{ $file->created_at->year }}</span>
+                        <span class="other">{{ $file->release_year ?? $file->created_at->year }}</span>
                         {{-- <span class="other">
                                 {{ $file->FileDuration() }}
                             </span> --}}

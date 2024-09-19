@@ -17,6 +17,9 @@ class SearchModelForm extends Form
     public string $releaseYear = '';
 
     #[Validate('string|max:255|nullable')]
+    public string $tap_number = '';
+
+    #[Validate('string|max:255|nullable')]
     public string $team = '';
 
     #[Validate('string|max:255|nullable')]

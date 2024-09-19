@@ -44,6 +44,15 @@
 
                 <div class="col-md-4">
                     <label for="statusWithTitle" class="form-label">
+                        رقم الشريط
+                    </label>
+                    <input type="text" id="statusWithTitle" class="form-control" placeholder="رقم الشريط"
+                        wire:model.live="form.tap_number" />
+                </div>
+
+
+                <div class="col-md-4">
+                    <label for="statusWithTitle" class="form-label">
                         فريق العمل / الاعداد
                     </label>
                     <input type="text" id="statusWithTitle" class="form-control" placeholder="فريق العمل / الاعداد"

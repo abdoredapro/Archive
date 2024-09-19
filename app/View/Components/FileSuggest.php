@@ -15,7 +15,7 @@ class FileSuggest extends Component
         public $files;
     public function __construct()
     {
-        $files = File::take(4)->get();
+        $files = File::inRandomOrder()->limit(5)->get();
         $this->files = $files;
         
     }

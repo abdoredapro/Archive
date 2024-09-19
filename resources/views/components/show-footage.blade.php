@@ -27,7 +27,7 @@
 
                     <div class="form-group d-flex align-items-center justify-content-center mb-3">
                         <label for="inputField" class="btn mt-2 text-center upload" style="">رفع مقطع اخر</label>
-                        <input type="file" id="inputField" name="clip" style="display:none" onchange="displayVideo(this)">
+                        <input type="file" id="inputField" name="clip" style="display:none" onchange="displayVideos(event)">
                     </div>
 
                     <div class="mb-3 text-center">
@@ -89,7 +89,11 @@
 
 
 <script>
-    function displayVideo(input) {
+
+
+    function displayVideos(event) {
+
+        
         let video = document.querySelector('form.clip .clip-video-upload');
 
         let clipUploading = document.querySelector('form.clip .clip-uploading');
@@ -102,18 +106,15 @@
 
         reader.onload = function (e) {
 
+
             clipUploading.src = e.target.result;
-
-
-            console.log(clipUploading.src);
 
         }
 
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(event.target.files[0]);
 
     }
 
-   
 
 
 </script>

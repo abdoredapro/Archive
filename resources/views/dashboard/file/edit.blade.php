@@ -157,7 +157,7 @@
                                     <div>رفع الملف</div>
                                 
                                     <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none" onchange="showFootage(this)">
+                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none" onchange="showFootage(event)">
                                     <video src="" loop controls class="footage_show" style="display: none"></video>
                                 </div>
 
@@ -271,26 +271,6 @@
         }
     }
 
-    function showFootage(input) {
-
-
-        let video = document.querySelector('.upload-footage .footage_show');
-
-
-        let reader = new FileReader();
-
-        reader.onload = function(e) {
-            console.log(e.target.result);
-
-            video.style.display = 'block';
-
-            video.src = e.target.result;
-
-        }
-        // reader.readAsDataURL(event.files[0]);
-
-
-    }
 
 </script>
 

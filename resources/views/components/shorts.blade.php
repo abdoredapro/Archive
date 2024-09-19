@@ -20,7 +20,7 @@
         {{-- Edit footage --}}
 
         @isset($canEdit)
-            <x-show-footage :clip='$clip' :type='$canEdit'  />
+            <x-show-footage :clip='$clip' type='file'  />
         @endisset
 
         {{-- Edit footage --}}
