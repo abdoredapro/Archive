@@ -156,8 +156,8 @@
                                 <div class="col-md-3 feat1 text-end mt-2 upload-footage">
                                     <div>رفع الملف</div>
                                 
-                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none" onchange="showFootage(event)">
+                                    <label for="upload_footages" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
+                                    <input type="file" id="upload_footages" name="file_clip_clip" style="display:none" onchange="showFootage(event)">
                                     <video src="" loop controls class="footage_show" style="display: none"></video>
                                 </div>
 

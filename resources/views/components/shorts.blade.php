@@ -19,8 +19,8 @@
 
         {{-- Edit footage --}}
 
-        @isset($canEdit)
-            <x-show-footage :clip='$clip' type='file'  />
+        @isset($edit)
+            <x-show-footage :clip='$clip' :type='$edit'  />
         @endisset
 
         {{-- Edit footage --}}

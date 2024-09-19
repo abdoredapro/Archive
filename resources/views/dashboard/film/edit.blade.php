@@ -136,7 +136,7 @@
                         {{-- All footages --}}
                         <div class="row g-2">
                             <h3 class="text-center">كل المقاطع</h2>
-                            <x-shorts :clips="$film->clips" :file="$film" can-edit='film' />
+                            <x-shorts :clips="$film->clips" :file="$film" edit='film' />
                         </div>
 
                     <hr>
@@ -151,8 +151,8 @@
                                 <div class="col-md-3 feat1 text-end mt-2 upload-footage">
                                     <div>رفع الفديو</div>
 
-                                    <label for="inputField" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
-                                    <input type="file" id="inputField" name="file_clip_clip" style="display:none">
+                                    <label for="upload_footages" class="btn btn-info mt-2" style="width:100%">رفع المقطع</label>
+                                    <input type="file" id="upload_footages" name="file_clip_clip" style="display:none">
                                 
                                 </div>
 
