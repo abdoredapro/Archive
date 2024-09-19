@@ -143,7 +143,7 @@
                         {{-- All footages  --}}
                         <div class="row g-2">
                             <h3 class="text-center">كل المقاطع</h2>
-                            <x-shorts :clips="$file->clips" :file="$file" can-edit='file' />
+                            <x-shorts :clips="$file->clips" :file="$file" edit='file' />
                         </div>
                     <hr>
                     {{-- Start Upload Shorts  --}}
