@@ -94,7 +94,7 @@
 
         <div class="card-body">
             <div class="row g-4">
-                @if($films->isNotEmpty() && $files->isNotEmpty())
+
                     @foreach($films as $film)
                         <div class="col-md-3">
                             <div class="card" style="height: 100%;">
@@ -136,11 +136,12 @@
                             </div>
                         </div>
                     @endforeach
-                @else
-                    <div class="alert alert-warning text-center" role="alert">
+
+                    {{-- <div class="alert alert-warning text-center" role="alert">
                         لا يوجد نتائج
-                    </div>
-                @endif
+                    </div> --}}
+
+
             </div>
         </div>
     </div>

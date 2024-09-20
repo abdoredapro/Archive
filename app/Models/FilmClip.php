@@ -23,4 +23,8 @@ class FilmClip extends Model
     {
         return asset(Storage::url('films/clips/' . $this->clip));
     }
+
+    public function film() {
+        return $this->belongsTo(Film::class, 'film_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\File;
 use App\Models\Film;
+use App\Models\FilmClip;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
@@ -69,4 +70,19 @@ final class SearchService
             'files' => $this->searchFiles($query),
         ];
     }
+
+    public function searchAll(Builder $query, $data) {
+
+        $query->when($name = $data['keyword'], function(Builder $query) use($name) {
+            $query->where('name', 'like', "%{$name}%");
+        })
+        ->get();
+
+    }
+
+    public function filmFootage(array $query) {
+        return $this->searchAll(FilmClip::query(), $query);
+    }
+
+
 }
