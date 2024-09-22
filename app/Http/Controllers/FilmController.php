@@ -224,6 +224,28 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-        //
+        $clips = $film->clips;
+
+
+        
+        // Delete All clips
+        foreach($clips as $clip) {
+
+            Storage::disk('public')->delete('films/clips/' . $clip->clip);
+
+            $clip->delete();
+        }
+
+
+        $film->delete();
+
+        Storage::disk('public')->delete('films/images/' . $film->image);
+        Storage::disk('public')->delete('films/videos/' . $film->video);
+
+        
+
+        return to_route('dashboard.file.index');
+
+
     }
 }

@@ -24,8 +24,15 @@
 <!-- video -->
 <div class="white-board hz-padding film-show">
 
-    <div class="pos-btn ">
+    <div class="pos-btn d-flex justify-content-between align-items-center">
         <a href="{{ route('dashboard.film.edit', $film->id) }}" class="edit custom">تعديل</a>
+
+        <form action="{{ route('dashboard.film.destroy', $film->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+
+            <button class="btn btn-sm btn-danger">حذف</button>
+        </form>
     </div>
 
     <div class="trailer">
@@ -114,10 +121,6 @@
                     <div class="black">رقم الشريط : </div>
                     <div class="blue">{{ $film->tap_number }}</div>
                 </div>
-                {{-- <div class="directors">
-                    <div class="black">سيناريو وحوار : </div>
-                    <div class="blue"></div>
-                </div> --}}
             </div>
         </div>
     </div>

@@ -23,6 +23,8 @@ class SearchModal extends Component
         } elseif ($this->form->filterType === 2) {
             $films = $searchService->searchFiles($this->form->toArray());
         } elseif ($this->form->filterType === 3) {
+            $films = $searchService->filmFootage($this->form->toArray());
+            $files = $searchService->FileFootage($this->form->toArray());
 
         } else {
             $data = $searchService->search($this->form->toArray());

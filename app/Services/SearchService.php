@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\File;
+use App\Models\FileClip;
 use App\Models\Film;
 use App\Models\FilmClip;
 use Illuminate\Database\Eloquent\Builder;
@@ -71,18 +72,49 @@ final class SearchService
         ];
     }
 
-    public function searchAll(Builder $query, $data) {
 
-        $query->when($name = $data['keyword'], function(Builder $query) use($name) {
+
+    public function searchAll(Builder $query, array $data): Collection {
+
+        return $query->when($name = $data['keyword'], function(Builder $query) use($name) {
             $query->where('name', 'like', "%{$name}%");
         })
         ->get();
 
     }
 
-    public function filmFootage(array $query) {
-        return $this->searchAll(FilmClip::query(), $query);
+    /**
+     * Get film from footages.
+     */
+
+    public function filmFootage(array $query): Collection {
+
+        $results = $this->searchAll(FilmClip::query(), $query)
+
+        ->groupBy('film_id');
+
+        $films = Film::whereIn('id', $results->keys()->toArray())->get();
+
+        return $films;
+
     }
+
+    /**
+     * Get files from footages.
+     */
+
+    public function FileFootage(array $query): Collection
+    {
+
+        $results = $this->searchAll(FileClip::query(), $query)
+
+            ->groupBy('file_id');
+
+        $files = File::whereIn('id', $results->keys()->toArray())->get();
+
+        return $files;
+    }
+
 
 
 }

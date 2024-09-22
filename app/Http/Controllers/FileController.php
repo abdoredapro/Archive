@@ -219,6 +219,7 @@ class FileController extends Controller
         Storage::disk('public')->delete('files/images/' . $file->image);
         Storage::disk('public')->delete('files/videos/' . $file->video);
 
+
         return to_route('dashboard.file.index');
     }
 }
