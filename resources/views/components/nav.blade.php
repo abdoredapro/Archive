@@ -98,6 +98,13 @@
             </a>
         </li>
 
+        <li class="{{ Route::is('dashboard.export') ? 'active' : '' }}">
+            <a class="stack {{ Route::is('dashboard.export') ? 'active' : '' }} " href="{{ route('dashboard.export') }}">
+                <i class="fa-regular fa-folder"></i>
+                <span>استيراد الملفات</span>
+            </a>
+        </li>
+
         <li>
             <a class="stack" style="cursor: pointer" onclick="document.getElementById('logout').submit()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">

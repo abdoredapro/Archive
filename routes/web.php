@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Export\ExportFilesController;
 use App\Http\Controllers\FileClipController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\Import\ImportFilesController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolesController;
@@ -17,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
 
 Route::group([
     'prefix' => 'dashboard',
@@ -74,11 +75,22 @@ Route::group([
     Route::view('/advanced-search', 'dashboard.search.advanced')
         ->name('advanced-search');
 
+    Route::get('/export', [ExportFilesController::class, 'index'])
+        ->name('export');
 
+    Route::get('/export-files', [ExportFilesController::class, 'export'])
+        ->name('export-files');
 
 });
 
 
-Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware' => ['auth'],
+], function () {
+    Route::get('/excel/import', [ImportFilesController::class, 'index'])
+        ->name('excel.import.index');
+
+    Route::post('/excel/import', [ImportFilesController::class, 'import'])
+        ->name('excel.import');
 });

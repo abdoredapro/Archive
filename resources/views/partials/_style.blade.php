@@ -1,3 +1,5 @@
+    
+
     <link rel="stylesheet" href="{{  asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{  asset('css/normalize.css') }}">
     <link rel="stylesheet" href="{{  asset('css/all.min.css') }}">
@@ -5,6 +7,7 @@
     <link rel="stylesheet" href="{{  asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/files.css') }}">
     <link rel="stylesheet" href="{{ asset('css/settings.css') }}">
+
 
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css"/>
     <script src="https://cdn.plyr.io/3.6.8/plyr.polyfilled.js"></script>

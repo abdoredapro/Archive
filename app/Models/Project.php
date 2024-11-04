@@ -18,6 +18,11 @@ class Project extends Model
         'background_color'
     ];
 
+    protected $hidden = [
+        'created_at', 
+        'updated_at',
+    ];
+
     protected static function booted()
     {
         self::creating(function(Project $project) {
@@ -28,7 +33,8 @@ class Project extends Model
     }
 
 
-    public function files(): HasMany {
+    public function files(): HasMany 
+    {
         return $this->hasMany(File::class);
     }
 

@@ -164,7 +164,7 @@ return [
         'email' => 'الايميل',
         'password' => 'الباسورد',
         'description' => 'الوصف',
-        
+        'file' => 'الملف',
     ],
 
 ];

@@ -1,27 +1,12 @@
 const ctx1 = document.getElementById("myChart1");
 const ctx2 = document.getElementById("myBarChart");
 
-fetch("json/data.json")
-  .then(function (response) {
-    if (response.ok === true) {
-      return response.json();
-    }
-  })
-  .then(function (data) {
-    // console.log(data);
-    createChart(ctx1, data, "line");
-  });
 
-fetch("json/barchart.json")
-  .then(function (response) {
-    if (response.ok === true) {
-      return response.json();
-    }
-  })
-  .then(function (data) {
-    // console.log(data);
-    createChart(ctx2, data, "bar");
-  });
+
+
+ 
+  createChart(ctx1, data, "line");
+  createChart(ctx2, data, "bar");
 
   function createChart(ctx, data, type) {
     const isBarChart = type === "bar";

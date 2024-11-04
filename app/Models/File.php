@@ -61,14 +61,6 @@ class File extends Model
         );
     }
 
-
-    public function FileDuration(): string
-    {
-
-        return (int)$this->hours . 'س ' . (int)$this->minutes . 'د ' . (int)$this->seconds . 'ث';
-
-    }
-
     public function clips(): HasMany
     {
         return $this->hasMany(FileClip::class, 'file_id');

@@ -4,6 +4,14 @@
 @section('page_title')
     {{ __('dashboard.files') }}
 @endsection
+
+@section('style')
+    <style>
+        .add-btn {
+            padding: 14px 12px;
+        }
+    </style>
+@endsection
 @section('content')
 
 <!-- card -->
@@ -13,21 +21,32 @@
     <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
     
+    
 
-    <div class="stack-head">
-        <h3 class="title"> ملفات </h3>
-            <a href="{{ route('dashboard.file.create') }}">
-                <button class="addBtn custom" >
-                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <g fill="none" stroke="white" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path>
-                        </g>
-                    </svg> --}}
-                <span class="text-dark">اضافه ملف</span>
+    <div class="head d-flex justify-content-between align-items-center">
+        <div class="title">
+            <h1 class="h3 text-dark"> ملفات</h1>
+        </div>
+        <div class="btns">
+            
+            <a href="{{ route('excel.import.index') }}">
+                <button class="addBtn add-btn custom" >
+                    <span class="text-dark">اضافه الملف اكسيل</span>
                 </button>
             </a>
+
+
+            <a href="{{ route('dashboard.file.create') }}">
+                <button class="addBtn add-btn custom">
+                    <span class="text-dark">اضافه ملف</span>
+                </button>
+            </a>
+
+        </div>
     </div>
+
+
+
 
     @forelse ($files as $file)
         <a href="{{ route('dashboard.file.show', $file->id) }}">
@@ -89,6 +108,7 @@
 <!-- footer -->
 
 
+<x-import.import-excel />
 
 
 @endsection

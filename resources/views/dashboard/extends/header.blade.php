@@ -1,4 +1,4 @@
-<div class="header">
+{{-- <div class="header">
     <div class="items d-flex align-items-center" style="width: 100%">
         <div class="search-container">
             <form id="search" action="{{ route('dashboard.search') }}" method="GET"
@@ -35,4 +35,88 @@
         let form = document.getElementById('search');
         form.submit();
     }
-</script>
+</script> --}}
+
+<style>
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        padding: 10px 15px;
+        background-color: #f1f3f5;
+        color: #6c757d;
+    }
+
+    .search-input::placeholder {
+        color: #ced4da;
+    }
+
+    .search-button {
+        margin-right: 10px;
+        color: #6c757d;
+        background-color: #e9ecef;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 15px;
+        transition: background-color 0.3s;
+    }
+
+    .search-button:hover {
+        background-color: #adb5bd;
+    }
+
+    .advanced-search-button {
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 15px;
+        transition: background-color 0.3s;
+    }
+
+    .advanced-search-button:hover {
+        background-color: #218838;
+    }
+    .profile-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 15px;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="search-bar">
+    
+    
+        <input type="text" class="search-input" placeholder="ابحث عن الأفلام والبرامج التلفزيونية">
+
+        <a href="{{ route('dashboard.search') }}">
+            <button class="search-button ms-2 me-2">بحث</button>
+        </a>
+
+        <a href="{{ route('dashboard.advanced-search') }}">
+
+            <button class="advanced-search-button">البحث المتقدم</button>
+
+        </a>
+
+        <a href="{{ route('dashboard.settings') }}">
+            <img src="{{ auth()->user()->imageUrl() }}" alt="Profile" class="profile-image">
+        </a>
+        
+    </div>
+</div>
+

@@ -13,27 +13,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        $films_count = Film::count();
-
-        $files = File::count();
 
         $all_files = File::with('project')->limit(4)->get();
 
-        $users = User::count();
-
         $projects = Project::all();
 
-        $projectsArray = Project::withCount('files')->get()->toArray();
 
-        $category = Category::count();
-
-        return view('dashboard.index', compact('films_count',
-            'files', 'projects', 'projectsArray', 'users', 'all_files', 'category'));
+        return view('dashboard.index', compact('projects', 'all_files'));
     }
 
     public function settings()

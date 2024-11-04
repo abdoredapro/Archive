@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Observers\UserObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Spatie\Permission\Traits\HasRoles;
 
+#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -64,16 +68,6 @@ class User extends Authenticatable
             'bio'       => ['nullable', 'string'],
         ];
     }
-
-
-    // protected function getImageUrlAttribute() {
-
-    //     if($this->photo) {
-    //         return asset(Storage::link('users/'.$this->image));
-    //     } else {
-    //         return asset('assets/avatar.png');
-    //     }
-    // }
 
     public function imageUrl() : string
     {
