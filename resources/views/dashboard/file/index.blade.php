@@ -23,7 +23,7 @@
     
     
 
-    <div class="head d-flex justify-content-between align-items-center">
+    <div class="head d-flex justify-content-between align-items-center pt-4 pb-4" >
         <div class="title">
             <h1 class="h3 text-dark"> ملفات</h1>
         </div>
@@ -31,14 +31,14 @@
             
             <a href="{{ route('excel.import.index') }}">
                 <button class="addBtn add-btn custom" >
-                    <span class="text-dark">اضافه الملف اكسيل</span>
+                    <span class="text-dark">اضافه الملف</span>
                 </button>
             </a>
 
 
-            <a href="{{ route('dashboard.file.create') }}">
+            <a href="{{ route('dashboard.export-files') }}">
                 <button class="addBtn add-btn custom">
-                    <span class="text-dark">اضافه ملف</span>
+                    <span class="text-dark">استيراد ملف</span>
                 </button>
             </a>
 
@@ -50,13 +50,13 @@
 
     @forelse ($files as $file)
         <a href="{{ route('dashboard.file.show', $file->id) }}">
-            <div class="white-row" style="cursor: pointer">
+            <div class="white-row " style="cursor: pointer" >
                 <div class="img-container">
                     <img src="{{ $file->image_url }}" style="width: 400px;height:300px; max-width:100%" class="image-responsive">
                 </div>
                 <div class="content-container">
                     <div class="first-row">
-                        <h4>{{ $file->name }}</h4>
+                        <h4>{{ Str::limit($file->name, 25, '...') }}</h4>
                         <a href="{{ route('dashboard.file.show', $file->id) }}" class="icon-container">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </a>

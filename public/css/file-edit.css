@@ -1,0 +1,164 @@
+.upload-footage label,
+.upload-footage label:hover {
+    background-color: #edf2f6 !important;
+    border: none;
+    color: #707b81;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #00ff00;
+    color: #0000;
+    font-size: 24px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.control-btn:hover {
+    background-color: darkred;
+}
+
+.input-section {
+    background-color: #f2f5f7;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.input-group-text {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.add-footage p {
+    cursor: pointer;
+}
+
+.video-trimmer {
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+.video-trimmer .video-settings i {
+    font-size: 24px;
+}
+
+.video-trimmer h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000d1;
+}
+
+.skip-seconds {
+    margin-bottom: 20px;
+}
+
+.skip-seconds label {
+    font-size: 14px;
+    color: #666;
+}
+
+.skip-input {
+    width: 75px !important;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.control-button {
+    width: 40px;
+    height: 40px;
+    background-color: #00ff00;
+    color: #000000;
+    font-size: 18px;
+    border: none;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    line-height: 40px;
+}
+
+.control-button:hover {
+    background-color: #00ff00;
+}
+
+.time-inputs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.time-button {
+    padding: 10px 20px;
+    background-color: #00ff00;
+    color: #000000;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.time-button:hover {
+    background-color: #00ff00;
+}
+
+.time-box {
+    text-align: center;
+}
+
+.time-display {
+    width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+}
+
+.clip-name {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.add-clip-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00ff00;
+    color: #000000;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-clip-button:hover {
+    background-color: #00ff00;
+}

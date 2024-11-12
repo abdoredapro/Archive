@@ -47,7 +47,9 @@
 
 
 @section('script')
-
+<script>
+    // const FilesStatics = 
+</script>
 <script src="{{ asset('js/charts/animation-chart.js') }}"></script>
 
 @endsection

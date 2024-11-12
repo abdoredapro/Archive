@@ -15,16 +15,13 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'background_color'
     ];
 
     
     protected static function booted()
     {
-
         self::creating(function(Category $category) {
-            $category->slug = Str::slug($category->name);
             $category->background_color = Arr::random(['green1', 'pink1', 'blue1', 'green2', 'blue2', 'pink2', 'orange2', 'purple1']);
         });
         

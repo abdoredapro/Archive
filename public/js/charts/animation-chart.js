@@ -4,13 +4,13 @@ const myPolarAreaChart = new Chart(ctx, {
     type: "line",
     data: {
         labels: [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
+            "يناير",
+            "فبراير",
+            "مارس",
+            "ابريل",
+            "مايو",
+            "يونيو",
+            "يوليو",
         ],
         datasets: [
             {

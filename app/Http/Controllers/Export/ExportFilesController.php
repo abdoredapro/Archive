@@ -10,9 +10,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 final class ExportFilesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('dashboard.exports.index');
     }
+
     public function export()
     {
         return Excel::download(new VideoExport(), 'data.xlsx');

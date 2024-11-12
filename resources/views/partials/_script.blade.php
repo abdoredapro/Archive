@@ -16,9 +16,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="{{ asset('assets2/vendor/libs/jquery/jquery.js') }}"></script>
 
@@ -31,6 +28,7 @@
 <script src="{{ asset('assets2/vendor/libs/i18n/i18n.js') }}"></script>
 <script src="{{ asset('assets2/vendor/libs/typeahead-js/typeahead.js') }}"></script>
 <script src="{{ asset('assets2/vendor/js/menu.js') }}"></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 <script>
     const deleteButtons = document.querySelectorAll('.delete');
 
@@ -54,7 +52,11 @@
             });
         });
     });
+
+    const players = Array.from(document.querySelectorAll('.js-player')).map((p) => new Plyr(p));
+    
 </script>
 
-{{-- Video JS  --}}
-<script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>

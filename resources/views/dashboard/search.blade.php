@@ -81,16 +81,14 @@
                         </div>
                     </div>
                 @empty
-                    <div class="alert alert-warning" role="alert">
-                        لا يوجد نتائج
-                    </div>
+
                 @endforelse
 
                 @foreach ($files as $file)
                     <div class="col-md-3">
                         <div class="card" style="height: 100%;">
                             <a href="{{ route('dashboard.file.show', $file->id) }}">
-                                <img src="{{ $file->imageUrl() }}"
+                                <img src="{{ $file->image_url }}"
                                      class="card-img-top"
                                      alt="{{ $file->name }}"
                                      style="height: 400px; object-fit: cover; width: 100%;"

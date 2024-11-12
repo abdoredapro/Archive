@@ -98,25 +98,25 @@
 </style>
 
 <div class="container mt-4">
-    <div class="search-bar">
-    
-    
-        <input type="text" class="search-input" placeholder="ابحث عن الأفلام والبرامج التلفزيونية">
-
-        <a href="{{ route('dashboard.search') }}">
-            <button class="search-button ms-2 me-2">بحث</button>
-        </a>
-
-        <a href="{{ route('dashboard.advanced-search') }}">
-
-            <button class="advanced-search-button">البحث المتقدم</button>
-
-        </a>
-
-        <a href="{{ route('dashboard.settings') }}">
-            <img src="{{ auth()->user()->imageUrl() }}" alt="Profile" class="profile-image">
-        </a>
+    <form action="{{ route('dashboard.search') }}" method="GET">
+        <div class="search-bar">
         
-    </div>
+        
+            <input type="text" class="search-input" name="keyword" placeholder="ابحث عن الأفلام والبرامج التلفزيونية">
+        
+            <a href="{{ route('dashboard.search') }}">
+                <button class="search-button ms-2 me-2">بحث</button>
+            </a>
+        
+            <a href="{{ route('dashboard.advanced-search') }}">
+                <p class="advanced-search-button">البحث المتقدم</p>
+            </a>
+        
+            <a href="{{ route('dashboard.settings') }}">
+                <img src="{{ auth()->user()->imageUrl() }}" alt="Profile" class="profile-image">
+            </a>
+        
+        </div>
+    </form>
 </div>
 

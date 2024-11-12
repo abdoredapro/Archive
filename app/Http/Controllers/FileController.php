@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Factories\FileFactory;
-use App\Factories\ProcessUpload;
 use App\FileStatus;
 use App\Http\Requests\FileRequest;
 use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
-use Exception;
-use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Pion\Laravel\ChunkUpload\Handler\ResumableJSUploadHandler;
-use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 
 class FileController extends Controller
 {
@@ -31,7 +24,10 @@ class FileController extends Controller
         if($project_id = request()->query('project')) {
             $query->where('project_id', $project_id);
         }
+        
         $files = $query->paginate(4);
+
+        
 
         return view('dashboard.file.index', compact('files'));
     }
@@ -108,6 +104,7 @@ class FileController extends Controller
      */
     public function update(Request $request, File $file)
     {
+
         $request->validate([
             'image'         => ['image', 'mimes:jpg,jpeg,png,gif,svg'],
             'video'         => ['mimes:mp4', 'mimetypes:video/mp4'],
@@ -133,6 +130,7 @@ class FileController extends Controller
             'foot_description' => ['nullable', 'string'],
 
         ]);
+
 
         // If user upload Image
 
@@ -205,6 +203,9 @@ class FileController extends Controller
             ]);
 
         }
+
+
+
 
         return to_route('dashboard.file.index');
     }

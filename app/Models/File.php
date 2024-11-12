@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class File extends Model
 {
     protected $fillable = [
         'project_id',
+        'category_id',
         'name',
         'image',
         'video',
@@ -31,6 +33,7 @@ class File extends Model
         'project_beneficiary',
         'sound_engineer',
         'project_category',
+        'type',
     ];
 
 
@@ -45,19 +48,25 @@ class File extends Model
             ->withDefault(['name' => 'Public']);
     }
 
-    protected function ImageUrl(): Attribute {
-
+    protected function ImageUrl(): Attribute 
+    {
         return Attribute::make(
-
-            get: fn() => asset(Storage::url('files/images/' . $this->image)),
-
+            get: fn() => $this->image ? asset(Storage::url('files/images/' . $this->image)) : asset('default.jfif'),
         );
     }
 
     protected function VideoUrl(): Attribute {
 
         return Attribute::make(
-            get: fn() => asset(Storage::url('files/videos/' . $this->video)),
+            
+            get: function () {
+                if($this->type == 'excel') {
+                    return $this->video;
+                } else {
+                    return asset(Storage::url('files/videos/' . $this->video));
+                }
+                
+            },
         );
     }
 
@@ -66,6 +75,10 @@ class File extends Model
         return $this->hasMany(FileClip::class, 'file_id');
     }
 
+    public function FileDuration()
+    {
+        return '';
+    }
     protected static function booted(): void
     {
         static::addGlobalScope('filter', function (Builder $builder) {

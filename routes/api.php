@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProjectsController;
+use App\Http\Controllers\Footage\AddFootageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

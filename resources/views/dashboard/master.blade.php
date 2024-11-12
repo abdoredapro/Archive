@@ -7,6 +7,7 @@
     <title>@yield('page_title') | {{ config('app.name') }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+
     {{-- All style scripts  --}}
     @include('partials._style')
 

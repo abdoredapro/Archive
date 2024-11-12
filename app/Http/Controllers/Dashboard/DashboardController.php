@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -24,8 +25,15 @@ class DashboardController extends Controller
 
         $projects = Project::all();
 
+        $filesStatics = File::select('created_at')
+            ->whereYear('created_at', now()->year)
+            ->get();
 
-        return view('dashboard.index', compact('projects', 'all_files'));
+
+
+        dd($filesStatics);
+
+        // return view('dashboard.index', compact('projects', 'all_files'));
     }
 
     public function settings()
@@ -67,7 +75,5 @@ class DashboardController extends Controller
             ->with([
                 'message' => 'تم تحديث المعلومات بنجاح'
             ]);
-
-
     }
 }

@@ -17,7 +17,7 @@
                     <div class="card">
                         <img src="{{ $file->image_url }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h6>{{ $file->name }}</h6>
+                            <h6>{{ Str::limit($file->name, 25, '...') }}</h6>
                             <p>{{ $file->created_at->year}} | {{ $file->project->name }}</p>
                         </div>
                     </div>
