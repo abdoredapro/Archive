@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\Film;
 use App\Models\Project;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,22 @@ class DashboardController extends Controller
 
         $projects = Project::all();
 
-        return view('dashboard.index', compact('projects', 'all_files'));
+        $currentYear = now()->year;
+
+        $results = File::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"), DB::raw("COUNT(*) as count"))
+        ->whereYear('created_at', $currentYear)
+        ->groupBy('month')
+        ->orderBy('month')
+        ->pluck('count', 'month')
+        ->toArray();
+
+        $monthlyFileCounts = [];
+        for ($month = 1; $month <= 12; $month++) {
+            $monthKey = Carbon::createFromDate($currentYear, $month, 1)->format('Y-m');
+            $monthlyFileCounts[] = $results[$monthKey] ?? 0;
+        }
+
+        return view('dashboard.index', compact('projects', 'all_files', 'monthlyFileCounts'));
     }
 
     public function settings()

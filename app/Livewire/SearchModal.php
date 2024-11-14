@@ -17,12 +17,15 @@ class SearchModal extends Component
     public function render(SearchService $searchService)
     {
         if ($this->form->filterType === 1) {
+            
             $films = $searchService->searchFilms($this->form->toArray());
 
-
         } elseif ($this->form->filterType === 2) {
+
             $films = $searchService->searchFiles($this->form->toArray());
+
         } elseif ($this->form->filterType === 3) {
+
             $films = $searchService->filmFootage($this->form->toArray());
             $files = $searchService->FileFootage($this->form->toArray());
 

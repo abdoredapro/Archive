@@ -107,7 +107,7 @@
                                 </a>
                                 <div class="card-footer" id="card-footer">
                                     <h5 class="card-title">{{ $film->name }}</h5>
-                                    <p class="card-text">{{ Str::limit($film->film_script, 100) }}</p>
+                                    <p class="card-text mt-3 mb-3">{{ Str::limit($film->film_script, 100) }}</p>
                                     <a href="{{ route('dashboard.film.show', $film->id) }}" class="btn btn-primary">
                                         المزيد
                                     </a>
@@ -118,7 +118,7 @@
 
                     @foreach ($files as $file)
                         <div class="col-md-3">
-                            <div class="card" style="height: 100%;">
+                            <div class="card h-100 d-flex flex-column" >
                                 <a href="{{ route('dashboard.file.show', $file->id) }}">
                                     <img src="{{ $file->image_url }}"
                                         class="card-img-top"
@@ -128,8 +128,8 @@
                                 </a>
                                 <div class="card-footer" id="card-footer">
                                     <h5 class="card-title">{{ $file->name }}</h5>
-                                    <p class="card-text">{{ Str::limit($file->description, 100) }}</p>
-                                    <a href="{{ route('dashboard.file.show', $file->id) }}" class="btn btn-primary">
+                                    <p class="card-text mt-3 mb-3">{{ Str::limit($file->description, 100) }}</p>
+                                    <a href="{{ route('dashboard.file.show', $file->id) }}" class="btn btn-primary mt-auto">
                                         المزيد
                                     </a>
                                 </div>

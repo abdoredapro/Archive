@@ -27,10 +27,16 @@ class Category extends Model
         
     }
 
-
-    public function films(): HasMany {
+    public function films(): HasMany 
+    {
         return $this->hasMany(Film::class);
     }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class);
+    }
+
 
     
 }
