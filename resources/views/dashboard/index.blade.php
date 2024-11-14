@@ -48,8 +48,57 @@
 
 @section('script')
 <script>
-    // const FilesStatics = 
+    const FilesStatics = @json($monthlyFileCounts);
+
+    const ctx = document.getElementById("animationChart").getContext("2d");
+
+
+const myPolarAreaChart = new Chart(ctx, {
+    type: "line",
+    data: {
+        labels: [
+            "يناير",
+            "فبراير",
+            "مارس",
+            "ابريل",
+            "مايو",
+            "يونيو",
+            "يوليو",
+            "اغسطس",
+            "سبتمبر",
+            "اكتوبر",
+            "نوفمبر",
+            "ديسمبر",
+        ],
+        datasets: [
+            {
+                label: "عدد الملفات خلال الشهر",
+                data: FilesStatics,
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+            },
+        ],
+    },
+    options: {
+        animations: {
+            tension: {
+                duration: 1000,
+                easing: "linear",
+                from: 1,
+                to: 0,
+                loop: true,
+            },
+        },
+        scales: {
+            y: {
+                min: 0,
+                max: 100,
+            },
+        },
+    },
+});
+
+
 </script>
-<script src="{{ asset('js/charts/animation-chart.js') }}"></script>
 
 @endsection

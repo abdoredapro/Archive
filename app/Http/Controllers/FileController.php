@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Assets;
 use App\FileStatus;
+use App\Helpers\ImageHelper;
 use App\Http\Requests\FileRequest;
+use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,15 +23,10 @@ class FileController extends Controller
      */
     public function index()
     {
-        $query = File::query();
+        $project_id = request()->query('project');
 
-        if($project_id = request()->query('project')) {
-            $query->where('project_id', $project_id);
-        }
-        
-        $files = $query->paginate(4);
-
-        
+        $files = File::when($project_id, fn(Builder $query) => $query->where('project_id', $project_id))
+            ->paginate(2);
 
         return view('dashboard.file.index', compact('files'));
     }
@@ -48,33 +47,21 @@ class FileController extends Controller
     public function store(FileRequest $request)
     {
 
-
         $image = $request->file('image');
 
         $video = $request->file('video');
 
-        $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        $image = ImageHelper::uploadImage($image, FileStatus::FILMIMAGE);
 
-        $vidName = Str::uuid() . '.' . $video->getClientOriginalExtension();
-
-
-        $image->storeAs('files/images', $imgName, [
-            'disk' => 'public',
-        ]);
-
-        $video->storeAs('files/videos', $vidName, [
-            'disk' => 'public',
-        ]);
-
+        $video = ImageHelper::uploadImage($video, FileStatus::FILMVIDEO);
 
         File::create([
             'project_id'   => $request->project_id,
             'name'          => $request->name,
-            'image'         => $imgName,
-            'video'         => $vidName,
+            'image'         => $image,
+            'video'         => $video,
             'description'   => $request->description,
         ]);
-
 
         return to_route('dashboard.file.index');
     }
@@ -85,6 +72,7 @@ class FileController extends Controller
     public function show($id)
     {
         $file = File::with('clips')->findOrFail($id);
+
         return view('dashboard.file.show', compact('file'));
     }
 
@@ -92,68 +80,30 @@ class FileController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(File $file)
-    {   
-        
+    {
+
         $projects = Project::all();
-        
+
         return view('dashboard.file.edit', compact('file', 'projects'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, File $file)
+    public function update(UpdateFileRequest $request, File $file)
     {
-
-        $request->validate([
-            'image'         => ['image', 'mimes:jpg,jpeg,png,gif,svg'],
-            'video'         => ['mimes:mp4', 'mimetypes:video/mp4'],
-            'project_id'    => ['required', 'int', 'exists:projects,id'],
-            'name'          => ['required', 'string', 'min:3', 'max:255'],
-            'description'   => ['required', 'string'],
-            'file_clip_name' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->has('file_clip_clip');
-                }),
-                'max:255'
-            ],
-            'minute' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->has('file_clip_clip');
-                }),
-            ],
-            'second' => [
-                Rule::requiredIf(function () use ($request) {
-                    return $request->has('file_clip_clip');
-                }),
-            ],
-            'foot_description' => ['nullable', 'string'],
-
-        ]);
-
-
-        // If user upload Image
 
         $data = $request->except('image', 'video');
 
-
         if ($request->hasFile('image')) {
 
-
-            // check if file has image then remove it.
             if ($file->image) {
-                Storage::disk('public')->delete(FileStatus::IMAGE . $file->image);
+                ImageHelper::removeImage(FileStatus::IMAGE . $file->image);
             }
 
-
-            // uploading Image
             $image = $request->file('image');
 
-            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-
-            $image->storeAs('files/images', $imageName, [
-                'disk' => 'public'
-            ]);
+            $imageName = ImageHelper::uploadImage($image, FileStatus::IMAGE);
 
             $data['image']  = $imageName;
         }
@@ -162,41 +112,32 @@ class FileController extends Controller
         if ($request->hasFile('video')) {
 
             if ($file->image) {
-                Storage::disk('public')->delete(FileStatus::VIDEO . $file->video);
+
+                ImageHelper::removeImage(FileStatus::VIDEO . $file->video);
+
             }
 
             $video = $request->file('video');
 
-            $videoName = Str::uuid() . '.' . $video->getClientOriginalExtension();
-
-            $video->storeAs('files/videos', $videoName, [
-                'disk' => 'public'
-            ]);
+            $videoName = ImageHelper::uploadImage($video, FileStatus::VIDEO);
 
             $data['video']  = $videoName;
-        }
 
+        }
 
         $file->update($data);
 
-
-
-        // upload file clip
 
         if ($request->hasFile('file_clip_clip')) {
 
             $clip = $request->file('file_clip_clip');
 
-            $clipName = Str::uuid() . '.' . $clip->getClientOriginalExtension();
-
-            $clip->storeAs('files/clips', $clipName, [
-                'disk' => 'public'
-            ]);
+            $clipName = ImageHelper::uploadImage($clip, FileStatus::FILECLIP);
 
             FileClip::create([
-                'file_id'   => $file->id, 
+                'file_id'   => $file->id,
                 'name'      => $request->file_clip_name,
-                'clip'      => $clipName, 
+                'clip'      => $clipName,
                 'minute'    => $request->minute,
                 'second'    => $request->second,
                 'description' =>  $request->foot_description,
@@ -217,9 +158,8 @@ class FileController extends Controller
     {
         $file->delete();
 
-        Storage::disk('public')->delete('files/images/' . $file->image);
-        Storage::disk('public')->delete('files/videos/' . $file->video);
-
+        ImageHelper::removeImage(FileStatus::IMAGE . $file->image);
+        ImageHelper::removeImage(FileStatus::VIDEO . $file->video);
 
         return to_route('dashboard.file.index');
     }

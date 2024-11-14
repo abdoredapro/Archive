@@ -23,37 +23,42 @@ final class ImportFilesController extends Controller
             'excel-file' => 'required|file|mimes:xlsx,xls',
         ]);
 
-        $file =  $request->file('excel-file');
+        try {
 
-        $data = Excel::toArray(new FileImport, $file);
+            $file =  $request->file('excel-file');
 
-        // التكرار عبر البيانات لإضافة المنتجات والفئات
-        foreach ($data[0] as $row) {
+            $data = Excel::toArray(new FileImport, $file);
 
-            $name           = $row['name'];
-            $path           = $row['filepath'];
-            $size           = $row['size'];
-            $shotDate       = $row['shotdate'];
-            $duration       = $row['duration'];
-            $category       = $row['category'];
-            $project        = $row['project'];
+            // التكرار عبر البيانات لإضافة المنتجات والفئات
+            foreach ($data[0] as $row) {
 
-            $project_id = Project::firstOrCreate(['name' => $project])->id;
+                $name           = $row['name'];
+                $path           = $row['filepath'];
+                $size           = $row['size'];
+                $shotDate       = $row['shotdate'];
+                $duration       = $row['duration'];
+                $category       = $row['category'];
+                $project        = $row['project'];
 
-            $category_id = Category::firstOrCreate(['name' => $category])->id;
+                $project_id = Project::firstOrCreate(['name' => $project])->id;
 
-            $file = File::create([
-                'project_id'        => $project_id,
-                'category_id'       => $category_id,
-                'name'              => $name, 
-                'image'             =>  '',
-                'video'             => $path,
-                'description'       => 'description',
-                'type' => 'excel',
-            ]);
+                $category_id = Category::firstOrCreate(['name' => $category])->id;
 
+                $file = File::create([
+                    'project_id'        => $project_id,
+                    'category_id'       => $category_id,
+                    'name'              => $name,
+                    'image'             =>  '',
+                    'video'             => $path,
+                    'description'       => 'description',
+                    'type' => 'excel',
+                ]);
+            }
+
+            return redirect()->route('dashboard.file.index');
+
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard.file.index')->withErrors(['errors' => "An error occurred please try again"]);
         }
-
-        return redirect()->route('dashboard.file.index');
     }
 }

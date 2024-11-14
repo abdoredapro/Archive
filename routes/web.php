@@ -76,7 +76,8 @@ Route::group([
     Route::view('/advanced-search', 'dashboard.search.advanced')
         ->name('advanced-search');
 
-    Route::get('/export', [ExportFilesController::class, 'index'])
+    Route::get('/export/{path?}', [ExportFilesController::class, 'index'])
+        ->where('path', '.*') 
         ->name('export');
 
     Route::get('/export-files', [ExportFilesController::class, 'export'])

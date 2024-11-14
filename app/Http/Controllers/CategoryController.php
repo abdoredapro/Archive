@@ -15,9 +15,8 @@ class CategoryController extends Controller
     {
         Gate::authorize('category.view');
 
-        
-        $categories = Category::withCount('films')->get();
 
+        $categories = Category::withCount(['films', 'files'])->get();
 
         return view('dashboard.category.index', compact('categories'));
     }
