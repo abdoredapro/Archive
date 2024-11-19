@@ -26,11 +26,10 @@ class DashboardController extends Controller
 
         $projects = Project::all();
 
-
         $currentYear = now()->year;
 
         $results = File::select(DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"), DB::raw("COUNT(*) as count"))
-        ->whereYear('created_at', $currentYear)
+            ->whereYear('created_at', $currentYear)
             ->groupBy('month')
             ->orderBy('month')
             ->pluck('count', 'month')
@@ -41,7 +40,6 @@ class DashboardController extends Controller
             $monthKey = Carbon::createFromDate($currentYear, $month, 1)->format('Y-m');
             $monthlyFileCounts[] = $results[$monthKey] ?? 0;
         }
-        // Add some
 
         return view('dashboard.index', compact('projects', 'all_files', 'monthlyFileCounts'));
     }
