@@ -28,8 +28,7 @@ final class ImportFilesController extends Controller
             $file =  $request->file('excel-file');
 
             $data = Excel::toArray(new FileImport, $file);
-
-            // التكرار عبر البيانات لإضافة المنتجات والفئات
+            
             foreach ($data[0] as $row) {
 
                 $name           = $row['name'];
