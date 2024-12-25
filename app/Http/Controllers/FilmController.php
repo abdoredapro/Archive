@@ -4,22 +4,14 @@ namespace App\Http\Controllers;
 
 use App\FileStatus;
 use App\Http\Requests\FilmRequest;
-use App\Jobs\UploadVideo;
 use App\Models\Category;
 use App\Models\Film;
 use App\Models\FilmClip;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Pion\Laravel\ChunkUpload\Exceptions\UploadFailedException;
-use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
-use Pion\Laravel\ChunkUpload\Handler;
-use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
-use Pion\Laravel\ChunkUpload\Handler\ResumableJSUploadHandler;
-use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
+
 
 class FilmController extends Controller
 {
@@ -58,35 +50,34 @@ class FilmController extends Controller
      */
     public function store(FilmRequest $request)
     {
- 
+        
+        $video = $request->file('video');
 
-            $video = $request->file('video');
+        $image = $request->image;
 
-            $image = $request->image;
+        $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
 
-            $imgName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        $videoName = uniqid() . '.' . $video->getClientOriginalExtension();
 
-            $videoName = uniqid() . '.' . $video->getClientOriginalExtension();
+        $video->storeAs(FileStatus::FILMVIDEO, $videoName, [
+            'disk' => 'public'
+        ]);
 
-            $video->storeAs(FileStatus::FILMVIDEO, $videoName, [
-                'disk' => 'public'
-            ]);
+        $image->storeAs(FileStatus::FILMIMAGE, $imgName, [
+            'disk' => 'public'
+        ]);
 
-            $image->storeAs(FileStatus::FILMIMAGE, $imgName, [
-                'disk' => 'public'
-            ]);
+        
+        Film::create([
+            'category_id'   => $request->category_id,
+            'name'          => $request->name,
+            'image'         => $imgName,
+            'video'         => $videoName,
+            'film_script'   => $request->description,
+        ]);
 
-            
-            Film::create([
-                'category_id'   => $request->category_id,
-                'name'          => $request->name,
-                'image'         => $imgName,
-                'video'         => $videoName,
-                'film_script'   => $request->description,
-            ]);
-
-            return to_route('dashboard.film.index')
-                ->with(['message' => 'تم اضافه الفيلم بنجاح']);
+        return to_route('dashboard.film.index')
+            ->with(['message' => 'تم اضافه الفيلم بنجاح']);
 
 
 

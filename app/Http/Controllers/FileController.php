@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Assets;
-use App\FileStatus;
+use App\Enum\Assets;
 use App\Helpers\ImageHelper;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
+use FFMpeg\Coordinate\TimeCode;
+use FFMpeg\FFMpeg;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FileController extends Controller
 {
@@ -23,10 +20,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        $project_id = request()->query('project');
-
-        $files = File::when($project_id, fn(Builder $query) => $query->where('project_id', $project_id))
-            ->paginate(2);
+        $files = File::paginate(2);
 
         return view('dashboard.file.index', compact('files'));
     }
@@ -46,14 +40,22 @@ class FileController extends Controller
      */
     public function store(FileRequest $request)
     {
+        /** Upload file image - video */
+        $image = ImageHelper::uploadImage($request->file('image'), Assets::FILE_IMAGE);
 
-        $image = $request->file('image');
+        $video = ImageHelper::uploadImage($request->file('video'), Assets::FILE_VIDEO);
 
-        $video = $request->file('video');
+        $videoPath = Storage::path(Assets::FILE_VIDEO . $video);
+        
+        $ffmpeg = FFMpeg::create();
 
-        $image = ImageHelper::uploadImage($image, FileStatus::FILMIMAGE);
+        $video = $ffmpeg->open($videoPath);
 
-        $video = ImageHelper::uploadImage($video, FileStatus::FILMVIDEO);
+        $thumbnailPath = Storage::path('thumbnails/' . pathinfo($video, PATHINFO_FILENAME) . '.jpg');
+
+        $video->frame(TimeCode::fromSeconds(5))
+            ->save('/test');
+
 
         File::create([
             'project_id'   => $request->project_id,
@@ -98,12 +100,12 @@ class FileController extends Controller
         if ($request->hasFile('image')) {
 
             if ($file->image) {
-                ImageHelper::removeImage(FileStatus::IMAGE . $file->image);
+                ImageHelper::removeImage(Assets::FILE_IMAGE . $file->image);
             }
 
             $image = $request->file('image');
 
-            $imageName = ImageHelper::uploadImage($image, FileStatus::IMAGE);
+            $imageName = ImageHelper::uploadImage($image, Assets::FILE_IMAGE);
 
             $data['image']  = $imageName;
         }
@@ -113,13 +115,13 @@ class FileController extends Controller
 
             if ($file->image) {
 
-                ImageHelper::removeImage(FileStatus::VIDEO . $file->video);
+                ImageHelper::removeImage(Assets::FILE_VIDEO . $file->video);
 
             }
 
             $video = $request->file('video');
 
-            $videoName = ImageHelper::uploadImage($video, FileStatus::VIDEO);
+            $videoName = ImageHelper::uploadImage($video, Assets::FILE_VIDEO);
 
             $data['video']  = $videoName;
 
@@ -132,7 +134,7 @@ class FileController extends Controller
 
             $clip = $request->file('file_clip_clip');
 
-            $clipName = ImageHelper::uploadImage($clip, FileStatus::FILECLIP);
+            $clipName = ImageHelper::uploadImage($clip, Assets::FILE_CLIP);
 
             FileClip::create([
                 'file_id'   => $file->id,
@@ -145,9 +147,6 @@ class FileController extends Controller
 
         }
 
-
-
-
         return to_route('dashboard.file.index');
     }
 
@@ -158,8 +157,8 @@ class FileController extends Controller
     {
         $file->delete();
 
-        ImageHelper::removeImage(FileStatus::IMAGE . $file->image);
-        ImageHelper::removeImage(FileStatus::VIDEO . $file->video);
+        ImageHelper::removeImage(Assets::FILE_IMAGE . $file->image);
+        ImageHelper::removeImage(Assets::FILE_VIDEO . $file->video);
 
         return to_route('dashboard.file.index');
     }

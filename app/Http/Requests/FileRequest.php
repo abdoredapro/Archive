@@ -27,24 +27,13 @@ class FileRequest extends FormRequest
         $id = $this->route('file');
         
         return [
-            'project_id' => ['required', 'int', 'exists:projects,id'],
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'image' => ['required', 'image', 'mimes:jpeg,jpg,png,gif,svg'],
-            'video' => ['required','mimes:mp4','mimetypes:video/mp4'],
+            'project_id'    => ['required', 'int', 'exists:projects,id'],
+            'name'          => ['required', 'string', 'min:3', 'max:255'],
+            'image'         => ['required', 'image', 'mimes:jpeg,jpg,png,gif,svg'],
+            'video'         => ['required','mimes:mp4','mimetypes:video/mp4'],
             'description'   => ['required', 'string'],
-            'info' => ['string'],
+            'info'          => ['string'],
         ];
     }
 
-
-    // protected function failedValidation(ValidationValidator $validator)
-    // {
-    //     $errors = $validator->errors(); 
-
-    //     return response()->json([
-    //         'message' => 'Invalid data send',
-    //         'details' => $errors->messages(),
-    //     ], 422);
-
-    // }
 }

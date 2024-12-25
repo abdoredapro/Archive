@@ -1,6 +1,5 @@
 @extends('dashboard.master')
 
-
 @section('page_title')
     {{ __('dashboard.files') }}
 @endsection
@@ -18,7 +17,7 @@
 <div class="file-card hz-padding">
 
     @if (Session::has('message'))
-    <div class="alert alert-info">{{ Session::get('message') }}</div>
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
     
     
@@ -28,19 +27,7 @@
             <h1 class="h3 text-dark"> ملفات</h1>
         </div>
         <div class="btns">
-            
-            <a href="{{ route('excel.import.index') }}">
-                <button class="addBtn add-btn custom" >
-                    <span class="text-dark">اضافه الملف</span>
-                </button>
-            </a>
-
-
-            <a href="{{ route('dashboard.export-files') }}">
-                <button class="addBtn add-btn custom">
-                    <span class="text-dark">استيراد ملف</span>
-                </button>
-            </a>
+            @livewire('export')
 
         </div>
     </div>

@@ -60,7 +60,7 @@
             <h3 class="title">{{ $file->name }}</h3>
             <div class="stack">
                 <span class="cate">{{ $file->project->name }}</span>
-                <span class="dure">{{ $file->FileDuration() }}</span>
+                {{-- <span class="dure">{{ $file->FileDuration() }}</span> --}}
             </div>
             <p class="describe">
                 {{ $file->description }}

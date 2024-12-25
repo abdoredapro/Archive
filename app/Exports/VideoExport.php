@@ -3,13 +3,13 @@
 namespace App\Exports;
 
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class VideoExport implements FromCollection, WithHeadings
 {
+    use Exportable;
     /**
      * @return \Illuminate\Support\Collection
      */

@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -36,10 +34,27 @@ class File extends Model
         'type',
     ];
 
-
     protected $cast = [
         'release_year' => 'int',
     ];
+
+    /**
+     * Search file with query
+     */
+    protected static function booted(): void
+    {
+        self::addGlobalScope('search', function (Builder $query) {
+
+            $query->when(request()->query('project'), function (Builder $query, $project) {
+                $query->where('project', $project);
+            });
+
+            $query->when(request()->query('release_year'), function (Builder $query, $release_year) {
+                $query->where('release_year', $release_year);
+            });
+
+        });
+    }
 
 
     public function project(): BelongsTo
@@ -48,24 +63,22 @@ class File extends Model
             ->withDefault(['name' => 'Public']);
     }
 
-    protected function ImageUrl(): Attribute 
+    protected function ImageUrl(): Attribute
     {
         return Attribute::make(
             get: fn() => $this->image ? asset(Storage::url('files/images/' . $this->image)) : asset('default.jfif'),
         );
     }
 
-    protected function VideoUrl(): Attribute {
-
+    protected function VideoUrl(): Attribute
+    {
         return Attribute::make(
-            
             get: function () {
-                if($this->type == 'excel') {
+                if (Str::startsWith('http://', $this->video) || $this->type == 'excel') {
                     return $this->video;
                 } else {
                     return asset(Storage::url('files/videos/' . $this->video));
                 }
-                
             },
         );
     }
@@ -75,16 +88,4 @@ class File extends Model
         return $this->hasMany(FileClip::class, 'file_id');
     }
 
-    public function FileDuration()
-    {
-        return '';
-    }
-    protected static function booted(): void
-    {
-        static::addGlobalScope('filter', function (Builder $builder) {
-            if (request()->query('release_year')) {
-                $builder->where('release_year', request()->query('release_year'));
-            }
-        });
-    }
 }

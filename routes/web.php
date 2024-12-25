@@ -34,15 +34,12 @@ Route::group([
 
     Route::resource('/file', FileController::class);
 
-    // add file clip
 
     Route::get('{file}/clip', [FileClipController::class, 'create'])
         ->name('file_clip.add');
 
     Route::post('{file}/clip', [FileClipController::class, 'store'])
         ->name('file_clip.store');
-
-
 
 
     Route::post('/clip/{type}/{id}', [FileClipController::class, 'update'])
@@ -52,8 +49,6 @@ Route::group([
     ->name('file.clip.delete');
 
 
-
-    // User settings page
     Route::get('user', [DashboardController::class, 'settings'])
         ->name('settings');
 
