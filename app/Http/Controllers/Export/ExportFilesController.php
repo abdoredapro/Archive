@@ -29,7 +29,7 @@ final class ExportFilesController extends Controller
 
                 $relativePath = $file->getClientOriginalName();
 
-                $path = $file->storeAs('folders', $relativePath, 'files');
+                $path = $file->storeAs('folders', $relativePath, 'public');
 
                 $filePaths[] = Storage::url($path);
             }
@@ -37,8 +37,6 @@ final class ExportFilesController extends Controller
         
 
         $Excel = Excel::download(new VideoExport(), 'files.xlsx');
-
-        Storage::delete('files');
         
         return $Excel;
 

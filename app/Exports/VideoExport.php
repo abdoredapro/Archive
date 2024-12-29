@@ -15,25 +15,24 @@ class VideoExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $files = Storage::disk('files')->allFiles();
+        $files = Storage::disk('public')->allFiles('folders');
 
         $videoDetails = [];
 
         foreach ($files as $file) {
+
             if (preg_match('/\.(mp4|avi|mkv|mov|flv|wmv)$/i', $file)) {
+
+                $name = pathinfo(basename($file), PATHINFO_FILENAME);
+
                 $videoDetails[] = [
                     'AssetId' => uniqid(),
-                    'name' => pathinfo(basename($file), PATHINFO_FILENAME),
-                    'filepath' => Storage::disk('files')->url($file),
-                    'size' => Storage::disk('files')->size($file),
+                    'name' => $name,
+                    'filepath' => Storage::disk('public')->url($file),
+                    'size' => '1 MB',
                 ];
             }
         }
-
-        foreach ($videoDetails as &$video) {
-            $video['size'] = number_format($video['size'] / 1048576, 2) . ' MB';
-        }
-
         return collect($videoDetails);
     }
 
