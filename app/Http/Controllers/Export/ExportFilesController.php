@@ -22,33 +22,26 @@ final class ExportFilesController extends Controller
             'files' => 'required',
         ]);
 
-        $folderPath = $request->input('files');
+            $uploadedFiles = $request->file('files');
+            $filePaths = [];
 
-        if (!File::isDirectory($folderPath)) {
-            return response()->json(['error' => 'المسار المدخل غير صحيح أو الفولدر غير موجود.'], 400);
-        }
+            foreach ($uploadedFiles as $file) {
 
-        $videoFiles = File::allFiles($folderPath);
+                $relativePath = $file->getClientOriginalName();
 
+                $path = $file->storeAs('folders', $relativePath, 'files');
 
-        $videoExtensions = ['mp4', 'avi', 'mkv', 'flv', 'wmv'];
-        $videos = [];
-
-        foreach ($videoFiles as $file) {
-            if (in_array(strtolower($file->getExtension()), $videoExtensions)) {
-                $videos[] = [
-                    'name' => $file->getFilename(),
-                    'path' => $file->getRealPath(),
-                    'size' => $file->getSize(),
-                ];
+                $filePaths[] = Storage::url($path);
             }
-        }
 
-        if (count($videos) === 0) {
-            return response()->json(['message' => 'لا توجد فيديوهات في هذا الفولدر.']);
-        }
+        
 
-        return Excel::download(new VideoExport($videos), 'vieos.xlsx');
+        $Excel = Excel::download(new VideoExport(), 'files.xlsx');
+
+        Storage::delete('files');
+        
+        return $Excel;
+
 
 
     }

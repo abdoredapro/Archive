@@ -38,7 +38,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="excel-file" class="form-label"></label>
-                        <input type="text" name="files" >
+                        <input type="file" name="files[]" webkitdirectory multiple>
 
                         @error('importFile')
                             <div class="text-danger">{{ $message }}</div>
