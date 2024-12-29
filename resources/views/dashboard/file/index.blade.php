@@ -27,7 +27,25 @@
             <h1 class="h3 text-dark"> ملفات</h1>
         </div>
         <div class="btns">
-            @livewire('export')
+            <a href="{{ route('dashboard.file.create') }}">
+                <button class="addBtn add-btn custom">
+                    <span class="text-dark">اضافه ملف يدوى</span>
+                </button>
+            </a>
+
+        <a href="{{ route('excel.import.index') }}">
+            <button class="addBtn add-btn custom" >
+                <span class="text-dark">تصدير ملف اكسل</span>
+            </button>
+        </a>
+
+
+        <a href="{{ route('dashboard.exports.index') }}">
+            <button class="addBtn add-btn custom">
+                <span class="text-dark">استيراد ملف اكسل</span>
+            </button>
+        </a>
+
 
         </div>
     </div>

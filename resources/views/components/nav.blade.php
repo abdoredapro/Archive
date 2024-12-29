@@ -98,8 +98,8 @@
             </a>
         </li>
 
-        {{-- <li class="{{ Route::is('dashboard.user') ? 'active' : '' }}">
-            <a class="stack {{ Route::is('dashboard.settings') ? 'active' : '' }} "
+        <li class="{{ Route::is('dashboard.export') ? 'active' : '' }}">
+            <a class="stack {{ Route::is('dashboard.export') ? 'active' : '' }} "
                 href="{{ route('dashboard.export') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48">
                     <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4">
@@ -110,7 +110,7 @@
                 </svg>
                 <span>استيراد</span>
             </a>
-        </li> --}}
+        </li>
 
 
         <li>

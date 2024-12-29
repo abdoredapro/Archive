@@ -9,13 +9,11 @@ use Illuminate\View\Component;
 
 class FileSuggest extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-        public $files;
+    public $files;
     public function __construct()
     {
-        $files = File::inRandomOrder()->limit(5)->get();
+        $files = File::inRandomOrder()->limit(4)->get();
+
         $this->files = $files;
         
     }

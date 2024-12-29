@@ -45,10 +45,11 @@ return [
         ],
 
         'files' => [
-            'driver' => 'local', 
-            'root' => public_path('/files'),
-            'url' => env('APP_URL') . '/files',
+            'driver' => 'local',
+            'root' => storage_path('app/files'),
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [

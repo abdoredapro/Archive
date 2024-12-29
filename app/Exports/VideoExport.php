@@ -10,24 +10,25 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class VideoExport implements FromCollection, WithHeadings
 {
     use Exportable;
-    /**
-     * @return \Illuminate\Support\Collection
-     */
+    public $videos;
+
+    public function __construct($videos)
+    {
+        $this->videos = $videos;
+    }
+    
     public function collection()
     {
-        $files = Storage::disk('files')->allFiles();
+        $files = $this->videos;
 
         $videoDetails = [];
 
         foreach ($files as $file) {
-            if (preg_match('/\.(mp4|avi|mkv|mov|flv|wmv)$/i', $file)) {
-                $videoDetails[] = [
-                    'AssetId' => uniqid(),
-                    'name' => pathinfo(basename($file), PATHINFO_FILENAME),
-                    'filepath' => Storage::disk('files')->url($file),
-                    'size' => Storage::disk('files')->size($file),
-                ];
-            }
+            $videoDetails[] = [
+                'name' => $file['name'],
+                'filepath' => $file['path'],
+                'size' => $file['size'],
+            ];
         }
 
         foreach ($videoDetails as &$video) {

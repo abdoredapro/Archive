@@ -21,6 +21,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/server-info', function () {
+    $host = $_SERVER['SERVER_ADDR'];
+    $port = $_SERVER['SERVER_PORT']; 
+
+    return response()->json([
+        'host' => $host,
+        'port' => $port,
+    ]);
+});
+
 Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['auth'],
@@ -52,7 +62,6 @@ Route::group([
     Route::get('user', [DashboardController::class, 'settings'])
         ->name('settings');
 
-    // Updade User Profile
     Route::put('user/{user_id}', [DashboardController::class, 'update_info'])
         ->name('update_profile');
 
@@ -75,7 +84,7 @@ Route::group([
         ->where('path', '.*') 
         ->name('export');
 
-    Route::get('/export-files', [ExportFilesController::class, 'export'])
+    Route::post('/export-files', [ExportFilesController::class, 'export'])
         ->name('export-files');
 
 });
@@ -92,6 +101,11 @@ Route::group([
         ->name('excel.import');
 });
 
+
+Route::prefix('dashboard/export')->middleware('auth')
+->as('dashboard.exports.')->group(function () {
+    Route::get('export', [ImportFilesController::class, 'index'])->name('index');
+});
 
 Route::post('/add-footage', [AddFootageController::class, 'store'])
     ->name('dashboard.add-footage');

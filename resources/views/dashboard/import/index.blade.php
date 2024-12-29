@@ -28,5 +28,5 @@
     </style>
 @endsection
 @section('content')
-@livewire('import')
+    @livewire('import')
 @endsection
