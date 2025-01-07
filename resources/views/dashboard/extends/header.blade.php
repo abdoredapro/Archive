@@ -15,7 +15,7 @@
                 <button type="submit" class="btn btn-secondary me-1 mb-2" onclick="submitForm()">
                     بحث
                 </button>
-            
+
                 <a href="{{ route('dashboard.advanced-search') }} " class="btn text-dark mb-2" style="background-color:#00ff00">
                     البحث المتقدم
                 </a>
@@ -100,22 +100,22 @@
 <div class="container mt-4">
     <form action="{{ route('dashboard.search') }}" method="GET">
         <div class="search-bar">
-        
-        
+
+
             <input type="text" class="search-input" name="keyword" placeholder="ابحث عن الأفلام والبرامج التلفزيونية">
-        
+
             <a href="{{ route('dashboard.search') }}">
                 <button class="search-button ms-2 me-2">بحث</button>
             </a>
-        
+
             <a href="{{ route('dashboard.advanced-search') }}">
                 <p class="advanced-search-button">البحث المتقدم</p>
             </a>
-        
+
             <a href="{{ route('dashboard.settings') }}">
-                <img src="{{ auth()->user()->imageUrl() }}" alt="Profile" class="profile-image">
+                <img src="{{ auth()->user()?->imageUrl() }}" alt="Profile" class="profile-image">
             </a>
-        
+
         </div>
     </form>
 </div>

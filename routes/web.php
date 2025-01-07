@@ -5,7 +5,6 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Export\ExportFilesController;
 use App\Http\Controllers\FileClipController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\FilesController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\Footage\AddFootageController;
 use App\Http\Controllers\Import\ImportFilesController;
@@ -13,8 +12,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Server\ServerController;
 use App\Http\Controllers\UsersController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/server-info', function () {
     $host = $_SERVER['SERVER_ADDR'];
-    $port = $_SERVER['SERVER_PORT']; 
+    $port = $_SERVER['SERVER_PORT'];
 
     return response()->json([
         'host' => $host,
@@ -81,7 +80,7 @@ Route::group([
         ->name('advanced-search');
 
     Route::get('/export/{path?}', [ExportFilesController::class, 'index'])
-        ->where('path', '.*') 
+        ->where('path', '.*')
         ->name('export');
 
     Route::post('/export-files', [ExportFilesController::class, 'export'])
@@ -109,3 +108,12 @@ Route::prefix('dashboard/export')->middleware('auth')
 
 Route::post('/add-footage', [AddFootageController::class, 'store'])
     ->name('dashboard.add-footage');
+
+Route::get('/server', [ServerController::class, 'index'])
+    ->name('server.index');
+
+Route::get('/server/show', [ServerController::class, 'show'])
+    ->name('server.show');
+
+Route::get('/server/files', [ServerController::class, 'getFiles'])
+    ->name('server.files');
