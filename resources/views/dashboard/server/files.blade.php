@@ -22,7 +22,7 @@
                         <td>{{ data_get($video,'name') }}</td>
                         <td>{{ data_get($video,'size') }}</td>
                         <td>
-                            <video src="{{ asset(data_get($video,'link')) }}" controls></video>
+                            <video src="{{ data_get($video,'link') }}" controls></video>
                         </td>
                         <td>{{ data_get($video,'last_modified') }}</td>
                     </tr>

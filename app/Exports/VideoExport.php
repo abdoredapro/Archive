@@ -4,36 +4,19 @@ namespace App\Exports;
 
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class VideoExport implements FromCollection, WithHeadings
+class VideoExport implements FromArray, WithHeadings
 {
     use Exportable;
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+
+    public function __construct(protected $files) {}
+
+    public function array(): array
     {
-        $files = Storage::disk('public')->allFiles('folders');
-
-        $videoDetails = [];
-
-        foreach ($files as $file) {
-
-            if (preg_match('/\.(mp4|avi|mkv|mov|flv|wmv)$/i', $file)) {
-
-                $name = pathinfo(basename($file), PATHINFO_FILENAME);
-
-                $videoDetails[] = [
-                    'AssetId' => uniqid(),
-                    'name' => $name,
-                    'filepath' => Storage::disk('public')->url($file),
-                    'size' => '1 MB',
-                ];
-            }
-        }
-        return collect($videoDetails);
+        return $this->files;
     }
 
 

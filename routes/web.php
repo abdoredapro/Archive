@@ -117,3 +117,6 @@ Route::get('/server/show', [ServerController::class, 'show'])
 
 Route::get('/server/files', [ServerController::class, 'getFiles'])
     ->name('server.files');
+
+Route::get('/server/files/export', [ServerController::class, 'exportFiles'])
+    ->name('server.export');

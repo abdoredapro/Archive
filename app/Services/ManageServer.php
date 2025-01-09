@@ -13,7 +13,7 @@ class ManageServer
     {
         return collect([
             1 => [
-                'link' => 'E:\\',
+                'link' => 'D:\\',
                 'name' => 'Server 1',
             ],
 
@@ -61,5 +61,23 @@ class ManageServer
     private function formatFileSize(int $bytes): string
     {
         return Number::fileSize($bytes);
+    }
+
+    /** @param string $folderPath */
+    public function exportFormat(?string $folderPath): array
+    {
+        $data = array_map(fn($file) => $this->format($file), File::files($folderPath));
+
+        return $data;
+    }
+
+    private function format($file)
+    {
+        return [
+            '#' => uniqid(),
+            'name' =>  $file->getFilename(),
+            'path' => $file->getPathname(),
+            'size' => $this->formatFileSize($file->getSize()),
+        ];
     }
 }
