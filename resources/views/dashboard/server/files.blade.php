@@ -4,56 +4,56 @@
     {{ __('dashboard.home') }}
 @endsection
 
-@section('content')
-<div class="container mt-3">
-    <div class="row">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>الحجم</th>
-                    <th>المسار</th>
-                    <th>تاريخ الاضافة</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($files['files'] as $video)
-                    <tr>
-                        <td>{{ data_get($video,'name') }}</td>
-                        <td>{{ data_get($video,'size') }}</td>
-                        <td>
-                            <video src="{{ data_get($video,'link') }}" controls></video>
-                        </td>
-                        <td>{{ data_get($video,'last_modified') }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+<style>
+    .folder {
+        font-size: 18px;
+        padding: 15px 10px
+    }
+    .folder-icon {
+        color: #28a745;
+        margin: 0 0 0 10px
+    }
+    .folder .export-btn {
+        background-color: #28a745;
+        color: #FFF;
+        padding: 4px 3px;
+        font-size: 16px;
+        border-radius: 3px;
+    }
+    .folder .export-btn a {
+        color: #FFF;
+        background-color: #28a745;
+    }
+</style>
 
-    @if(!empty($files['dirs']))
-        <div class="row mt-4">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>المسار</th>
-                    <th>الاجراءات</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($files['dirs'] as $video)
-                    <tr>
-                        <td>{{ data_get($video,'name') }}</td>
-                        <td>{{ data_get($video,'link') }}</td>
-                        <td>
-                            <a href="{{ route('server.files', $video['link']) }}" class="btn btn-primary">عرض</a>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
-</div>
+@section('content')
+    <div class="container">
+        @forelse ($files['dirs'] as $video)
+
+        <a href="{{ route('server.files', ['path' => $video['link'] ]) }}" class="text-dark">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="folder d-flex ">
+                        <div class="folder-item d-flex ">
+                            <div class="folder-icon">
+                                <i class="fa fa-folder"></i>
+                            </div>
+                            <div class="folder-name">
+                                {{ data_get($video,'name') }}
+                            </div>
+
+                        </div>
+                        <div class="export-btn me-2 ms-2">
+                            <a href="{{ route('server.export', ['path' => $video['link'] ]) }}" class="">استيراد</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        @empty
+            <div class="text-dark text-center mt-4">لايوجد ملفات الان</div>
+            <a href="#" onclick="history.back(); return false;" class="text-center">الرجوع للخلف</a>
+        @endforelse
+    </div>
 @endsection
+

@@ -13,17 +13,7 @@ use Spatie\Permission\Models\Role;
 
 class RolesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-    protected $service;
-
-
-    public function __construct()
-    {
-        $this->service = new RoleService();
-    }
+    public function __construct(protected RoleService $service) {}
     
     public function index()
     {

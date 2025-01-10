@@ -24,7 +24,8 @@
                                 <div class="package">
                                     <div class="main-text">اضافه صلاحيه</div>
                                     <input required placeholder="اضافه صلاحيه" class="field-inpuut" type="text"
-                                        id="email" name="name" value="{{ $role->name }}">
+                                        id="email" name="name" value="{{ $role->name }}"
+                                            >
                                 </div>
                                 @error('name')
                                     {{ $message }}
@@ -38,15 +39,16 @@
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="package">
                                     <label  class="main-text" for="per_{{$permission->name}}">{{ __('dashboard.'.$permission->name) }}</label>
-                                    <input  class="field-inpuut" type="radio"
-                                        id="per_{{$permission->name}}" name="permissions[{{ $permission->name }}]">
+                                    <input  class="field-inpuut" type="checkbox"
+                                        id="per_{{$permission->name}}" name="permissions[{{ $permission->name }}]"
+                                        @checked($role->hasPermissionTo($permission->name))>
                                 </div>
                             </div>
                             @endforeach
                         </div>
     
                         <div class="stack">
-                            <button type="submit" class="saveBtn">اضافه صلاحيه</button>
+                            <button type="submit" class="saveBtn">تعديل الصلاحيه</button>
                         </div>
     
                     </div>

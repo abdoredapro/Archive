@@ -38,7 +38,8 @@
                                 <div class="package">
                                     <label  class="main-text" for="per_{{$permission->name}}">{{ __('dashboard.'.$permission->name) }}</label>
                                     <input  class="field-inpuut" type="radio"
-                                        id="per_{{$permission->name}}" name="permissions[{{ $permission->name }}]">
+                                        id="per_{{$permission->name}}" name="permissions[{{ $permission->name }}]"
+                                            >
                                 </div>
                             </div>
                             @endforeach

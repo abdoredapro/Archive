@@ -16,6 +16,10 @@ class ManageServer
                 'link' => 'D:\\',
                 'name' => 'Server 1',
             ],
+            2 => [
+                'link' => 'D:\\',
+                'name' => 'Server 2',
+            ],
 
         ]);
     }
@@ -79,5 +83,33 @@ class ManageServer
             'path' => $file->getPathname(),
             'size' => $this->formatFileSize($file->getSize()),
         ];
+    }
+
+    /**
+     * Get total used space of all servers
+     * 
+     * @return int $GB
+     */
+    public function getAllSpace(): int
+    {
+        $data = $this->servers()->map(function ($server) {
+            return [
+                'space' => $this->getSpace($server['link']),
+            ];
+        });
+
+        return $data->sum('space');
+
+    }
+
+    /** @param string $dir */
+    public function getSpace(string $dir): int
+    {
+        $totalSpace = disk_total_space($dir);
+        $freeSpace = disk_free_space($dir);
+
+        $usedSpace = $totalSpace - $freeSpace;
+
+        return $usedSpace / (1024 * 1024 * 1024);
     }
 }

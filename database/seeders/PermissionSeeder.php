@@ -27,6 +27,10 @@ class PermissionSeeder extends Seeder
             'films.create',
             'films.update',
             'films.delete',
+            'projects.view',
+            'reports.view',
+            'settings.view',
+            'export.view',
         ];
 
         foreach($permissions as $permission) {

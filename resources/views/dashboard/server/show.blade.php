@@ -30,7 +30,7 @@
     <div class="container">
         @foreach ($files as $video)
 
-        <a href="{{ route('server.files', ['path' => $video['link'] ]) }}">
+        <a href="{{ route('server.files', ['path' => $video['link'] ]) }}" class="text-dark">
             <div class="row">
                 <div class="col-md-12">
                     <div class="folder d-flex ">

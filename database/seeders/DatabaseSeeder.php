@@ -13,13 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create();
+        // User::factory(1)->create();
 
-        $user = User::first();
-        $user->assignRole('Super-admin');
+        // $user = User::first();
+        // $user->assignRole('Super-admin');
 
         // $this->call(RoleSeeder::class);
-        // $this->call(PermissionSeeder::class);
+        $this->call(PermissionSeeder::class);
     
     }
 }

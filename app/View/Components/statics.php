@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\File;
 use App\Models\Film;
 use App\Models\Project;
+use App\Services\ManageServer;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -20,11 +21,13 @@ class statics extends Component
     public $projects;
     public $categories;
 
-    public function __construct()
+    public function __construct(
+        ManageServer $server
+    )
     {
         $this->films = Film::count();
 
-        $this->files = File::count();
+        $this->files = $server->getAllSpace();
 
         $this->projects = Project::count();
 

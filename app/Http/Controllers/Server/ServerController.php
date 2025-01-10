@@ -36,7 +36,6 @@ class ServerController extends Controller
 
         return view('dashboard.server.files', [
             'files' => $this->server->getFiles(dir: $dir)->toArray(),
-            'test' => Response::file('D:\Videos/bandicam 2024-11-26 11-26-22-318.mp4')
         ]);
     }
 

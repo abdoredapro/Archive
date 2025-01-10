@@ -20,16 +20,6 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/server-info', function () {
-    $host = $_SERVER['SERVER_ADDR'];
-    $port = $_SERVER['SERVER_PORT'];
-
-    return response()->json([
-        'host' => $host,
-        'port' => $port,
-    ]);
-});
-
 Route::group([
     'prefix' => 'dashboard',
     'middleware' => ['auth'],

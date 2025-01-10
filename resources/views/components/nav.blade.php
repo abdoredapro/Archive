@@ -65,15 +65,18 @@
             </li>
         @endcan
 
-        <li class="{{ Route::is('dashboard.projects.*') ? 'active' : '' }}">
+        @can('projects.view')
+            <li class="{{ Route::is('dashboard.projects.*') ? 'active' : '' }}">
             <a class="stack {{ Route::is('dashboard.projects.*') ? 'active' : '' }}"
                href="{{ route('dashboard.projects.index') }}">
                 <i class="fa-solid fa-user-shield"></i>
                 <span>مشاريع / مستفيدون</span>
             </a>
         </li>
+        @endcan
 
-        <li class="{{ Route::is('dashboard.reports.*') ? 'active' : '' }}">
+        @can('reports.view')
+            <li class="{{ Route::is('dashboard.reports.*') ? 'active' : '' }}">
             <a class="{{ Route::is('dashboard.reports.*') ? 'active' : '' }} stack"
                href="{{ route('dashboard.reports.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
@@ -83,8 +86,10 @@
                 <span>التقارير</span>
             </a>
         </li>
+        @endcan
 
-        <li class="{{ Route::is('dashboard.user') ? 'active' : '' }}">
+        @can('settings.view')
+            <li class="{{ Route::is('dashboard.user') ? 'active' : '' }}">
             <a class="stack {{ Route::is('dashboard.settings') ? 'active' : '' }} "
                href="{{ route('dashboard.settings') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48">
@@ -97,10 +102,12 @@
                 <span>الا عدادات</span>
             </a>
         </li>
+        @endcan
 
-        <li class="{{ Route::is('dashboard.export') ? 'active' : '' }}">
-            <a class="stack {{ Route::is('dashboard.export') ? 'active' : '' }} "
-                href="{{ route('dashboard.export') }}">
+        @can('export.view')
+            <li class="{{ Route::is('server.index') ? 'active' : '' }}">
+            <a class="stack {{ Route::is('server.index') ? 'active' : '' }} "
+                href="{{ route('server.index') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48">
                     <g fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="4">
                         <path
@@ -111,6 +118,7 @@
                 <span>استيراد</span>
             </a>
         </li>
+        @endcan
 
 
         <li>

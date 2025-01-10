@@ -4,6 +4,9 @@
     {{ __('dashboard.home') }}
 @endsection
 
+<style>
+
+</style>
 @section('content')
     <div class="container">
         <div class="row">
@@ -11,7 +14,7 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('server.show', ['path' => $server['link'] ]) }}">
+                            <a href="{{ route('server.show', ['path' => $server['link'] ]) }}" >
                                 {{ data_get($server, 'name') }}
                             </a>
                         </div>
