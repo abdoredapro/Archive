@@ -7,12 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Services\ManageServer;
 use Illuminate\Support\Facades\Response;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ServerController extends Controller
 {
     public function __construct(
         public ManageServer $server
-    ) {}
+    )
+    {
+    }
 
     public function index()
     {
@@ -24,26 +27,29 @@ class ServerController extends Controller
     public function show()
     {
         $dir = request('path');
+        $id = request('id');
 
         return view('dashboard.server.show', [
-            'files' => $this->server->getDirectory(dir: $dir)->toArray()
+            'files' => $this->server->getDirectory(dir: $dir, id: $id)->toArray()
         ]);
     }
 
     public function getFiles()
     {
         $dir = request('path');
+        $id = request('id');
 
         return view('dashboard.server.files', [
-            'files' => $this->server->getFiles(dir: $dir)->toArray(),
+            'files' => $this->server->getFiles(dir: $dir, id: $id)->toArray(),
         ]);
     }
 
-    public function exportFiles()
+    public function exportFiles(): BinaryFileResponse
     {
         $path = request('path', '/');
+        $id = request('id');
 
-        $array = $this->server->exportFormat($path); 
+        $array = $this->server->exportFormat($path, $id);
 
         return Excel::download(new VideoExport($array), 'data.xlsx');
     }

@@ -34,13 +34,6 @@ final class ExportFilesController extends Controller
                 $filePaths[] = Storage::url($path);
             }
 
-        
-
-        $Excel = Excel::download(new VideoExport(), 'files.xlsx');
-        
-        return $Excel;
-
-
-
+        return Excel::download(new VideoExport(), 'files.xlsx');
     }
 }

@@ -13,23 +13,26 @@ class ManageServer
     {
         return collect([
             1 => [
-                'link' => 'D:\\',
+                'link' => 'E:\\',
                 'name' => 'Server 1',
+                'asset' => 'server1/'
             ],
             2 => [
                 'link' => 'D:\\',
                 'name' => 'Server 2',
+                'asset' => 'server2/',
             ],
 
         ]);
     }
 
-    public function getDirectory(string $dir): Collection
+    public function getDirectory(string $dir, int $id): Collection
     {
         $dirs = collect(File::directories($dir));
 
-        $directories = $dirs->map(function ($dir) {
+        $directories = $dirs->map(function ($dir) use ($id) {
             return [
+                'server_id' => $id,
                 'type' => 'directory',
                 'name' => File::name($dir),
                 'link' => $dir
@@ -39,19 +42,20 @@ class ManageServer
         return $directories->sortBy('name');
     }
 
-    public function getFiles(string $dir): Collection
+    public function getFiles(string $dir, int $id): Collection
     {
-        $files = collect(File::files($dir))->map(function ($file) {
+        $files = collect(File::files($dir))->map(function ($file) use ($id) {
             return [
+                'server_id' => $id,
                 'type' => 'file',
                 'name' => $file->getFilename(),
-                'link' => 'external-videos/' . $file->getFilename(),
+                'link' => $this->servers()[$id]['asset'] . substr($file->getPathname(), 3),
                 'size' => $this->formatFileSize($file->getSize()),
                 'last_modified' => Carbon::createFromTimestamp($file->getMTime())->diffForHumans(),
             ];
         });
 
-        $dirs = $this->getDirectory($dir);
+        $dirs = $this->getDirectory($dir, $id);
 
         return collect([
             'files' => $files,
@@ -59,35 +63,44 @@ class ManageServer
         ]);
     }
 
-    /**
-     * Format file size to human readable format
-     */
     private function formatFileSize(int $bytes): string
     {
         return Number::fileSize($bytes);
     }
 
-    /** @param string $folderPath */
-    public function exportFormat(?string $folderPath): array
+    /**
+     * @param string|null $folderPath
+     * @param int $id
+     *
+     * @return array
+     */
+    public function exportFormat(?string $folderPath, int $id): array
     {
-        $data = array_map(fn($file) => $this->format($file), File::files($folderPath));
-
-        return $data;
+        return array_map(fn($file) => $this->format($file), collect(File::files($folderPath))->map(function ($file) use ($id) {
+            return [
+                'server_id' => $id,
+                'type' => 'file',
+                'name' => $file->getFilename(),
+                'link' => asset($this->servers()[$id]['asset'] . substr($file->getPathname(), 3)),
+                'size' => $this->formatFileSize($file->getSize()),
+                'last_modified' => Carbon::createFromTimestamp($file->getMTime())->diffForHumans(),
+            ];
+        })->toArray());
     }
 
     private function format($file)
     {
         return [
             '#' => uniqid(),
-            'name' =>  $file->getFilename(),
-            'path' => $file->getPathname(),
-            'size' => $this->formatFileSize($file->getSize()),
+            'name' => data_get($file, 'name'),
+            'path' => data_get($file, 'link'),
+            'size' => data_get($file, 'size'),
         ];
     }
 
     /**
      * Get total used space of all servers
-     * 
+     *
      * @return int $GB
      */
     public function getAllSpace(): int
@@ -102,7 +115,6 @@ class ManageServer
 
     }
 
-    /** @param string $dir */
     public function getSpace(string $dir): int
     {
         $totalSpace = disk_total_space($dir);

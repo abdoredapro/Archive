@@ -17,6 +17,8 @@ class FileImport implements ToArray, WithHeadingRow, WithMapping
 {
     /**
      * @param array $array
+     *
+     * @return array
      */
     public function array(array $array)
     {
@@ -26,9 +28,9 @@ class FileImport implements ToArray, WithHeadingRow, WithMapping
     public function map($row): array
     {
         return [
-            'id'    => $row['id'], 
-            'name'  => $row['name'], 
-            'filepath'  => $row['filepath'], 
+            'id'    => $row['id'],
+            'name'  => $row['name'],
+            'filepath'  => $row['filepath'],
             'size'  => $row['size'],
             'shotdate' => isset($row['shotdate']) ? Carbon::parse($row['shotdate'])->toDateString() : null,
             'duration' => isset($row['duration']) ? Carbon::parse($row['duration'])->toTimeString() : null,
