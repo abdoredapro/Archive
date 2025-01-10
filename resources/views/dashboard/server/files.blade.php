@@ -47,7 +47,7 @@
 
                             </div>
                             <div class="export-btn me-2 ms-2">
-                                <a href="{{ route('server.export', ['path' => $video['link'] ]) }}" class="">استيراد</a>
+                                <a href="{{ route('server.export', ['path' => $video['link'],'id' => data_get($video,'server_id') ]) }}" class="">استيراد</a>
                             </div>
                         </div>
                     </div>
