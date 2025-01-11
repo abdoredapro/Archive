@@ -57,17 +57,11 @@ class File extends Model
         );
     }
 
-    protected function VideoUrl(): Attribute
+    public function VideoUrl(): Attribute
     {
-        return Attribute::make(
-            get: function () {
-                if (Str::startsWith('http://', $this->video) || Str::startsWith('https://', $this->video)) {
-                    return $this->video;
-                } else {
-                    return asset(Storage::url('files/videos/' . $this->video));
-                }
-            },
-        );
+        return Attribute::get(function () {
+            return Str::startsWith($this->video, 'http://') ? $this->video : asset(Storage::url('files/videos/' . $this->video));
+        });
     }
 
     public function clips(): HasMany
