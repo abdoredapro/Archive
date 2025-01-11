@@ -13,7 +13,7 @@ class ManageServer
     {
         return collect([
             1 => [
-                'link' => 'E:\\',
+                'link' => 'C:\\',
                 'name' => 'Server 1',
                 'asset' => 'server1/'
             ],

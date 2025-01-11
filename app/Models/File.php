@@ -12,27 +12,7 @@ use Illuminate\Support\Str;
 
 class File extends Model
 {
-    protected $fillable = [
-        'project_id',
-        'category_id',
-        'name',
-        'image',
-        'video',
-        'description',
-        'info',
-        'hours',
-        'minutes',
-        'seconds',
-        'deleted_at',
-        'release_year',
-        'tap_type',
-        'production_manager',
-        'tap_number',
-        'project_beneficiary',
-        'sound_engineer',
-        'project_category',
-        'type',
-    ];
+    protected $guarded = ['id'];
 
     protected $cast = [
         'release_year' => 'int',
@@ -57,11 +37,18 @@ class File extends Model
     }
 
 
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class)
+            ->withDefault(['name' => 'Public']);
+    }
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class)
             ->withDefault(['name' => 'Public']);
     }
+
 
     protected function ImageUrl(): Attribute
     {
@@ -74,7 +61,7 @@ class File extends Model
     {
         return Attribute::make(
             get: function () {
-                if (Str::startsWith('http://', $this->video) || $this->type == 'excel') {
+                if (Str::startsWith('http://', $this->video) || Str::startsWith('https://', $this->video)) {
                     return $this->video;
                 } else {
                     return asset(Storage::url('files/videos/' . $this->video));

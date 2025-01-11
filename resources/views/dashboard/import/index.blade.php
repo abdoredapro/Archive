@@ -28,5 +28,27 @@
     </style>
 @endsection
 @section('content')
-    @livewire('import')
+        <div class="upload-excel">
+        <div class="container">
+            <div class="h2">تحميل ملف اكسيل</div>
+
+            <div class="upload">
+                <form action="{{ route('excel.import') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                        <label for="excel-file" class="form-label"></label>
+                        <input type="file" name="file">
+
+                        @error('file')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+
+                        <button class="btn btn-primary d-block mt-3">تحميل</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection

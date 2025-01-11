@@ -24,9 +24,6 @@ class Import extends Component
 
     public function import()
     {
-        $this->validate([
-            'importFile' => ['required']
-        ]);
 
         $this->importing = true;
         

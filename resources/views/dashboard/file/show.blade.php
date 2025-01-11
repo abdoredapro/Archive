@@ -59,7 +59,7 @@
         <div class="file-describtion-subject">
             <h3 class="title">{{ $file->name }}</h3>
             <div class="stack">
-                <span class="cate">{{ $file->project->name }}</span>
+                <span class="cate">{{ $file->category?->name }}</span>
                 {{-- <span class="dure">{{ $file->FileDuration() }}</span> --}}
             </div>
             <p class="describe">
@@ -92,7 +92,7 @@
                     </div>
                     <div class="directors">
                         <div class="black">مهندس الصوت : </div>
-                        <div class="blue">{{ $file->sound_engineer }}</div>
+                        <div class="blue">{{ $file->sound }}</div>
                     </div>
                     <div class="directors">
                         <div class="black">نوع الشريط : </div>

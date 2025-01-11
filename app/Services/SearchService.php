@@ -42,7 +42,7 @@ final class SearchService
                 $query->where('production_manager', 'like', "%$team%")
                     ->orWhere('sound_engineer', 'like', "%$team%");
             })
-            ->take(2)
+            ->take(20)
             ->get();
     }
 

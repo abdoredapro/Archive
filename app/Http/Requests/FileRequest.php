@@ -27,7 +27,7 @@ class FileRequest extends FormRequest
         $id = $this->route('file');
         
         return [
-            'project_id'    => ['required', 'int', 'exists:projects,id'],
+            'category_id'    => ['required', 'int', 'exists:categories,id'],
             'name'          => ['required', 'string', 'min:3', 'max:255'],
             'image'         => ['required', 'image', 'mimes:jpeg,jpg,png,gif,svg'],
             'video'         => ['required','mimes:mp4','mimetypes:video/mp4'],

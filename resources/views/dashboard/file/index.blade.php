@@ -40,12 +40,6 @@
         </a>
 
 
-        <a href="{{ route('dashboard.exports.index') }}">
-            <button class="addBtn add-btn custom">
-                <span class="text-dark">استيراد ملف اكسل</span>
-            </button>
-        </a>
-
 
         </div>
     </div>
@@ -68,7 +62,7 @@
                     </div>
     
                     <div class="second-row">
-                        <span class="category">{{ $file->project->name }}</span>
+                        <span class="category">{{ $file->category->name }}</span>
                         <span class="other">{{ $file->release_year ?? $file->created_at->year }}</span>
                         {{-- <span class="other">
                                 {{ $file->FileDuration() }}
@@ -76,7 +70,7 @@
                     </div>
     
                     <div class="third-row text-wrap">
-                        {{ $file->description }}
+                        {{ Str::limit($file->description, 25, '...') }}
                     </div>
     
                     <div class="forth-row">

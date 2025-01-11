@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\File;
 use App\Models\Project;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Facades\Excel;
 
 final class ImportFilesController extends Controller
@@ -20,44 +19,57 @@ final class ImportFilesController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'excel-file' => 'required|file|mimes:xlsx,xls',
+            'file' => 'required|file',
         ]);
 
         try {
 
-            $file =  $request->file('excel-file');
-
-            $data = Excel::toArray(new FileImport, $file);
+            $file =  $request->file('file');
             
-            foreach ($data[0] as $row) {
+            $data = Excel::toArray(new FileImport, $file);
 
-                $name           = $row['name'];
-                $path           = $row['filepath'];
-                $size           = $row['size'];
-                $shotDate       = $row['shotdate'];
-                $duration       = $row['duration'];
-                $category       = $row['category'];
-                $project        = $row['project'];
+            foreach ($data[0] as $row) {
+                $name       = $row['name'];
+                $path       = $row['filepath'];
+                $size       = $row['size'];
+                $shotDate   = $row['shotdate'];
+                $duration   = $row['duration'];
+                $category   = $row['category'];
+                $project    = $row['project'];
+                $desctription    = $row['script'];
+                $tapType    = $row['tapetype'];
+                $tapNumber    = $row['tapeno'];
+                $director    = $row['director'];
+                $producer    = $row['producer'];
+                $music    = $row['music'];
+                $sound    = $row['sound'] ?? null;
+                $cameraMan    = $row['cameraman'] ?? null;
 
                 $project_id = Project::firstOrCreate(['name' => $project])->id;
-
                 $category_id = Category::firstOrCreate(['name' => $category])->id;
-
-                $file = File::create([
+                File::create([
                     'project_id'        => $project_id,
                     'category_id'       => $category_id,
-                    'name'              => $name,
-                    'image'             =>  '',
+                    'name'              => 'asdsad',
                     'video'             => $path,
-                    'description'       => 'description',
-                    'type' => 'excel',
+                    'description'       => $desctription,
+                    'tap_type'          => $tapType,
+                    'tap_number'          => $tapNumber,
+                    'director'          => $director,
+                    'producer'          => $producer,
+                    'sound'          => $producer,
+                    'camera_man'          => $cameraMan,
                 ]);
+
             }
 
-            return redirect()->route('dashboard.file.index');
+            return redirect()->route('dashboard.file.index')
+                ->with(['success' => 'تم الاضافه بنجاح']);
 
         } catch (\Exception $e) {
-            return redirect()->route('dashboard.file.index')->withErrors(['errors' => "An error occurred please try again"]);
+            throw $e;
+            return redirect()->route('dashboard.file.index')
+            ->with(['error' => 'الرجاء اكمال البيانات واعاده المحاوله لاحقا.']);
         }
     }
 }

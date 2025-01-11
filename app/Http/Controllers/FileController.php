@@ -6,18 +6,13 @@ use App\Enum\Assets;
 use App\Helpers\ImageHelper;
 use App\Http\Requests\FileRequest;
 use App\Http\Requests\UpdateFileRequest;
+use App\Models\Category;
 use App\Models\File;
 use App\Models\FileClip;
 use App\Models\Project;
-use FFMpeg\Coordinate\TimeCode;
-use FFMpeg\FFMpeg;
-use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $files = File::paginate(2);
@@ -30,9 +25,9 @@ class FileController extends Controller
      */
     public function create()
     {
-        $projects = Project::all();
+        $cateogries = Category::all();
 
-        return view('dashboard.file.create', compact('projects'));
+        return view('dashboard.file.create', compact('cateogries'));
     }
 
     /**
@@ -45,20 +40,8 @@ class FileController extends Controller
 
         $video = ImageHelper::uploadImage($request->file('video'), Assets::FILE_VIDEO);
 
-        $videoPath = Storage::path(Assets::FILE_VIDEO . $video);
-        
-        $ffmpeg = FFMpeg::create();
-
-        $video = $ffmpeg->open($videoPath);
-
-        $thumbnailPath = Storage::path('thumbnails/' . pathinfo($video, PATHINFO_FILENAME) . '.jpg');
-
-        $video->frame(TimeCode::fromSeconds(5))
-            ->save('/test');
-
-
         File::create([
-            'project_id'   => $request->project_id,
+            'category_id'   => $request->category_id,
             'name'          => $request->name,
             'image'         => $image,
             'video'         => $video,

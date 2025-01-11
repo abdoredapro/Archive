@@ -28,13 +28,17 @@
                     <h3>تصينف الملف</h3>
                 </div>
 
-                <select name="project_id" id="category" class="form-control" required>
+                <select name="category_id" id="category" class="form-control" required>
                     <option value="">اختر الفئه</option>
-                    @foreach ($projects as $project)
-                    <option value="{{ $project->id }}" @selected(old('project_id')==$project->id) >{{ $project->name }}
+                    @foreach ($cateogries as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id')== $category->id) >{{ $category->name }}
                     </option>
                     @endforeach
                 </select>
+
+                @error('category_id')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
 
                 {{-- start project_id error --}}
                 <div class="category-error text-center text-danger" style="display: none">يرجى وضع فئه</div>
