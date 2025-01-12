@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('sound')->nullable();
             $table->string('camera_man')->nullable();
             $table->string('editor')->nullable();
-            $table->string('writer')->nullable();
-
         });
     }
 

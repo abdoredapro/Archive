@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->char('hours')->after('info');
-            $table->char('minutes')->after('hours');
-            $table->char('seconds')->after('minutes');
+            $table->char('hours')->after('info')->nullable();
+            $table->char('minutes')->after('hours')->nullable();
+            $table->char('seconds')->after('minutes')->nullable();
         });
     }
 

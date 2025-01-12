@@ -105,7 +105,10 @@
             <input type="text" class="search-input" name="keyword" placeholder="ابحث عن الأفلام والبرامج التلفزيونية">
 
             <a href="{{ route('dashboard.search') }}">
-                <button class="search-button ms-2 me-2">بحث</button>
+                <button class="search-button ms-2 me-2">
+                <span class="ms-2 me-2">بحث</span>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
             </a>
 
             <a href="{{ route('dashboard.advanced-search') }}">

@@ -14,12 +14,12 @@ class ManageServer
         return collect([
             1 => [
                 'link' => 'C:\\',
-                'name' => 'Server 1',
+                'name' => 'Alamyia-archive 1',
                 'asset' => 'server1/'
             ],
             2 => [
                 'link' => 'D:\\',
-                'name' => 'Server 2',
+                'name' => 'Alamyia-archive 2',
                 'asset' => 'server2/',
             ],
 

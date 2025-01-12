@@ -2,68 +2,78 @@
 
 namespace App\Jobs;
 
-use App\Imports\FileImport;
 use App\Models\Category;
 use App\Models\File;
 use App\Models\Project;
 use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
 
 class ImportJob implements ShouldQueue
 {
-    use Queueable, Batchable;
+    use  Queueable, Batchable, SerializesModels;
 
-    public $uploadedFile;
+    public $data;
 
-    public function __construct($uploadedFile)
+    public function __construct($data)
     {
-        $this->uploadedFile = $uploadedFile;
+        $this->data = $data;
     }
 
     public function handle()
     {
         try {
-            $data = Excel::toArray(new FileImport, $this->uploadedFile);
-
-            foreach ($data[0] as $row) {
-                $name       = $row['name'];
-                $path       = $row['filepath'];
-                $size       = $row['size'];
-                $shotDate   = $row['shotdate'];
-                $duration   = $row['duration'];
-                $category   = $row['category'];
-                $project    = $row['project'];
-                $desctription    = $row['script'];
-                $tapType    = $row['tapetype'];
-                $tapNumber    = $row['tapeno'];
-                $director    = $row['director'];
-                $producer    = $row['producer'];
-                $music    = $row['music'];
-                $sound    = $row['sound'] ?? null;
-                $cameraMan    = $row['cameraman'] ?? null;
-
-                $project_id = Project::firstOrCreate(['name' => $project])->id;
-                $category_id = Category::firstOrCreate(['name' => $category])->id;
-                File::create([
-                    'project_id'        => $project_id,
-                    'category_id'       => $category_id,
-                    'name'              => 'asdsad',
-                    'video'             => $path,
-                    'description'       => $desctription,
-                    'tap_type'          => $tapType,
-                    'tap_number'          => $tapNumber,
-                    'director'          => $director,
-                    'producer'          => $producer,
-                    'sound'          => $producer,
-                    'camera_man'          => $cameraMan,
-                ]);
+            foreach ($this->data[0] as $row) {
+                $this->processRow($row);
             }
-
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            Log::error("Import Job Error: " . $e->getMessage());
         }
+    }
+
+    private function isRowValid(array $row): bool
+    {
+        return isset($row['name'], $row['filepath'], $row['project'], $row['category'], $row['script']);
+    }
+
+    private function processRow(array $row): void
+    {
+        if (!$this->isRowValid($row)) {
+            return; 
+        }
+
+        $projectName = $row['project'];
+        $categoryName = $row['category'];
+
+        $project_id = $this->getOrCreateProject($projectName);
+        $category_id = $this->getOrCreateCategory($categoryName);
+
+        File::create([
+            'project_id'  => $project_id,
+            'category_id' => $category_id,
+            'name'        => $row['name'],
+            'video'       => $row['filepath'],
+            'description' => $row['script'] ?? null,
+            'tap_type'    => $row['tapetype'] ?? null,
+            'tap_number'  => $row['tapeno'] ?? null,
+            'director'    => $row['director'] ?? null,
+            'producer'    => $row['producer'] ?? null,
+            'sound'       => $row['sound'] ?? null,
+            'camera_man'  => $row['cameraman'] ?? null,
+        ]);
+    }
+
+    private function getOrCreateProject(string $name): int
+    {
+        return Project::firstOrCreate(['name' => $name])->id;
+    }
+
+    private function getOrCreateCategory(string $name): int
+    {
+        return Category::firstOrCreate(['name' => $name])->id;
     }
 }

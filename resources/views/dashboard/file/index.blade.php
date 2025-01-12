@@ -28,14 +28,23 @@
         </div>
         <div class="btns">
             <a href="{{ route('dashboard.file.create') }}">
-                <button class="addBtn add-btn custom">
+                <button class="addBtn add-btn custom" style="border-radius: 5px; border: none;">
+                    <i class="fa-solid fa-plus"></i>
                     <span class="text-dark">اضافه ملف يدوى</span>
                 </button>
             </a>
 
-        <a href="{{ route('excel.import.index') }}">
-            <button class="addBtn add-btn custom" >
-                <span class="text-dark">تصدير ملف اكسل</span>
+        <a href="{{ route('excel.import.index') }}" >
+            <button class="addBtn add-btn custom" style="border-radius: 5px; border: none;">
+                <i class="fa-solid fa-upload"></i>
+                <span class="text-dark">استيراد ملف اكسل</span>
+            </button>
+        </a>
+
+        <a href="{{ route('excel.import.index') }}" >
+            <button class="addBtn add-btn custom" style="border-radius: 5px; border: none;">
+                <i class="fa-regular fa-folder"></i>
+                <span class="text-dark">الملفات</span>
             </button>
         </a>
 

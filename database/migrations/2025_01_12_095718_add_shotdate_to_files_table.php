@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->text('info')->after('description')->nullable();
+            $table->date('shotdate')->nullable();
+            $table->string('writer')->nullable();
+            $table->string('voiceover')->nullable();
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('files', function (Blueprint $table) {
-            $table->dropColumn('info');
+            $table->dropColumn('shotdate');
+            $table->dropColumn('writer');
+            $table->dropColumn('voiceover');
         });
     }
 };

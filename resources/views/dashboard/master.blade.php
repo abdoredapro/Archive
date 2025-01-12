@@ -25,7 +25,10 @@
     <!-- content -->
     <div class="content">
         <!-- header -->
-        @include('dashboard.extends.header')
+        @if(! isset($navigation))
+            @include('dashboard.extends.header')
+        @endif
+        
         <!-- header -->
 
         {{-- start content  --}}
@@ -59,6 +62,12 @@
     @if (Session::has('error'))
 		<script>
 			toastr.error("{{ Session::get('error') }}")
+		</script>
+	@endif
+
+    @if (Session::has('info'))
+		<script>
+			toastr.info("{{ Session::get('info') }}")
 		</script>
 	@endif
 	

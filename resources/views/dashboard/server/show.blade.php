@@ -1,4 +1,6 @@
-@extends('dashboard.master')
+@extends('dashboard.master', [
+    'navigation' => true
+])
 
 @section('page_title')
     {{ __('dashboard.home') }}
@@ -6,6 +8,7 @@
 
 <style>
     .folder {
+        margin-top: 20px;
         font-size: 18px;
         padding: 15px 10px
     }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image');
             $table->string('video');
-            $table->text('description');
+            $table->text('description')->nullable();
 
             $table->timestamps();
         });

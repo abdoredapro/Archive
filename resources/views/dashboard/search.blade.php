@@ -73,7 +73,7 @@
                             </a>
                             <div class="card-footer" id="card-footer">
                                 <h5 class="card-title">{{ $film->name }}</h5>
-                                <p class="card-text">{{ Str::limit($film->film_script, 100) }}</p>
+                                <p class="card-text">{{ Str::limit($film->film_script, 10) }}</p>
                                 <a href="{{ route('dashboard.film.show', $film->id) }}" class="btn btn-primary">
                                     المزيد
                                 </a>
@@ -96,7 +96,7 @@
                             </a>
                             <div class="card-footer" id="card-footer">
                                 <h5 class="card-title">{{ $file->name }}</h5>
-                                <p class="card-text">{{ Str::limit($file->description, 100) }}</p>
+                                <p class="card-text">{{ Str::limit($file->description, 10) }}</p>
                                 <a href="{{ route('dashboard.file.show', $file->id) }}" class="btn btn-primary">
                                     المزيد
                                 </a>
