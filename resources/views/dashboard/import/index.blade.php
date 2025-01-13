@@ -101,7 +101,7 @@
                         @enderror
 
                         <button type="submit" class="btn btn-primary d-block mt-3">
-                            <i class="fa fa-upload"></i> تحميل
+                            <i class="fa fa-upload"></i> رفع
                         </button>
                     </div>
                 </form>

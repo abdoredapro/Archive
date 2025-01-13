@@ -33,6 +33,31 @@
 
 @section('content')
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                        <th scope="col">الاسم</th>
+                        <th scope="col">التحكم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($files['files'] as $file)
+                        <tr>
+                            <td>
+                                <i class="fa fa-file"></i>
+                                <span>{{ $file['name'] }}</span>
+                            </td>
+                            <td>
+                                <a href="{{ route('server.files', ['path' => $file['link'], 'id' => data_get($file,'server_id') ]) }}" class="btn btn-sm btn-primary">تنزيل</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
         @forelse ($files['dirs'] as $video)
             <a href="{{ route('server.files', ['path' => $video['link'], 'id' => data_get($video,'server_id') ]) }}"
                class="text-dark">
@@ -49,7 +74,7 @@
 
                             </div>
                             <div class="export-btn me-2 ms-2">
-                                <a href="{{ route('server.export', ['path' => $video['link'],'id' => data_get($video,'server_id') ]) }}" class="">استيراد</a>
+                                <a href="{{ route('server.export', ['path' => $video['link'],'id' => data_get($video,'server_id') ]) }}" class="">تنزيل</a>
                             </div>
                         </div>
                     </div>

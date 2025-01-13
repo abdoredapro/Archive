@@ -7,15 +7,13 @@ use App\Models\File;
 use App\Models\Project;
 use Illuminate\Bus\Batchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
 class ImportJob implements ShouldQueue
 {
-    use  Queueable, Batchable, SerializesModels;
+    use Queueable, Batchable, SerializesModels;
 
     public $data;
 
